@@ -1,0 +1,98 @@
+import { expect, test } from "@playwright/test";
+
+const PUBLIC_ROUTES = [
+  { path: "/", heading: "From possibility to working systems." },
+  { path: "/thinking", heading: "Thinking" },
+  { path: "/capabilities", heading: "Capabilities" },
+  { path: "/partnerships", heading: "Partnerships" },
+  { path: "/about", heading: "About Prizic" },
+  { path: "/contact", heading: "Start a conversation" },
+] as const;
+
+test.describe("public routes", () => {
+  for (const route of PUBLIC_ROUTES) {
+    test(`${route.path} responds successfully with one visible H1`, async ({
+      page,
+    }) => {
+      const response = await page.goto(route.path);
+
+      expect(response?.ok()).toBe(true);
+      await expect(page.locator("h1:visible")).toHaveCount(1);
+      await expect(
+        page.getByRole("heading", { level: 1, name: route.heading }),
+      ).toBeVisible();
+    });
+  }
+});
+
+test("header navigation reaches every public destination", async ({ page }) => {
+  const destinations = [
+    { name: "Thinking", path: "/thinking" },
+    { name: "Capabilities", path: "/capabilities" },
+    { name: "Partnerships", path: "/partnerships" },
+    { name: "About", path: "/about" },
+  ] as const;
+
+  for (const destination of destinations) {
+    await page.goto("/");
+    await page
+      .locator("header")
+      .getByRole("link", { name: destination.name, exact: true })
+      .click();
+    await expect(page).toHaveURL(destination.path);
+  }
+
+  await page.goto("/");
+  await expect(
+    page
+      .locator("header")
+      .getByRole("link", { name: "Start a conversation" }),
+  ).toHaveAttribute("href", "mailto:preview@prizic.test");
+
+  await page.goto("/thinking");
+  await page
+    .locator("header")
+    .getByRole("link", { name: "Prizic home" })
+    .click();
+  await expect(page).toHaveURL("/");
+});
+
+test("desktop keyboard order moves from the logo through the primary action", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/");
+
+  const focusOrder = [
+    page.getByRole("link", { name: "Skip to content" }),
+    page.getByRole("link", { name: "Prizic home" }),
+    page.locator("header").getByRole("link", { name: "Thinking" }),
+    page.locator("header").getByRole("link", { name: "Capabilities" }),
+    page.locator("header").getByRole("link", { name: "Partnerships" }),
+    page.locator("header").getByRole("link", { name: "About", exact: true }),
+    page
+      .locator("header")
+      .getByRole("link", { name: "Start a conversation" }),
+  ];
+
+  for (const target of focusOrder) {
+    await page.keyboard.press("Tab");
+    await expect(target).toBeFocused();
+  }
+});
+
+test("the branded missing route returns visitors home", async ({ page }) => {
+  const response = await page.goto("/this-path-does-not-exist");
+
+  expect(response?.status()).toBe(404);
+  await expect(page.locator("h1:visible")).toHaveCount(1);
+  await expect(
+    page.getByRole("heading", { name: "That path does not exist." }),
+  ).toBeVisible();
+  await expect(
+    page.locator('main img[src="/brand/prizic-mark-on-dark.svg"]'),
+  ).toBeVisible();
+
+  await page.getByRole("link", { name: "Return home" }).click();
+  await expect(page).toHaveURL("/");
+});

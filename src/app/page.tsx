@@ -70,7 +70,7 @@ export default function HomePage() {
               ) : null}
             </div>
             <div className="home-hero__wordmark">
-              <LivingWordmark />
+              <LivingWordmark expandedSignal />
             </div>
             <Link
               aria-label={`Continue to ${SITE_CONTENT.principles.headline}`}

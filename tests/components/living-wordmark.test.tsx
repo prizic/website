@@ -46,6 +46,23 @@ describe("LivingWordmark", () => {
     expect(displayWord).not.toHaveStyle({ opacity: "0.55" });
   });
 
+  it("frames the anchored word with calibrated signal geometry", () => {
+    render(<LivingWordmark autoPlay={false} expandedSignal />);
+
+    const wordmark = screen.getByRole("img", { name: "Prizic" });
+    const signalField = wordmark.querySelector("[data-signal-field]");
+
+    expect(signalField).toBeInTheDocument();
+    expect(
+      signalField?.querySelectorAll("[data-calibration-line]"),
+    ).toHaveLength(7);
+    expect(
+      signalField?.querySelector("[data-calibration-origin]"),
+    ).toBeInTheDocument();
+    expect(within(wordmark).getByText("Pr")).toBeVisible();
+    expect(within(wordmark).getByText("c")).toBeVisible();
+  });
+
   it("plays the sequence once, preserves its anchors, and settles on Prizic", () => {
     render(<LivingWordmark />);
 

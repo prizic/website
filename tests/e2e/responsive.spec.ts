@@ -61,3 +61,21 @@ test("the compact process keeps all four stages in document order", async ({
     "Learning",
   ]);
 });
+
+test("the stronger Anchor signal stays inside the narrow mobile frame", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const signal = page.locator(
+    ".home-hero__wordmark .living-wordmark__figure",
+  );
+  const bounds = await signal.boundingBox();
+
+  expect(bounds).not.toBeNull();
+  expect(bounds!.x).toBeGreaterThanOrEqual(0);
+  expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(320);
+  expect(bounds!.height).toBeGreaterThanOrEqual(64);
+  await expect(signal.locator("[data-signal-field]")).toBeVisible();
+});

@@ -96,3 +96,51 @@ test("offers an in-viewport continuation cue to the principles", async ({
   await expect(page).toHaveURL(/#principles$/);
   await expect(page.locator("#principles")).toBeInViewport();
 });
+
+test("gives the desktop blueprint and Anchor signal focal authority", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const hero = page.locator(".home-hero");
+  const heroCopy = page.locator(".home-hero__copy");
+  const headline = page.getByRole("heading", {
+    level: 1,
+    name: "From possibility to working systems.",
+  });
+  const blueprint = page.locator(
+    ".home-hero .home-blueprint--full .prizic-blueprint",
+  );
+  const wordmark = page.locator(
+    ".home-hero__wordmark .living-wordmark__figure",
+  );
+
+  const [heroBox, copyBox, headlineBox, blueprintBox, wordmarkBox] =
+    await Promise.all([
+      hero.boundingBox(),
+      heroCopy.boundingBox(),
+      headline.boundingBox(),
+      blueprint.boundingBox(),
+      wordmark.boundingBox(),
+    ]);
+
+  expect(heroBox).not.toBeNull();
+  expect(copyBox).not.toBeNull();
+  expect(headlineBox).not.toBeNull();
+  expect(blueprintBox).not.toBeNull();
+  expect(wordmarkBox).not.toBeNull();
+
+  // Fractional grid centering can place the headline on a subpixel while the
+  // SVG is snapped to the next device pixel. Treat that as the same top edge.
+  expect(blueprintBox!.y).toBeLessThanOrEqual(headlineBox!.y + 1);
+  expect(blueprintBox!.width).toBeGreaterThanOrEqual(heroBox!.width * 0.5);
+  expect(wordmarkBox!.width).toBeGreaterThanOrEqual(copyBox!.width * 0.68);
+  expect(wordmarkBox!.height).toBeGreaterThanOrEqual(72);
+
+  await expect(
+    blueprint.locator("[data-construction-contour]").first(),
+  ).toBeVisible();
+  await expect(
+    wordmark.locator("[data-signal-field]"),
+  ).toBeVisible();
+});

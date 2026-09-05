@@ -413,6 +413,86 @@ svg {
   gap: clamp(var(--space-3), 2vw, var(--space-6));
 }
 
+.living-wordmark--signal,
+.living-wordmark--signal .living-wordmark__figure,
+.living-wordmark--signal .living-wordmark__visual {
+  inline-size: 100%;
+}
+
+.living-wordmark__signal-field {
+  position: relative;
+  min-inline-size: 0;
+  flex: 1 1 auto;
+  padding-block: var(--space-4);
+  isolation: isolate;
+}
+
+.living-wordmark__calibration {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.living-wordmark__calibration [data-calibration-line] {
+  position: absolute;
+  block-size: 1px;
+  background: var(--border);
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(1) {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 42%;
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(2) {
+  inset-block-start: 0.45rem;
+  inset-inline-start: 8%;
+  inline-size: 61%;
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(3) {
+  inset-block-start: 0.9rem;
+  inset-inline-end: 0;
+  inline-size: 34%;
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(4) {
+  inset-block-start: 50%;
+  inset-inline-start: -0.4rem;
+  inline-size: 12%;
+  background: var(--accent);
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(5) {
+  inset-block-end: 0.9rem;
+  inset-inline-start: 4%;
+  inline-size: 58%;
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(6) {
+  inset-block-end: 0.45rem;
+  inset-inline-end: 6%;
+  inline-size: 27%;
+}
+
+.living-wordmark__calibration [data-calibration-line]:nth-child(7) {
+  inset-block-end: 0;
+  inset-inline-start: 28%;
+  inline-size: 54%;
+}
+
+.living-wordmark__calibration-origin {
+  position: absolute;
+  inset-block-start: calc(50% - 0.25rem);
+  inset-inline-end: -0.25rem;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
 .living-wordmark__mark {
   inline-size: clamp(2.75rem, 7vw, 5.5rem);
   block-size: auto;
@@ -566,8 +646,57 @@ svg {
 .prizic-blueprint__guide,
 .prizic-blueprint__route,
 .prizic-blueprint__axis,
-.prizic-blueprint__origin-ring {
+.prizic-blueprint__origin-ring,
+.prizic-blueprint__construction *,
+.prizic-blueprint__measurements *,
+.prizic-blueprint__registrations * {
   vector-effect: non-scaling-stroke;
+}
+
+.prizic-blueprint__construction {
+  fill: none;
+  opacity: 0.78;
+  stroke: var(--border);
+  stroke-dasharray: 2 5;
+  stroke-width: 0.8;
+}
+
+.prizic-blueprint__construction [data-construction-contour]:nth-child(even) {
+  opacity: 0.48;
+  stroke-dasharray: 1 7;
+}
+
+.prizic-blueprint__measurements {
+  fill: none;
+  opacity: 0.58;
+  stroke: var(--border);
+  stroke-dasharray: 3 7;
+  stroke-width: 0.75;
+}
+
+.prizic-blueprint__registrations {
+  fill: var(--bg);
+  opacity: 0.9;
+  stroke: var(--border);
+  stroke-width: 0.75;
+}
+
+.prizic-blueprint__coordinates,
+.prizic-blueprint__callouts {
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
+
+.prizic-blueprint__coordinates {
+  opacity: 0.7;
+}
+
+.prizic-blueprint__callouts {
+  fill: var(--accent);
+  font-size: 6.5px;
+  opacity: 0.82;
 }
 
 .prizic-blueprint__guide {
@@ -829,11 +958,17 @@ svg {
 }
 
 .home-hero__wordmark .living-wordmark__mark {
-  inline-size: clamp(2.5rem, 4vw, 3.5rem);
+  inline-size: clamp(4rem, 5vw, 4.75rem);
 }
 
 .home-hero__wordmark .living-wordmark__display-word {
-  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-size: clamp(3.35rem, 5vw, 4rem);
+}
+
+.home-hero__wordmark .living-wordmark__signal-field {
+  min-block-size: 5.25rem;
+  display: grid;
+  align-items: center;
 }
 
 .home-hero__continuation {
@@ -869,6 +1004,8 @@ svg {
   position: relative;
   z-index: 1;
   inline-size: 100%;
+  align-self: start;
+  margin-block-start: clamp(var(--space-6), 4vh, var(--space-12));
 }
 
 .home-blueprint--compact {
@@ -1488,6 +1625,8 @@ svg {
   .home-hero__blueprint {
     max-inline-size: 52rem;
     margin-inline: auto;
+    margin-block-start: 0;
+    align-self: auto;
   }
 
   .home-hero__blueprint .prizic-blueprint__stage p {
@@ -1607,6 +1746,23 @@ svg {
 
   .home-hero__wordmark {
     margin-block-start: var(--space-8);
+  }
+
+  .home-hero__wordmark .living-wordmark__visual {
+    gap: var(--space-3);
+  }
+
+  .home-hero__wordmark .living-wordmark__mark {
+    inline-size: clamp(2.75rem, 13vw, 3.5rem);
+  }
+
+  .home-hero__wordmark .living-wordmark__display-word {
+    font-size: clamp(2.2rem, 10.5vw, 3rem);
+  }
+
+  .home-hero__wordmark .living-wordmark__signal-field {
+    min-block-size: 4rem;
+    padding-block: var(--space-3);
   }
 
   .home-blueprint--full {

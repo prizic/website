@@ -79,6 +79,39 @@ describe("PrizicBlueprint", () => {
     expect(route).not.toMatch(/380 250$/);
   });
 
+  it("surrounds the full route with architectural construction detail", () => {
+    render(<PrizicBlueprint stages={SITE_CONTENT.process.stages} />);
+
+    const drawing = screen
+      .getByRole("figure", { name: "The Prizic system" })
+      .querySelector('svg[data-layout="full"]');
+
+    expect(drawing?.querySelectorAll("[data-construction-contour]")).toHaveLength(
+      10,
+    );
+    expect(drawing?.querySelectorAll("[data-measurement-axis]")).toHaveLength(4);
+    expect(drawing?.querySelectorAll("[data-registration-mark]")).toHaveLength(
+      12,
+    );
+    expect(
+      Array.from(
+        drawing?.querySelectorAll("[data-coordinate-detail]") ?? [],
+        (detail) => detail.textContent,
+      ),
+    ).toEqual(["X 380", "Y 250", "P/Z ORIGIN"]);
+    expect(
+      Array.from(
+        drawing?.querySelectorAll("[data-blueprint-callout]") ?? [],
+        (callout) => callout.textContent,
+      ),
+    ).toEqual([
+      "QUESTION / 01",
+      "DIRECTION / 02",
+      "SOFTWARE / 03",
+      "LEARNING / 04",
+    ]);
+  });
+
   it("renders a static completed route for reduced motion", () => {
     motionPreference.reduced = true;
     render(<PrizicBlueprint stages={SITE_CONTENT.process.stages} />);

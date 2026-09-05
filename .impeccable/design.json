@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-05T20:12:42Z",
+  "title": "Design System: Prizic Corporate Website",
+  "extensions": {
+    "colorMeta": {
+      "system-night": {
+        "role": "neutral",
+        "displayName": "System Night",
+        "canonical": "#0a0e1a",
+        "tonalRamp": ["#070a12", "#0a0e1a", "#11182a", "#24304b", "#46516b", "#778096", "#b5bac7", "#edeff5"]
+      },
+      "deep-indigo": {
+        "role": "neutral",
+        "displayName": "Deep Indigo",
+        "canonical": "#141a2e",
+        "tonalRamp": ["#090c17", "#141a2e", "#202a47", "#344366", "#526080", "#78839b", "#b2b8c8", "#eceef4"]
+      },
+      "measured-slate": {
+        "role": "neutral",
+        "displayName": "Measured Slate",
+        "canonical": "#2a3350",
+        "tonalRamp": ["#0c101c", "#171d30", "#2a3350", "#414c6d", "#606b87", "#858da2", "#b8bdca", "#eef0f5"]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#edeff5",
+        "tonalRamp": ["#11131a", "#252832", "#444955", "#69707e", "#9299a6", "#bdc2cc", "#dadde4", "#edeff5"]
+      },
+      "quiet-blue-gray": {
+        "role": "neutral",
+        "displayName": "Quiet Blue Gray",
+        "canonical": "#8b93ab",
+        "tonalRamp": ["#11141e", "#252b3b", "#3e465c", "#5f687f", "#8b93ab", "#aab0c0", "#cdd1db", "#f0f1f5"]
+      },
+      "signal-cyan": {
+        "role": "primary",
+        "displayName": "Signal Cyan",
+        "canonical": "#00d9ff",
+        "tonalRamp": ["#00252c", "#003f4a", "#005f70", "#00849a", "#00abc8", "#00d9ff", "#79eaff", "#dcfaff"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero statements and the primary first-viewport message."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Major editorial sections and supporting-route headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Company explanation and readable supporting copy."
+      },
+      "label": {
+        "displayName": "System Label",
+        "purpose": "Coordinates, indices, controls and technical metadata."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "control-response",
+        "value": "160ms ease-out",
+        "purpose": "Default hover and focus response for links and controls."
+      },
+      {
+        "name": "route-draw",
+        "value": "1.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "One-time blueprint route explanation."
+      },
+      {
+        "name": "word-resolve",
+        "value": "600ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Suffix transitions in the living wordmark."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Immediate final state for motion-sensitive visitors."
+      }
+    ],
+    "breakpoints": [
+      { "name": "stack-layout", "value": "63.99rem" },
+      { "name": "mobile-navigation", "value": "56.24rem" },
+      { "name": "compact-blueprint", "value": "47.99rem" },
+      { "name": "narrow-gutter", "value": "40rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Contact Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The decisive path to the configured contact destination.",
+      "html": "<a class=\"ds-contact-primary\" href=\"#\">Start a conversation <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\"><path d=\"M3 13 13 3M6 3h7v7\"/></svg></a>",
+      "css": ".ds-contact-primary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 16px; padding: 12px 16px; border: 1px solid var(--accent, #00d9ff); border-radius: 6px; background: var(--accent, #00d9ff); color: var(--accent-text, #0a0e1a); font: 600 14px/1.2 Inter, sans-serif; text-decoration: none; transition: background-color 160ms ease-out, color 160ms ease-out; } .ds-contact-primary svg { width: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; } .ds-contact-primary:hover, .ds-contact-primary:focus-visible { border-color: var(--text, #edeff5); background: var(--text, #edeff5); color: var(--bg, #0a0e1a); } .ds-contact-primary:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; }"
+    },
+    {
+      "name": "Secondary Action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A quiet route to supporting company context.",
+      "html": "<a class=\"ds-action-secondary\" href=\"#\">See how Prizic thinks <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\"><path d=\"M3 13 13 3M6 3h7v7\"/></svg></a>",
+      "css": ".ds-action-secondary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 16px; padding: 12px 16px; border: 1px solid var(--border, #2a3350); border-radius: 6px; background: transparent; color: var(--text, #edeff5); font: 600 14px/1.2 Inter, sans-serif; text-decoration: none; transition: border-color 160ms ease-out, color 160ms ease-out; } .ds-action-secondary svg { width: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; } .ds-action-secondary:hover, .ds-action-secondary:focus-visible { border-color: var(--accent, #00d9ff); color: var(--accent, #00d9ff); } .ds-action-secondary:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "description": "Quiet global navigation that gains authority only on interaction.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Preview\"><a href=\"#\">Thinking</a><a href=\"#\">Capabilities</a><a href=\"#\">Partnerships</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; background: var(--bg, #0a0e1a); } .ds-nav a { display: inline-flex; min-height: 44px; align-items: center; color: var(--text-muted, #8b93ab); font: 400 15px/1.4 Inter, sans-serif; text-decoration: none; transition: color 160ms ease-out; } .ds-nav a:hover, .ds-nav a:focus-visible { color: var(--text, #edeff5); } .ds-nav a:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; }"
+    },
+    {
+      "name": "Blueprint Stage",
+      "kind": "custom",
+      "refersTo": "system-node",
+      "description": "A stage in the Question, Direction, Software and Learning system.",
+      "html": "<article class=\"ds-system-node\"><span>01</span><div><strong>Question</strong><p>Start with the real situation, constraints and desired change.</p></div></article>",
+      "css": ".ds-system-node { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; width: 250px; min-height: 104px; align-items: center; padding: 12px; border: 1px solid var(--border, #2a3350); border-radius: 48px; background: var(--bg, #0a0e1a); color: var(--text, #edeff5); } .ds-system-node > span { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid var(--border, #2a3350); border-radius: 50%; color: var(--accent, #00d9ff); font: 400 12px/1 JetBrains Mono, monospace; } .ds-system-node strong { font: 500 20px/1.1 Space Grotesk, sans-serif; } .ds-system-node p { margin: 4px 0 0; color: var(--text-muted, #8b93ab); font: 400 12px/1.35 Inter, sans-serif; }"
+    },
+    {
+      "name": "Replay Control",
+      "kind": "button",
+      "description": "An explicit, accessible replay for the otherwise one-time wordmark sequence.",
+      "html": "<button class=\"ds-replay\" type=\"button\"><svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"M16.4 8.2A6.7 6.7 0 1 0 16 13M16.4 8.2V3.8M16.4 8.2H12\"/></svg>Replay</button>",
+      "css": ".ds-replay { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; padding: 8px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted, #8b93ab); cursor: pointer; font: 400 12px/1.2 JetBrains Mono, monospace; letter-spacing: 0.04em; transition: background-color 160ms ease-out, color 160ms ease-out; } .ds-replay svg { width: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; } .ds-replay:hover, .ds-replay:focus-visible { background: var(--surface, #141a2e); color: var(--text, #edeff5); } .ds-replay:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; } .ds-replay:active { color: var(--accent, #00d9ff); }"
+    },
+    {
+      "name": "Living Wordmark Signal",
+      "kind": "custom",
+      "description": "A calibrated field framing the persistent Pr and c anchors around the resolving word.",
+      "html": "<div class=\"ds-wordmark\"><span class=\"ds-anchor\">Pr</span><strong>Prizic</strong><span class=\"ds-anchor ds-anchor-end\">c</span></div>",
+      "css": ".ds-wordmark { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; width: 420px; align-items: center; gap: 16px; padding: 16px 0; border-block: 1px solid var(--border, #2a3350); background: var(--bg, #0a0e1a); color: var(--text, #edeff5); } .ds-wordmark::after { position: absolute; inset: 50% 0 auto; height: 1px; background: var(--border, #2a3350); content: \"\"; } .ds-wordmark strong { position: relative; z-index: 1; color: var(--accent, #00d9ff); font: 500 56px/0.9 Space Grotesk, sans-serif; letter-spacing: -0.04em; } .ds-anchor { position: relative; z-index: 1; display: grid; min-width: 28px; min-height: 28px; place-items: center; border: 1px solid var(--border, #2a3350); background: var(--bg, #0a0e1a); color: var(--text-muted, #8b93ab); font: 400 10px/1 JetBrains Mono, monospace; text-transform: uppercase; } .ds-anchor-end { color: var(--accent, #00d9ff); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Prizic System",
+    "overview": "The visual world behaves like a precise architectural drawing brought to life. A near-black field holds off-white language, measured slate construction lines and one scarce cyan signal. The work feels calm, technically credible and deliberately unfinished at the edges, as if every visible decision belongs to a larger system.\n\nThe company method is the proof. Type, route geometry, registration marks and written constraints replace stock imagery and invented evidence. Framer-level craft is a quality reference, but the composition, P/Z geometry and living wordmark remain recognizably Prizic.",
+    "keyCharacteristics": [
+      "Asymmetric editorial layouts with a 5/7 desktop rhythm",
+      "Flat fields separated by rules instead of decorative shadows",
+      "Sparse cyan reserved for routes, punctuation and decisive actions",
+      "Authored P/Z geometry, measurements and calibration marks",
+      "Motion that explains sequence once, then becomes still",
+      "Plain language and visible limits instead of unsupported claims"
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Cyan is the only chromatic accent and should occupy roughly five percent or less of a viewport.", "section": "colors" },
+      { "name": "The Flat Field Rule", "body": "Depth comes from tone, borders and overlap. Do not introduce gradients, glows, glass effects or decorative shadows.", "section": "colors" },
+      { "name": "The Left Edge Rule", "body": "Paragraphs remain left aligned. Hierarchy comes from scale and position, not centered marketing copy.", "section": "typography" },
+      { "name": "The Mono Is Metadata Rule", "body": "Monospace type labels the system; it does not carry headlines or paragraphs.", "section": "typography" },
+      { "name": "The No Decoration Depth Rule", "body": "A new shadow is a design-system change, not a convenient way to make a surface visible.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do let typography, authored geometry and documented method carry the company story.",
+      "Do keep cyan scarce and attach it to meaning, movement or action.",
+      "Do preserve the static P/Z mark, visible Pr and c anchors, one-time sequence and settled final state.",
+      "Do use approved assets from the authoritative Prizic logo source and runtime copies from public/brand/.",
+      "Do keep navigation, content and the final reduced-motion state understandable without JavaScript.",
+      "Do add real company evidence only after it is approved and represented accurately."
+    ],
+    "donts": [
+      "Don't use gradients, glows, glassmorphism, stock imagery, AI-generated people, looping logos, marquees or parallax fields.",
+      "Don't turn the blueprint into a dashboard, workflow screenshot or generic technology illustration.",
+      "Don't fabricate projects, customers, logos, testimonials, reviews, prices or performance metrics.",
+      "Don't publish dental, clinic or booking content in this corporate release.",
+      "Don't imply a launched product, large team, legal status or partnership terms that have not been confirmed.",
+      "Don't replace the 5/7 hierarchy with repeated equal cards or centered marketing sections."
+    ]
+  }
+}

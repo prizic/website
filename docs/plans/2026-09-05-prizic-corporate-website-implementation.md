@@ -8,7 +8,7 @@
 
 **Tech Stack:** pnpm, Next.js App Router, React, TypeScript, Tailwind CSS v4, Motion for React, Vitest, Testing Library, vitest-axe, Playwright
 
-**Spec:** `docs/superpowers/specs/2026-09-05-prizic-corporate-website-design.md`
+**Spec:** `docs/specs/2026-09-05-prizic-corporate-website-design.md`
 
 ## Global Constraints
 
@@ -130,7 +130,7 @@
 - Produces: `assertPublicContent(text: string): void`
 - Consumes: exact copy and prohibitions from the approved design specification
 
-- [ ] **Step 1: Scaffold the isolated website package**
+- [x] **Step 1: Scaffold the isolated website package**
 
 Run from the workspace root:
 
@@ -143,7 +143,7 @@ pnpm exec playwright install chromium
 
 Keep the scaffold's current stable Next.js and React versions. Do not copy code from the unrelated product-lab applications.
 
-- [ ] **Step 2: Add test scripts and the jsdom test environment**
+- [x] **Step 2: Add test scripts and the jsdom test environment**
 
 Set the package scripts to include:
 
@@ -164,7 +164,7 @@ Set the package scripts to include:
 
 Configure `vitest.config.mts` with the React plugin, `jsdom`, `@/` mapped to `src`, and `src/test/setup.ts` as the setup file. The setup file imports `@testing-library/jest-dom/vitest`.
 
-- [ ] **Step 3: Write failing configuration tests**
+- [x] **Step 3: Write failing configuration tests**
 
 Create `tests/unit/site-config.test.ts`:
 
@@ -198,13 +198,13 @@ describe("resolveSiteConfig", () => {
 });
 ```
 
-- [ ] **Step 4: Run the configuration test and confirm failure**
+- [x] **Step 4: Run the configuration test and confirm failure**
 
 Run: `pnpm test -- tests/unit/site-config.test.ts`
 
 Expected: FAIL because `@/lib/site-config` does not exist.
 
-- [ ] **Step 5: Implement typed configuration resolution**
+- [x] **Step 5: Implement typed configuration resolution**
 
 Create discriminated `ContactState` and `SiteConfig` types. `resolveSiteConfig` must:
 
@@ -216,7 +216,7 @@ Create discriminated `ContactState` and `SiteConfig` types. `resolveSiteConfig` 
 
 Use the native `URL` parser. Do not add a validation framework for two values.
 
-- [ ] **Step 6: Write failing prohibited-content tests**
+- [x] **Step 6: Write failing prohibited-content tests**
 
 Create `tests/unit/public-content.test.ts`:
 
@@ -238,13 +238,13 @@ describe("assertPublicContent", () => {
 });
 ```
 
-- [ ] **Step 7: Run the prohibited-content test and confirm failure**
+- [x] **Step 7: Run the prohibited-content test and confirm failure**
 
 Run: `pnpm test -- tests/unit/public-content.test.ts`
 
 Expected: FAIL because `@/lib/public-content` does not exist.
 
-- [ ] **Step 8: Implement the content contracts and approved copy**
+- [x] **Step 8: Implement the content contracts and approved copy**
 
 Create `assertPublicContent` using word-boundary, case-insensitive checks for `dental`, `dentist`, `clinic`, `booking`, `pricing` and `testimonial`. Create `SiteContent` and the `SITE_CONTENT` object containing:
 
@@ -258,7 +258,7 @@ Create `assertPublicContent` using word-boundary, case-insensitive checks for `d
 
 At module initialization, serialize `SITE_CONTENT` and call `assertPublicContent` so prohibited text fails during tests and builds.
 
-- [ ] **Step 9: Run foundation verification**
+- [x] **Step 9: Run foundation verification**
 
 Run:
 
@@ -270,7 +270,7 @@ pnpm lint
 
 Expected: all commands pass.
 
-- [ ] **Step 10: Commit the foundation**
+- [x] **Step 10: Commit the foundation**
 
 ```bash
 git add package.json pnpm-lock.yaml next.config.ts tsconfig.json eslint.config.mjs postcss.config.mjs vitest.config.mts src/test src/content src/lib tests/unit
@@ -301,7 +301,7 @@ git commit -m "feat: scaffold Prizic corporate website foundation"
 - Produces: `SiteHeader`, `SiteFooter`, `PageIntro`, `PrizicLogo`, `ContactAction`
 - Produces: semantic CSS tokens and layout utilities used by every later task
 
-- [ ] **Step 1: Copy only the approved brand assets**
+- [x] **Step 1: Copy only the approved brand assets**
 
 Run:
 
@@ -316,7 +316,7 @@ cp '02 Brand/Logo/Prizic/png/apple-touch-icon.png' src/app/apple-icon.png
 
 Do not modify or delete the source assets.
 
-- [ ] **Step 2: Write failing shell component tests**
+- [x] **Step 2: Write failing shell component tests**
 
 Test these public behaviors:
 
@@ -332,13 +332,13 @@ expect(screen.queryByRole("dialog", { name: "Navigation" })).not.toBeInTheDocume
 
 For `ContactAction`, assert that `{ kind: "pending" }` renders noninteractive text “Contact destination pending” and `{ kind: "ready", href }` renders a link named “Email Prizic”.
 
-- [ ] **Step 3: Run the shell tests and confirm failure**
+- [x] **Step 3: Run the shell tests and confirm failure**
 
 Run: `pnpm test -- tests/components/site-header.test.tsx tests/components/contact-action.test.tsx`
 
 Expected: FAIL because the shell components do not exist.
 
-- [ ] **Step 4: Implement the design tokens and document foundation**
+- [x] **Step 4: Implement the design tokens and document foundation**
 
 Replace scaffold styling with CSS variables from the spec. Set dark color scheme, off-white text, Space Grotesk/Inter/JetBrains Mono font variables from `next/font/google`, logical margins and paddings, a 1280 px maximum frame, 4 px spacing-derived values, visible cyan focus rings and a section-level off-white field utility.
 
@@ -354,7 +354,7 @@ body { margin: 0; overflow-x: clip; background: var(--bg); color: var(--text); }
 }
 ```
 
-- [ ] **Step 5: Implement the shell and contact states**
+- [x] **Step 5: Implement the shell and contact states**
 
 `SiteHeader` is a Server Component except for the imported `MobileMenu`. Desktop navigation is a plain `<nav>`. `MobileMenu` manages open state, closes on Escape and route selection, restores focus to the trigger, locks body scrolling while open and renders a labelled modal dialog.
 
@@ -370,7 +370,7 @@ type ContactActionProps = {
 
 The pending state is not an anchor or enabled button. The ready state is a normal anchor and uses the provided `label`, defaulting to “Email Prizic” when the prop is omitted.
 
-- [ ] **Step 6: Add the auditable direction contract to the root layout**
+- [x] **Step 6: Add the auditable direction contract to the root layout**
 
 React strips source comments, so emit an inert `<template>` as the first `<body>` child with `data-impeccable-contract="89484ca6"` and this compact text:
 
@@ -380,7 +380,7 @@ THESIS: Prizic makes its method the proof and refuses the generic agency portfol
 
 The template is inert, hidden and grep-verifiable in built output. Place `SiteHeader`, `<main>{children}</main>` and `SiteFooter` after it.
 
-- [ ] **Step 7: Run shell verification**
+- [x] **Step 7: Run shell verification**
 
 Run:
 
@@ -392,7 +392,7 @@ pnpm lint
 
 Expected: all commands pass.
 
-- [ ] **Step 8: Commit the shell**
+- [x] **Step 8: Commit the shell**
 
 ```bash
 git add src/app src/components/layout src/components/actions src/components/brand/prizic-logo.tsx public/brand tests/components
@@ -417,7 +417,7 @@ git commit -m "feat: add accessible Prizic site shell"
 - Produces: `LivingWordmark({ autoPlay?: boolean })`
 - Produces: `PrizicBlueprint({ stages, compact?: boolean })`
 
-- [ ] **Step 1: Write failing wordmark behavior tests**
+- [x] **Step 1: Write failing wordmark behavior tests**
 
 Use a controllable `matchMedia` mock and fake timers. Assert:
 
@@ -430,17 +430,17 @@ expect(screen.getByRole("button", { name: "Replay Prizic word animation" })).toB
 
 Advance timers through Precise, Prism, Prize and Prizic. Assert the final state remains Prizic and does not restart after an additional 10 seconds. With reduced motion enabled, assert the first render is the final state.
 
-- [ ] **Step 2: Write failing blueprint semantics tests**
+- [x] **Step 2: Write failing blueprint semantics tests**
 
 Render the diagram and assert an accessible ordered list exposes exactly Question, Direction, Software and Learning in that order. Assert decorative SVG has `aria-hidden="true"` and the component contains one accessible label, “The Prizic system”.
 
-- [ ] **Step 3: Run the brand tests and confirm failure**
+- [x] **Step 3: Run the brand tests and confirm failure**
 
 Run: `pnpm test -- tests/components/living-wordmark.test.tsx tests/components/prizic-blueprint.test.tsx`
 
 Expected: FAIL because both components are missing.
 
-- [ ] **Step 4: Implement the one-time living wordmark**
+- [x] **Step 4: Implement the one-time living wordmark**
 
 Use `useReducedMotion` from Motion and a small explicit sequence state. Preserve a stable accessible name by putting animation text inside an `aria-hidden` group and naming the outer figure “Prizic”. The P/Z mark uses the static supplied SVG; it is never part of an animation variant.
 
@@ -457,13 +457,13 @@ const WORD_STATES = [
 
 Keep `Pr` and `c` in persistent DOM elements. Animate only the middle suffix with opacity and transform. After Prizic resolves, run a single CSS blink/smile class and settle. Replay restarts only after explicit activation.
 
-- [ ] **Step 5: Implement the rounded blueprint**
+- [x] **Step 5: Implement the rounded blueprint**
 
 Render an SVG with one rounded route and four stage nodes. Each label also exists in an adjacent semantic ordered list so the SVG can stay decorative. Use `pathLength="1"`, `strokeDasharray="1"` and Motion's `pathLength` only as progressive enhancement.
 
 Desktop arrangement follows the approved comp: Question top, Direction inline-end, Software bottom, Learning inline-start, P/Z origin in the center. The mobile `compact` presentation uses a vertical route and does not scale the desktop geometry down.
 
-- [ ] **Step 6: Run brand verification**
+- [x] **Step 6: Run brand verification**
 
 Run:
 
@@ -475,7 +475,7 @@ pnpm lint
 
 Expected: all commands pass.
 
-- [ ] **Step 7: Commit the brand interactions**
+- [x] **Step 7: Commit the brand interactions**
 
 ```bash
 git add src/components/brand src/app/globals.css tests/components/living-wordmark.test.tsx tests/components/prizic-blueprint.test.tsx
@@ -501,7 +501,7 @@ git commit -m "feat: add Prizic wordmark and blueprint motion"
 - Consumes: `SITE_CONTENT`, `PrizicBlueprint`, `LivingWordmark`, `ContactAction`
 - Produces: complete `/` route and reusable homepage section components
 
-- [ ] **Step 1: Write the failing homepage narrative test**
+- [x] **Step 1: Write the failing homepage narrative test**
 
 Render `HomePage` and assert:
 
@@ -517,13 +517,13 @@ expect(screen.getByRole("heading", { name: "A clear first conversation is enough
 
 Serialize the container and run `assertPublicContent(container.textContent ?? "")`.
 
-- [ ] **Step 2: Run the homepage test and confirm failure**
+- [x] **Step 2: Run the homepage test and confirm failure**
 
 Run: `pnpm test -- tests/components/homepage.test.tsx`
 
 Expected: FAIL because the final homepage composition does not exist.
 
-- [ ] **Step 3: Build the first viewport to comp fidelity**
+- [x] **Step 3: Build the first viewport to comp fidelity**
 
 Implement a `<section aria-labelledby="home-title">` with a 5/7 desktop grid. The left column contains the H1, supporting line and two actions. The right column contains the blueprint at dominant scale. Place `LivingWordmark` as a distinct brand signal within the hero without replacing the static header logo or obscuring the H1.
 
@@ -535,7 +535,7 @@ At 1280 × 800:
 - cyan remains limited to route, coordinates, focus and key punctuation;
 - no card grid or detached glass panel appears.
 
-- [ ] **Step 4: Build the remaining narrative sections**
+- [x] **Step 4: Build the remaining narrative sections**
 
 Implement, in order:
 
@@ -547,11 +547,11 @@ Implement, in order:
 
 Every heading and paragraph comes from `SITE_CONTENT`. Do not introduce demo interfaces or blank project cards.
 
-- [ ] **Step 5: Implement responsive composition rules**
+- [x] **Step 5: Implement responsive composition rules**
 
 At 768–1023 px, stack hero copy before blueprint and reduce annotations. At 320–767 px, switch the blueprint to its vertical semantic arrangement, retain full heading measure, stack capability statements with dividing rules and keep all controls at least 44 px tall.
 
-- [ ] **Step 6: Run homepage verification**
+- [x] **Step 6: Run homepage verification**
 
 Run:
 
@@ -563,7 +563,7 @@ pnpm lint
 
 Expected: all commands pass.
 
-- [ ] **Step 7: Commit the homepage**
+- [x] **Step 7: Commit the homepage**
 
 ```bash
 git add src/app/page.tsx src/app/globals.css src/components/home tests/components/homepage.test.tsx
@@ -592,7 +592,7 @@ git commit -m "feat: build Prizic corporate homepage"
 - Consumes: supporting-route content from `SITE_CONTENT`, `PageIntro`, `ContactAction`, `LivingWordmark`
 - Produces: all sitemap routes and the missing-route recovery surface
 
-- [ ] **Step 1: Add failing route-content tests**
+- [x] **Step 1: Add failing route-content tests**
 
 Test each route's H1 and one defining statement:
 
@@ -608,31 +608,31 @@ const expectations = [
 
 Test the 404 for heading “That path does not exist.” and a link named “Return home”.
 
-- [ ] **Step 2: Run route tests and confirm failure**
+- [x] **Step 2: Run route tests and confirm failure**
 
 Run: `pnpm test -- tests/components`
 
 Expected: FAIL for routes not yet implemented.
 
-- [ ] **Step 3: Implement Thinking and Capabilities**
+- [x] **Step 3: Implement Thinking and Capabilities**
 
 Thinking expands the approved principles and four-stage loop, then includes the factual operating commitments: security is not an upsell; cut scope, not quality; boring over clever in production code; write decisions down.
 
 Capabilities explains Digital products, Business systems and Technology partnerships through artifact categories only: public websites, customer portals, internal dashboards, workflow automation and custom applications. Add the approved boundaries: no template-price race, no optional security baseline and no assumption that every problem needs custom software.
 
-- [ ] **Step 4: Implement Partnerships and About**
+- [x] **Step 4: Implement Partnerships and About**
 
 Partnerships presents three steps: partner brings market knowledge or an observed problem; Prizic brings product framing and engineering; both validate fit before discussing a long-term structure. Explicitly omit equity, revenue split, exclusivity and guaranteed outcomes.
 
 About presents the founder statement, purpose, pronunciation and Precise/Prism/Prize associations. The living wordmark replays only on explicit activation on this route.
 
-- [ ] **Step 5: Implement Contact and 404**
+- [x] **Step 5: Implement Contact and 404**
 
 Contact reads `SiteConfig.contact`. Ready state exposes the configured direct action. Pending preview state shows “Contact destination pending” and explains that the public channel is being configured; it does not render a fake email or form.
 
 The 404 uses the static mark, one sentence and `/` return action. It shares the global shell.
 
-- [ ] **Step 6: Run route verification**
+- [x] **Step 6: Run route verification**
 
 Run:
 
@@ -644,7 +644,7 @@ pnpm lint
 
 Expected: all commands pass.
 
-- [ ] **Step 7: Commit the routes**
+- [x] **Step 7: Commit the routes**
 
 ```bash
 git add src/app src/content/site.ts src/components/layout/page-intro.tsx src/app/globals.css tests/components
@@ -671,7 +671,7 @@ git commit -m "feat: add Prizic corporate routes"
 - Produces: `createPageMetadata(input: PageMetadataInput): Metadata`
 - Produces: canonical sitemap entries and owned 1200 × 630 social image
 
-- [ ] **Step 1: Write failing metadata tests**
+- [x] **Step 1: Write failing metadata tests**
 
 Assert the default and About metadata:
 
@@ -689,25 +689,25 @@ expect(createPageMetadata({
 
 Assert malformed or missing production canonical configuration is already rejected by `resolveSiteConfig`.
 
-- [ ] **Step 2: Run metadata tests and confirm failure**
+- [x] **Step 2: Run metadata tests and confirm failure**
 
 Run: `pnpm test -- tests/unit/metadata.test.ts`
 
 Expected: FAIL because the metadata helper does not exist.
 
-- [ ] **Step 3: Implement metadata and structured data**
+- [x] **Step 3: Implement metadata and structured data**
 
 Use the exact default title and description from the spec. Each route exports a unique title and description. The root layout emits Organization JSON-LD containing only name, canonical URL and logo when canonical configuration is ready. Do not emit legal identifiers, founding date, employee count, ratings or social profiles.
 
-- [ ] **Step 4: Implement sitemap and crawler policy**
+- [x] **Step 4: Implement sitemap and crawler policy**
 
 `sitemap.ts` contains `/`, `/thinking`, `/capabilities`, `/partnerships`, `/about` and `/contact`. `robots.ts` allows public crawling and references the canonical sitemap only when a canonical URL exists. Do not include a route that the app does not render.
 
-- [ ] **Step 5: Implement the social image**
+- [x] **Step 5: Implement the social image**
 
 Use `ImageResponse` to render a 1200 × 630 near-black image with the static Prizic mark, “From possibility to working systems.” and one authored rounded cyan route. No product or customer imagery, gradient or unsupported claim appears.
 
-- [ ] **Step 6: Verify metadata and build output**
+- [x] **Step 6: Verify metadata and build output**
 
 Run:
 
@@ -719,7 +719,7 @@ grep -R "89484ca6" .next/server/app
 
 Expected: tests and production build pass; grep finds the inert design contract in rendered build output. The example URLs are build-verification inputs only and are not committed as Prizic's real public configuration.
 
-- [ ] **Step 7: Commit metadata**
+- [x] **Step 7: Commit metadata**
 
 ```bash
 git add src/app src/lib/metadata.ts tests/unit/metadata.test.ts
@@ -743,7 +743,7 @@ git commit -m "feat: add Prizic metadata and social preview"
 - Consumes: built Next.js app and complete route inventory
 - Produces: browser-level verification across navigation, accessibility, no-JavaScript and required widths
 
-- [ ] **Step 1: Configure Playwright against a production server**
+- [x] **Step 1: Configure Playwright against a production server**
 
 Configure Chromium with `baseURL: http://127.0.0.1:3100` and this `webServer.command`, which builds and starts Next.js using test-only verified environment values:
 
@@ -753,11 +753,11 @@ command: "NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3100 NEXT_PUBLIC_CONTACT_URL=mai
 
 Reuse the server outside CI and capture traces only on first retry.
 
-- [ ] **Step 2: Write failing route and navigation tests**
+- [x] **Step 2: Write failing route and navigation tests**
 
 For every route, assert status is successful, exactly one visible H1 exists and header navigation works. Test keyboard navigation from the logo through the primary action. Visit a missing route and follow “Return home”.
 
-- [ ] **Step 3: Write failing responsive overflow tests**
+- [x] **Step 3: Write failing responsive overflow tests**
 
 For widths 320, 375, 768, 1280 and 1440, visit `/` and assert:
 
@@ -770,15 +770,15 @@ expect(overflow).toBe(false);
 
 At mobile widths, open and close the navigation, verify 44 px minimum trigger geometry and confirm the four process labels appear in document order.
 
-- [ ] **Step 4: Write failing reduced-motion and no-JavaScript tests**
+- [x] **Step 4: Write failing reduced-motion and no-JavaScript tests**
 
 Create a reduced-motion browser context, visit `/`, and assert the final Prizic wordmark and all four blueprint labels are visible without waiting for animation. Create a JavaScript-disabled context and assert the H1, supporting copy, route links and process list remain present.
 
-- [ ] **Step 5: Add automated accessibility scanning**
+- [x] **Step 5: Add automated accessibility scanning**
 
 Install `@axe-core/playwright` if not already present. Scan all six routes after load and fail on serious or critical WCAG violations. Keep manual focus-order and contrast checks in Task 8 because automation cannot prove them completely.
 
-- [ ] **Step 6: Run end-to-end tests and fix exposed behavior**
+- [x] **Step 6: Run end-to-end tests and fix exposed behavior**
 
 Run:
 
@@ -789,7 +789,7 @@ pnpm test:e2e
 
 Expected: all route, navigation, accessibility, reduced-motion, no-JavaScript and overflow tests pass.
 
-- [ ] **Step 7: Commit browser verification**
+- [x] **Step 7: Commit browser verification**
 
 ```bash
 git add playwright.config.ts tests/e2e package.json pnpm-lock.yaml src
@@ -814,7 +814,7 @@ git commit -m "test: verify Prizic website public behavior"
 - Consumes: complete website, approved comps, specification and design contract
 - Produces: verified screenshots, final design-system record and operational README
 
-- [ ] **Step 1: Run the complete automated gate**
+- [x] **Step 1: Run the complete automated gate**
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://prizic.com NEXT_PUBLIC_CONTACT_URL=mailto:hello@prizic.com pnpm test
@@ -826,7 +826,7 @@ pnpm test:e2e
 
 Expected: every command exits successfully. Verification addresses are never committed as real company contact data.
 
-- [ ] **Step 2: Start the production preview and capture valid evidence**
+- [x] **Step 2: Start the production preview and capture valid evidence**
 
 Start the built app on port 3100 with the same test-only environment. Use the collaborative browser to capture:
 
@@ -836,13 +836,13 @@ Start the built app on port 3100 with the same test-only environment. Use the co
 
 Save the desktop and mobile captures under `.impeccable/review/`. Open every capture and confirm it is not blank, cropped incorrectly or showing the wrong route.
 
-- [ ] **Step 3: Compare the hero against both approved comps**
+- [x] **Step 3: Compare the hero against both approved comps**
 
 Open the desktop capture beside `.impeccable/mocks/decision/prizic-system.webp` at equal dimensions. Compare headline scale, 5/7 balance, route geometry, blueprint dominance, cyan scarcity and header placement. Then compare the living-wordmark region with `.impeccable/mocks/decision/living-wordmark.webp` for type scale and signal character.
 
 Fix comp-fidelity issues in one batch. Do not add elements merely because the generated comp invented them; the specification wins on factual content and the comp wins on spatial treatment.
 
-- [ ] **Step 4: Run the Impeccable mechanical detector once**
+- [x] **Step 4: Run the Impeccable mechanical detector once**
 
 From the workspace root:
 
@@ -852,7 +852,7 @@ node /Users/seifelesllamseif/.codex/skills/impeccable/scripts/detect.mjs --json 
 
 Fix mechanical findings that violate the approved direction. Pass any intentional remaining findings into the finish-review packet.
 
-- [ ] **Step 5: Conduct the finish review**
+- [x] **Step 5: Conduct the finish review**
 
 Use the Impeccable finish-review workflow with:
 
@@ -865,11 +865,11 @@ Use the Impeccable finish-review workflow with:
 
 Apply one bounded fix batch for a `fix` verdict, then recapture the same viewports and obtain the verdict pass. A `rebuild` verdict replaces the named failed region rather than accumulating patches.
 
-- [ ] **Step 6: Write the durable design record**
+- [x] **Step 6: Write the durable design record**
 
 Create `DESIGN.md` from the shipped implementation. Record the actual palette, typography, blueprint geometry, route-line motion, living-wordmark states, responsive transformations, interaction states, reduced-motion fallback and content-proof rules. Do not describe intentions that did not survive into the build.
 
-- [ ] **Step 7: Write the operational README**
+- [x] **Step 7: Write the operational README**
 
 Document:
 
@@ -881,11 +881,11 @@ Document:
 - how to update typed copy;
 - the explicit ban on dental content and fabricated proof in this release.
 
-- [ ] **Step 8: Run final fresh verification**
+- [x] **Step 8: Run final fresh verification**
 
 Repeat the full automated gate from Step 1 after all review changes. Reopen the final desktop and mobile captures. Confirm the deployed-output grep still finds `89484ca6` and that a recursive case-insensitive scan of `src` finds no prohibited public terms outside the guard/test definitions.
 
-- [ ] **Step 9: Commit the reviewed result**
+- [x] **Step 9: Commit the reviewed result**
 
 ```bash
 git add website .impeccable/review/prizic-desktop.png .impeccable/review/prizic-mobile.png .impeccable/review/prizic-reduced-motion.png
@@ -899,4 +899,3 @@ Do not deploy until the Founder supplies and verifies the real canonical and con
 ## Completion Definition
 
 The plan is complete only when Tasks 1–8 are checked, the production build and browser suite pass, comp comparison is documented, finish review reaches an accepted disposition, `DESIGN.md` describes the shipped system, the public source contains no dental or fabricated proof, and the only remaining launch action is substituting verified domain/contact configuration.
-

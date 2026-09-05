@@ -420,70 +420,78 @@ svg {
 }
 
 .living-wordmark__word {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   min-inline-size: 0;
-  align-items: baseline;
+  align-items: center;
+  gap: clamp(var(--space-2), 1.2vw, var(--space-4));
   color: var(--text);
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
   white-space: nowrap;
 }
 
 .living-wordmark__anchor {
   position: relative;
   z-index: 1;
+  display: inline-grid;
+  min-inline-size: 1.75rem;
+  min-block-size: 1.75rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
-.living-wordmark__suffix {
-  display: inline-flex;
-  min-inline-size: 1.15em;
-  align-items: baseline;
+.living-wordmark__anchor--ending {
   color: var(--accent);
+}
+
+.living-wordmark__display-word {
+  position: relative;
+  display: inline-block;
+  min-inline-size: 4.5ch;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
   transform-origin: center left;
 }
 
-.living-wordmark__letter-i {
-  position: relative;
-  display: inline-block;
-  inline-size: 0.28em;
-  block-size: 0.78em;
-}
-
-.living-wordmark__stem {
+.living-wordmark__face {
   position: absolute;
-  inset-block-end: 0;
-  inset-inline-start: 50%;
-  inline-size: 0.11em;
-  block-size: 0.57em;
-  background: currentColor;
-  transform: translateX(-50%);
+  inset: 0;
+  pointer-events: none;
 }
 
 .living-wordmark__eye {
   position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 50%;
-  inline-size: 0.12em;
-  block-size: 0.12em;
+  inset-block-start: -0.08em;
+  inline-size: 0.1em;
+  block-size: 0.1em;
   border-radius: 50%;
-  background: currentColor;
+  background: var(--text);
   transform: translateX(-50%) scaleY(1);
   transform-origin: center;
 }
 
-.living-wordmark__letter-z {
-  position: relative;
-  display: inline-block;
+.living-wordmark__eye--first {
+  inset-inline-start: 44%;
+}
+
+.living-wordmark__eye--second {
+  inset-inline-start: 69%;
 }
 
 .living-wordmark__smile {
   position: absolute;
-  inset-block-end: -0.08em;
-  inset-inline-start: 50%;
-  inline-size: 0.7em;
+  inset-block-end: -0.18em;
+  inset-inline-start: 57%;
+  inline-size: 0.62em;
   fill: none;
   opacity: 0;
   stroke: currentColor;
@@ -779,7 +787,11 @@ svg {
   }
 
   .living-wordmark__word {
-    font-size: clamp(2.25rem, 15vw, 4rem);
+    gap: var(--space-2);
+  }
+
+  .living-wordmark__display-word {
+    font-size: clamp(2.25rem, 13vw, 4rem);
   }
 
   .living-wordmark__mark {

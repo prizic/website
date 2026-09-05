@@ -48,18 +48,32 @@ describe("LivingWordmark", () => {
     const prefix = within(wordmark).getByText("Pr");
     const ending = within(wordmark).getByText("c");
 
+    function expectVisibleFrame(word: string) {
+      expect(
+        within(wordmark).getByText(word, {
+          selector: ".living-wordmark__display-word",
+        }),
+      ).toBeVisible();
+      expect(within(wordmark).getByText("Pr")).toBe(prefix);
+      expect(within(wordmark).getByText("c")).toBe(ending);
+      expect(prefix).toBeVisible();
+      expect(ending).toBeVisible();
+    }
+
     expect(wordmark).toHaveAttribute("data-word", "Precise");
+    expectVisibleFrame("Precise");
 
     act(() => vi.advanceTimersByTime(1_200));
     expect(wordmark).toHaveAttribute("data-word", "Prism");
+    expectVisibleFrame("Prism");
 
     act(() => vi.advanceTimersByTime(1_200));
     expect(wordmark).toHaveAttribute("data-word", "Prize");
+    expectVisibleFrame("Prize");
 
     act(() => vi.advanceTimersByTime(1_200));
     expect(wordmark).toHaveAttribute("data-word", "Prizic");
-    expect(within(wordmark).getByText("Pr")).toBe(prefix);
-    expect(within(wordmark).getByText("c")).toBe(ending);
+    expectVisibleFrame("Prizic");
 
     act(() => vi.advanceTimersByTime(10_000));
     expect(wordmark).toHaveAttribute("data-word", "Prizic");
@@ -68,6 +82,7 @@ describe("LivingWordmark", () => {
       screen.getByRole("button", { name: "Replay Prizic word animation" }),
     );
     expect(wordmark).toHaveAttribute("data-word", "Precise");
+    expectVisibleFrame("Precise");
   });
 
   it("renders and keeps the final state when reduced motion is requested", () => {

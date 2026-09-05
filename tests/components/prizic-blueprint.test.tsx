@@ -67,6 +67,18 @@ describe("PrizicBlueprint", () => {
     expect(compactDrawing).toHaveAttribute("data-layout", "compact");
   });
 
+  it("draws the full route outward from the central mark", () => {
+    render(<PrizicBlueprint stages={SITE_CONTENT.process.stages} />);
+
+    const route = screen
+      .getByRole("figure", { name: "The Prizic system" })
+      .querySelector("[data-route]")
+      ?.getAttribute("d");
+
+    expect(route).toMatch(/^M380 250/);
+    expect(route).not.toMatch(/380 250$/);
+  });
+
   it("renders a static completed route for reduced motion", () => {
     motionPreference.reduced = true;
     render(<PrizicBlueprint stages={SITE_CONTENT.process.stages} />);

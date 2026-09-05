@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { PrizicLogo } from "@/components/brand/prizic-logo";
 
 const WORD_STATES = [
-  { word: "Precise", suffix: "ecise", holdMs: 1_200 },
-  { word: "Prism", suffix: "ism", holdMs: 1_200 },
-  { word: "Prize", suffix: "ize", holdMs: 1_200 },
-  { word: "Prizic", suffix: "izi", holdMs: 0 },
+  { word: "Precise", holdMs: 1_200 },
+  { word: "Prism", holdMs: 1_200 },
+  { word: "Prize", holdMs: 1_200 },
+  { word: "Prizic", holdMs: 0 },
 ] as const;
 
 const FINAL_STATE_INDEX = WORD_STATES.length - 1;
@@ -19,24 +19,15 @@ type LivingWordmarkProps = {
   autoPlay?: boolean;
 };
 
-function FinalSuffix() {
+function FinalFace() {
   return (
-    <>
-      <span className="living-wordmark__letter-i">
-        <span className="living-wordmark__eye" />
-        <span className="living-wordmark__stem" />
-      </span>
-      <span className="living-wordmark__letter-z">
-        z
-        <svg aria-hidden="true" className="living-wordmark__smile" viewBox="0 0 48 18">
-          <path d="M4 3c8 15 28 15 40 0" />
-        </svg>
-      </span>
-      <span className="living-wordmark__letter-i">
-        <span className="living-wordmark__eye" />
-        <span className="living-wordmark__stem" />
-      </span>
-    </>
+    <span className="living-wordmark__face">
+      <span className="living-wordmark__eye living-wordmark__eye--first" />
+      <span className="living-wordmark__eye living-wordmark__eye--second" />
+      <svg aria-hidden="true" className="living-wordmark__smile" viewBox="0 0 48 18">
+        <path d="M4 3c8 15 28 15 40 0" />
+      </svg>
+    </span>
   );
 }
 
@@ -102,10 +93,12 @@ export function LivingWordmark({ autoPlay = true }: LivingWordmarkProps) {
             variant="mark"
           />
           <span className="living-wordmark__word">
-            <span className="living-wordmark__anchor">Pr</span>
+            <span className="living-wordmark__anchor living-wordmark__anchor--prefix">
+              Pr
+            </span>
             <motion.span
               animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-              className="living-wordmark__suffix"
+              className="living-wordmark__display-word"
               initial={
                 shouldReduceMotion
                   ? false
@@ -114,9 +107,12 @@ export function LivingWordmark({ autoPlay = true }: LivingWordmarkProps) {
               key={`${replayCount}-${state.word}`}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              {state.word === "Prizic" ? <FinalSuffix /> : state.suffix}
+              {state.word}
+              {state.word === "Prizic" ? <FinalFace /> : null}
             </motion.span>
-            <span className="living-wordmark__anchor">c</span>
+            <span className="living-wordmark__anchor living-wordmark__anchor--ending">
+              c
+            </span>
           </span>
         </div>
       </figure>

@@ -1,5 +1,17 @@
+import type { Metadata } from "next";
+
 import { PageIntro } from "@/components/layout/page-intro";
 import { SITE_CONTENT } from "@/content/site";
+import { createPageMetadata } from "@/lib/metadata";
+import { resolveSiteConfig } from "@/lib/site-config";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Thinking",
+  description:
+    "The principles, four-stage method and production commitments behind how Prizic works.",
+  path: "/thinking",
+  canonicalUrl: resolveSiteConfig(process.env, process.env.NODE_ENV).canonicalUrl,
+});
 
 export default function ThinkingPage() {
   const page = SITE_CONTENT.pages.thinking;

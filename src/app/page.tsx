@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import { ContactAction } from "@/components/actions/contact-action";
 import { LivingWordmark } from "@/components/brand/living-wordmark";
@@ -8,6 +9,16 @@ import { ClosingSection } from "@/components/home/closing-section";
 import { FounderSection } from "@/components/home/founder-section";
 import { PrinciplesSection } from "@/components/home/principles-section";
 import { SITE_CONTENT } from "@/content/site";
+import { createPageMetadata } from "@/lib/metadata";
+import { resolveSiteConfig } from "@/lib/site-config";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "From possibility to working systems",
+  description:
+    "Prizic is a founder-led technology company combining product thinking, engineering and long-term technical direction.",
+  path: "/",
+  canonicalUrl: resolveSiteConfig(process.env, process.env.NODE_ENV).canonicalUrl,
+});
 
 function BlueprintPair({ className }: { className: string }) {
   return (

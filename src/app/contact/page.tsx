@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
+
 import { ContactAction } from "@/components/actions/contact-action";
 import { PageIntro } from "@/components/layout/page-intro";
 import { SITE_CONTENT } from "@/content/site";
+import { createPageMetadata } from "@/lib/metadata";
 import { resolveSiteConfig } from "@/lib/site-config";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact",
+  description:
+    "Start a direct conversation with Prizic about a product, operating problem or industry.",
+  path: "/contact",
+  canonicalUrl: resolveSiteConfig(process.env, process.env.NODE_ENV).canonicalUrl,
+});
 
 export default function ContactPage() {
   const page = SITE_CONTENT.pages.contact;

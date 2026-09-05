@@ -42,6 +42,8 @@ export function LivingWordmark({ autoPlay = true }: LivingWordmarkProps) {
     ? FINAL_STATE_INDEX
     : stateIndex;
   const state = WORD_STATES[visibleStateIndex];
+  const shouldAnimateFrame =
+    !shouldReduceMotion && (autoPlay || replayCount > 0);
 
   useEffect(() => {
     if (shouldReduceMotion || (!autoPlay && replayCount === 0)) return;
@@ -100,9 +102,9 @@ export function LivingWordmark({ autoPlay = true }: LivingWordmarkProps) {
               animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
               className="living-wordmark__display-word"
               initial={
-                shouldReduceMotion
-                  ? false
-                  : { filter: "blur(3px)", opacity: 0.55, y: "0.14em" }
+                shouldAnimateFrame
+                  ? { filter: "blur(3px)", opacity: 0.55, y: "0.14em" }
+                  : false
               }
               key={`${replayCount}-${state.word}`}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

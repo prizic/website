@@ -14,8 +14,8 @@ export function PageIntro({
     .join(" ");
 
   return (
-    <header className={classes}>
-      <h1>{title}</h1>
+    <header aria-labelledby="page-title" className={classes}>
+      <h1 id="page-title">{title}</h1>
       <p>{introduction}</p>
     </header>
   );

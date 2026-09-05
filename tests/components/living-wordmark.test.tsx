@@ -39,6 +39,11 @@ describe("LivingWordmark", () => {
     expect(
       screen.getByRole("button", { name: "Replay Prizic word animation" }),
     ).toBeEnabled();
+    const displayWord = within(wordmark).getByText("Prizic", {
+      selector: ".living-wordmark__display-word",
+    });
+    expect(displayWord).not.toHaveStyle({ filter: "blur(3px)" });
+    expect(displayWord).not.toHaveStyle({ opacity: "0.55" });
   });
 
   it("plays the sequence once, preserves its anchors, and settles on Prizic", () => {

@@ -134,6 +134,118 @@ export const SITE_CONTENT = {
       },
     ],
   },
+  pages: {
+    thinking: {
+      title: "Thinking",
+      introduction: "Clarity is part of the work.",
+      commitmentsHeadline: "Production commitments.",
+      commitments: [
+        {
+          title: "Security is not an upsell.",
+          description:
+            "Security belongs in the production baseline from the start.",
+        },
+        {
+          title: "Cut scope, not quality.",
+          description:
+            "When constraints tighten, reduce what is built without weakening how it is built.",
+        },
+        {
+          title: "Boring over clever in production code.",
+          description:
+            "Prefer dependable choices people can understand, operate and improve.",
+        },
+        {
+          title: "Write decisions down.",
+          description:
+            "Record what was decided, why it was chosen and what could change it.",
+        },
+      ],
+    },
+    capabilities: {
+      title: "Capabilities",
+      introduction: "What Prizic can bring to the work.",
+      artifactsHeadline: "Artifacts Prizic can shape.",
+      artifacts: [
+        "Public websites",
+        "Customer portals",
+        "Internal dashboards",
+        "Workflow automation",
+        "Custom applications",
+      ],
+      boundariesHeadline: "Clear boundaries.",
+      boundaries: [
+        {
+          title: "No template-price race.",
+          description:
+            "Prizic focuses on the problem and the system around it, not the cheapest interchangeable output.",
+        },
+        {
+          title: "Security is part of the baseline.",
+          description:
+            "Production concerns are included in the work, not offered as optional extras.",
+        },
+        {
+          title: "Not every problem needs custom software.",
+          description:
+            "Direction can mean choosing an existing tool or a simpler change instead of building more.",
+        },
+      ],
+    },
+    partnerships: {
+      title: "Partnerships",
+      introduction: "Bring the industry. Prizic brings the technology.",
+      stepsHeadline: "A shared path to fit.",
+      steps: [
+        {
+          title: "Bring market knowledge.",
+          description:
+            "A partner brings market knowledge, access or a clearly observed problem.",
+        },
+        {
+          title: "Frame and build.",
+          description:
+            "Prizic brings product framing, engineering and technical direction.",
+        },
+        {
+          title: "Validate fit.",
+          description:
+            "Both sides validate fit before discussing a long-term structure.",
+        },
+      ],
+      action: {
+        label: "Start a conversation",
+        href: "/contact",
+        kind: "primary",
+      },
+    },
+    about: {
+      title: "About Prizic",
+      introduction:
+        "Prizic is a founder-led technology company combining product thinking, engineering and long-term technical direction.",
+      purposeHeadline: "From possibility to working systems.",
+      purposeBody:
+        "The purpose is to turn experience into focused systems Prizic can stand behind, improve and learn from.",
+      nameHeadline: "The name Prizic.",
+      pronunciationLead: "Prizic is pronounced PRIZ-ik.",
+    },
+    contact: {
+      title: "Start a conversation",
+      introduction: "Start with what you are trying to change.",
+      body: "A product idea, an operating problem or an industry you understand deeply is enough context for a first conversation.",
+      pendingExplanation: "The public contact channel is being configured.",
+      actionLabel: "Contact Prizic",
+    },
+    notFound: {
+      title: "That path does not exist.",
+      body: "The page you were looking for is not part of this site.",
+      action: {
+        label: "Return home",
+        href: "/",
+        kind: "secondary",
+      },
+    },
+  },
 } satisfies SiteContent;
 
 assertPublicContent(JSON.stringify(SITE_CONTENT));

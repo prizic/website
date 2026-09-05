@@ -32,6 +32,16 @@ export interface NameAssociation {
   description: string;
 }
 
+export interface EditorialItem {
+  title: string;
+  description: string;
+}
+
+export interface PageIntroduction {
+  title: string;
+  introduction: string;
+}
+
 export interface SiteContent {
   navigation: NavigationItem[];
   hero: {
@@ -63,5 +73,38 @@ export interface SiteContent {
   name: {
     pronunciation: string;
     associations: NameAssociation[];
+  };
+  pages: {
+    thinking: PageIntroduction & {
+      commitmentsHeadline: string;
+      commitments: EditorialItem[];
+    };
+    capabilities: PageIntroduction & {
+      artifactsHeadline: string;
+      artifacts: string[];
+      boundariesHeadline: string;
+      boundaries: EditorialItem[];
+    };
+    partnerships: PageIntroduction & {
+      stepsHeadline: string;
+      steps: EditorialItem[];
+      action: ContentAction;
+    };
+    about: PageIntroduction & {
+      purposeHeadline: string;
+      purposeBody: string;
+      nameHeadline: string;
+      pronunciationLead: string;
+    };
+    contact: PageIntroduction & {
+      body: string;
+      pendingExplanation: string;
+      actionLabel: string;
+    };
+    notFound: {
+      title: string;
+      body: string;
+      action: ContentAction;
+    };
   };
 }

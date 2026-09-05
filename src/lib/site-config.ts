@@ -46,6 +46,12 @@ function parseContactUrl(value: string): string {
     );
   }
 
+  if (url.protocol === "mailto:" && !url.pathname) {
+    throw new Error(
+      "Invalid NEXT_PUBLIC_CONTACT_URL: mailto destination requires a recipient",
+    );
+  }
+
   return url.toString();
 }
 

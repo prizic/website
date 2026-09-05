@@ -57,6 +57,18 @@ describe("resolveSiteConfig", () => {
     },
   );
 
+  it("rejects an empty mailto destination in production", () => {
+    expect(() =>
+      resolveSiteConfig(
+        {
+          NEXT_PUBLIC_SITE_URL: "https://prizic.com",
+          NEXT_PUBLIC_CONTACT_URL: "mailto:",
+        },
+        "production",
+      ),
+    ).toThrow(/invalid NEXT_PUBLIC_CONTACT_URL/i);
+  });
+
   it("rejects pending production configuration", () => {
     expect(() => resolveSiteConfig({}, "production")).toThrow(
       "Production requires NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_CONTACT_URL",

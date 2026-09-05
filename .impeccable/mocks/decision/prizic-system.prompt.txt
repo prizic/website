@@ -1,0 +1,4 @@
+Use case: ui-mockup
+Asset type: high-fidelity 16:10 desktop homepage composition
+Direction: Blueprint / The Prizic System.
+Create a corporate/PR homepage for Prizic using an architectural system derived from the P/Z logo. Use near-black #0A0E1A, off-white #EDEFF5 and restrained cyan #00D9FF. Lead with “From possibility to working systems.” The dominant blueprint connects Question, Direction, Software and Learning and introduces Digital products, Focused solutions and Technology partnerships. Include Thinking, Capabilities, Partnerships, About and Start a conversation. No dental or booking-system content, fake clients, fake projects, testimonials, metrics, dashboards, stock photos, pricing or product-sales CTA.

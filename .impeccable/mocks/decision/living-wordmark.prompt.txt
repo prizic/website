@@ -1,0 +1,4 @@
+Use case: ui-mockup
+Asset type: high-fidelity 16:10 desktop homepage composition
+Direction: Signal / The Living Wordmark.
+Create a corporate/PR homepage for Prizic, a founder-led technology company. Use near-black #0A0E1A, off-white #EDEFF5 and restrained cyan #00D9FF. Lead with “Technology, made clear.” and make an enormous typographic signal from Precise, Prism, Prize and Prizic, with “Pr” as the stable anchor. Include Thinking, Capabilities, Partnerships, About and Start a conversation. No dental or booking-system content, fake clients, fake projects, testimonials, metrics, dashboards, stock photos, pricing or product-sales CTA.

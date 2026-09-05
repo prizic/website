@@ -394,6 +394,337 @@ svg {
   font-size: clamp(1rem, 1.8vw, 1.25rem);
 }
 
+.living-wordmark {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  max-inline-size: 100%;
+}
+
+.living-wordmark__figure {
+  max-inline-size: 100%;
+  margin: 0;
+}
+
+.living-wordmark__visual {
+  display: flex;
+  max-inline-size: 100%;
+  align-items: center;
+  gap: clamp(var(--space-3), 2vw, var(--space-6));
+}
+
+.living-wordmark__mark {
+  inline-size: clamp(2.75rem, 7vw, 5.5rem);
+  block-size: auto;
+  flex: 0 0 auto;
+}
+
+.living-wordmark__word {
+  display: flex;
+  min-inline-size: 0;
+  align-items: baseline;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+
+.living-wordmark__anchor {
+  position: relative;
+  z-index: 1;
+}
+
+.living-wordmark__suffix {
+  display: inline-flex;
+  min-inline-size: 1.15em;
+  align-items: baseline;
+  color: var(--accent);
+  transform-origin: center left;
+}
+
+.living-wordmark__letter-i {
+  position: relative;
+  display: inline-block;
+  inline-size: 0.28em;
+  block-size: 0.78em;
+}
+
+.living-wordmark__stem {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+  inline-size: 0.11em;
+  block-size: 0.57em;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.living-wordmark__eye {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  inline-size: 0.12em;
+  block-size: 0.12em;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%) scaleY(1);
+  transform-origin: center;
+}
+
+.living-wordmark__letter-z {
+  position: relative;
+  display: inline-block;
+}
+
+.living-wordmark__smile {
+  position: absolute;
+  inset-block-end: -0.08em;
+  inset-inline-start: 50%;
+  inline-size: 0.7em;
+  fill: none;
+  opacity: 0;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 2;
+  transform: translateX(-50%);
+}
+
+.living-wordmark__figure[data-settling="true"] .living-wordmark__eye {
+  animation: prizic-eye-blink 720ms ease-out 1;
+}
+
+.living-wordmark__figure[data-settling="true"] .living-wordmark__smile {
+  animation: prizic-smile-resolve 820ms cubic-bezier(0.16, 1, 0.3, 1) 1;
+}
+
+.living-wordmark__replay {
+  display: inline-flex;
+  min-block-size: 44px;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  transition:
+    background-color 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.living-wordmark__replay:hover,
+.living-wordmark__replay:focus-visible {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.living-wordmark__replay:active {
+  color: var(--accent);
+}
+
+.living-wordmark__replay svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.prizic-blueprint {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 62rem;
+  aspect-ratio: 760 / 500;
+  margin: 0;
+}
+
+.prizic-blueprint__drawing {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.prizic-blueprint__guide,
+.prizic-blueprint__route,
+.prizic-blueprint__axis,
+.prizic-blueprint__origin-ring {
+  vector-effect: non-scaling-stroke;
+}
+
+.prizic-blueprint__guide {
+  stroke: var(--border);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.prizic-blueprint__route {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.prizic-blueprint__axis {
+  fill: none;
+  opacity: 0.55;
+  stroke: var(--border);
+  stroke-dasharray: 3 8;
+  stroke-width: 1;
+}
+
+.prizic-blueprint__origin-ring {
+  fill: var(--bg);
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.prizic-blueprint__stages {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prizic-blueprint__stage {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--space-3);
+  inline-size: clamp(13rem, 29%, 17rem);
+  min-block-size: 5.75rem;
+  align-items: center;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 3rem;
+  background: var(--bg);
+}
+
+.prizic-blueprint__stage:nth-child(1) {
+  inset-block-start: 1.5%;
+  inset-inline-start: 34%;
+}
+
+.prizic-blueprint__stage:nth-child(2) {
+  inset-block-start: 39%;
+  inset-inline-end: 0;
+}
+
+.prizic-blueprint__stage:nth-child(3) {
+  inset-block-end: 0;
+  inset-inline-start: 37%;
+}
+
+.prizic-blueprint__stage:nth-child(4) {
+  inset-block-start: 42%;
+  inset-inline-start: 0;
+}
+
+.prizic-blueprint__index {
+  display: grid;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.prizic-blueprint__stage strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.prizic-blueprint__stage p {
+  display: -webkit-box;
+  margin-block: var(--space-1) 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.prizic-blueprint--compact {
+  min-block-size: 45rem;
+  aspect-ratio: auto;
+}
+
+.prizic-blueprint--compact .prizic-blueprint__drawing {
+  inline-size: 9rem;
+}
+
+.prizic-blueprint--compact .prizic-blueprint__stages {
+  position: relative;
+  display: grid;
+  min-block-size: 45rem;
+  align-content: space-around;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  padding-inline-start: 5.5rem;
+}
+
+.prizic-blueprint--compact .prizic-blueprint__stage {
+  position: static;
+  inline-size: 100%;
+  min-block-size: 8rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  border-inline-end: 0;
+  border-radius: 3rem 0 0 3rem;
+}
+
+@keyframes prizic-eye-blink {
+  0%,
+  34%,
+  58%,
+  100% {
+    transform: translateX(-50%) scaleY(1);
+  }
+
+  44%,
+  50% {
+    transform: translateX(-50%) scaleY(0.08);
+  }
+}
+
+@keyframes prizic-smile-resolve {
+  0%,
+  20% {
+    opacity: 0;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  48%,
+  72% {
+    opacity: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 56.24rem) {
   .site-header__logo--desktop {
     display: none;
@@ -442,6 +773,22 @@ svg {
   .site-footer__identity {
     grid-column: auto;
   }
+
+  .living-wordmark__visual {
+    gap: var(--space-3);
+  }
+
+  .living-wordmark__word {
+    font-size: clamp(2.25rem, 15vw, 4rem);
+  }
+
+  .living-wordmark__mark {
+    inline-size: 2.75rem;
+  }
+
+  .prizic-blueprint--compact .prizic-blueprint__stage {
+    padding-inline: var(--space-2) var(--space-1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -455,5 +802,10 @@ svg {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .living-wordmark__figure[data-settling="true"] .living-wordmark__eye,
+  .living-wordmark__figure[data-settling="true"] .living-wordmark__smile {
+    animation: none;
   }
 }

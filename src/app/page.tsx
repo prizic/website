@@ -61,6 +61,16 @@ export default function HomePage() {
             <div className="home-hero__wordmark">
               <LivingWordmark />
             </div>
+            <Link
+              aria-label={`Continue to ${SITE_CONTENT.principles.headline}`}
+              className="home-hero__continuation"
+              href="#principles"
+            >
+              <span>Continue</span>
+              <svg aria-hidden="true" viewBox="0 0 16 16">
+                <path d="M8 2v12m-5-5 5 5 5-5" />
+              </svg>
+            </Link>
           </div>
 
           <BlueprintPair className="home-hero__blueprint" />

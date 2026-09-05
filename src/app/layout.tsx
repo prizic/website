@@ -34,9 +34,11 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body
         className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
       >
-        <template data-impeccable-contract="89484ca6" hidden>
-          {DIRECTION_CONTRACT}
-        </template>
+        <template
+          dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }}
+          data-impeccable-contract="89484ca6"
+          hidden
+        />
         <SiteHeader
           contact={siteConfig.contact}
           navigation={SITE_CONTENT.navigation}

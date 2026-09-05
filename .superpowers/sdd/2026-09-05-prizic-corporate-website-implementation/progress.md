@@ -43,3 +43,17 @@ Task 8: complete (commit 167bf48 plus documentation commit). Finish review round
 Ruling: Use the two explicitly approved decision comps as the visual ceiling even though no separate QUALITY BAR card exists — the user approved their combined Blueprint and Anchor direction — cost if wrong: the hero may be denser than the minimum corporate brief requires.
 
 Ruling: Preserve the global 1280px frame while restoring architectural detail inside it rather than widening every site surface to the 1586px comp edge — the implementation plan fixed a 1280px maximum frame — cost if wrong: the 1586px checkpoint retains more outer whitespace than the comp.
+
+## Final review fix round
+
+Final review fixes: complete. Five launch-hardening findings were reproduced with failing tests and resolved in one focused round:
+
+- The mobile dialog owns its vertical scroll area at 667 by 375 while the page remains locked, keeping About and the configured contact action reachable.
+- The server-rendered mobile state now exposes a semantic fallback navigation without JavaScript; hydration replaces it with the existing dialog trigger and focus-managed interaction.
+- `mailto:` configuration validates decoded recipient syntax while retaining valid query parameters.
+- Canonical configuration is limited to a normalized HTTP(S) origin, and sitemap/robots URLs are built with `URL` resolution.
+- The default contact label is scheme-neutral; explicitly supplied labels remain unchanged.
+
+Red evidence: 11 focused unit/component assertions failed against the previous configuration and label behavior; both new Playwright regressions failed against the previous mobile navigation behavior.
+
+Green evidence: 70 unit/component tests passed, typecheck passed, lint passed, the production build generated 13 static pages, and 34 Playwright tests passed. `git diff --check` passed after the implementation and report updates. The prior Task 8 finish detector remains the single detector pass for this UI; no second finish detector was manufactured for the review-fix round.

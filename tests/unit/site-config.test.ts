@@ -36,6 +36,16 @@ describe("resolveSiteConfig", () => {
     ).toBe("https://prizic.com");
   });
 
+  it.each([
+    "https://prizic.com/about",
+    "https://prizic.com?source=preview",
+    "https://prizic.com#company",
+  ])("rejects a canonical URL that is not the site origin: %s", (siteUrl) => {
+    expect(() =>
+      resolveSiteConfig({ NEXT_PUBLIC_SITE_URL: siteUrl }, "test"),
+    ).toThrow(/invalid NEXT_PUBLIC_SITE_URL/i);
+  });
+
   it("rejects malformed canonical URLs", () => {
     expect(() =>
       resolveSiteConfig(
@@ -67,6 +77,35 @@ describe("resolveSiteConfig", () => {
         "production",
       ),
     ).toThrow(/invalid NEXT_PUBLIC_CONTACT_URL/i);
+  });
+
+  it.each([
+    "mailto:not-an-email",
+    "mailto:%20",
+    "mailto:hello%20world@prizic.com",
+    "mailto:hello@",
+  ])("rejects a malformed mailto recipient: %s", (contactUrl) => {
+    expect(() =>
+      resolveSiteConfig(
+        { NEXT_PUBLIC_CONTACT_URL: contactUrl },
+        "test",
+      ),
+    ).toThrow(/invalid NEXT_PUBLIC_CONTACT_URL/i);
+  });
+
+  it("retains a valid mailto recipient and query parameters", () => {
+    expect(
+      resolveSiteConfig(
+        {
+          NEXT_PUBLIC_CONTACT_URL:
+            "mailto:hello@prizic.com?subject=Project%20enquiry&body=Hello%20Prizic",
+        },
+        "test",
+      ).contact,
+    ).toEqual({
+      kind: "ready",
+      href: "mailto:hello@prizic.com?subject=Project%20enquiry&body=Hello%20Prizic",
+    });
   });
 
   it("rejects pending production configuration", () => {

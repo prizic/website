@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 import { ContactAction } from "@/components/actions/contact-action";
 import type { ContactState, NavigationItem } from "@/content/types";
@@ -14,7 +20,14 @@ type MobileMenuProps = {
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+const subscribeToEnhancement = () => () => {};
+
 export function MobileMenu({ navigation, contact }: MobileMenuProps) {
+  const isEnhanced = useSyncExternalStore(
+    subscribeToEnhancement,
+    () => true,
+    () => false,
+  );
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -94,6 +107,7 @@ export function MobileMenu({ navigation, contact }: MobileMenuProps) {
         aria-haspopup="dialog"
         aria-label="Open menu"
         className="mobile-menu__trigger"
+        hidden={!isEnhanced}
         onClick={() => setIsOpen(true)}
         ref={triggerRef}
         type="button"
@@ -104,7 +118,24 @@ export function MobileMenu({ navigation, contact }: MobileMenuProps) {
         </span>
       </button>
 
-      {isOpen ? (
+      <nav
+        aria-label="Mobile fallback"
+        className="mobile-menu__fallback"
+        hidden={isEnhanced}
+      >
+        {navigation.map((item) => (
+          <Link href={item.href} key={item.href}>
+            {item.label}
+          </Link>
+        ))}
+        <ContactAction
+          className="mobile-menu__fallback-contact"
+          contact={contact}
+          label="Start a conversation"
+        />
+      </nav>
+
+      {isEnhanced && isOpen ? (
         <div
           aria-label="Navigation"
           aria-modal="true"

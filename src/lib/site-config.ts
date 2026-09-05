@@ -28,7 +28,40 @@ function parseCanonicalUrl(value: string): string {
     throw new Error("Invalid NEXT_PUBLIC_SITE_URL: expected an http or https URL");
   }
 
-  return url.toString().replace(/\/$/, "");
+  if (
+    url.pathname !== "/" ||
+    url.search ||
+    url.hash ||
+    url.username ||
+    url.password
+  ) {
+    throw new Error(
+      "Invalid NEXT_PUBLIC_SITE_URL: expected an origin without a path, query or fragment",
+    );
+  }
+
+  return url.origin;
+}
+
+function hasValidMailtoRecipients(pathname: string): boolean {
+  let decodedRecipients: string;
+
+  try {
+    decodedRecipients = decodeURIComponent(pathname);
+  } catch {
+    return false;
+  }
+
+  const recipients = decodedRecipients.split(",");
+  const emailAddress = /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/;
+
+  return (
+    recipients.length > 0 &&
+    recipients.every(
+      (recipient) =>
+        recipient === recipient.trim() && emailAddress.test(recipient),
+    )
+  );
 }
 
 function parseContactUrl(value: string): string {
@@ -46,9 +79,9 @@ function parseContactUrl(value: string): string {
     );
   }
 
-  if (url.protocol === "mailto:" && !url.pathname) {
+  if (url.protocol === "mailto:" && !hasValidMailtoRecipients(url.pathname)) {
     throw new Error(
-      "Invalid NEXT_PUBLIC_CONTACT_URL: mailto destination requires a recipient",
+      "Invalid NEXT_PUBLIC_CONTACT_URL: mailto destination requires a valid recipient",
     );
   }
 

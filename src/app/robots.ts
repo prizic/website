@@ -10,6 +10,8 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: { userAgent: "*", allow: "/" },
-    ...(canonicalUrl ? { sitemap: `${canonicalUrl}/sitemap.xml` } : {}),
+    ...(canonicalUrl
+      ? { sitemap: new URL("/sitemap.xml", canonicalUrl).toString() }
+      : {}),
   };
 }

@@ -44,6 +44,35 @@ for (const width of [320, 375, 768]) {
   });
 }
 
+test("mobile navigation remains scrollable in a short landscape viewport", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 667, height: 375 });
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const menu = page.getByRole("dialog", { name: "Navigation" });
+  const about = menu.getByRole("link", { name: "About" });
+  const contact = menu.getByRole("link", { name: "Start a conversation" });
+
+  await expect(menu).toBeVisible();
+  await expect(about).toBeVisible();
+  await about.scrollIntoViewIfNeeded();
+  await expect(about).toBeInViewport();
+  await contact.scrollIntoViewIfNeeded();
+  await expect(contact).toBeInViewport();
+  await expect(contact).toBeEnabled();
+  await expect(contact).toHaveAttribute("href", "mailto:preview@prizic.test");
+
+  const scrollState = await menu.evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    overflowY: getComputedStyle(element).overflowY,
+    scrollHeight: element.scrollHeight,
+  }));
+  expect(scrollState.overflowY).toBe("auto");
+  expect(scrollState.scrollHeight).toBeGreaterThan(scrollState.clientHeight);
+});
+
 test("the compact process keeps all four stages in document order", async ({
   page,
 }) => {

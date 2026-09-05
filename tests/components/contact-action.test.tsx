@@ -11,17 +11,16 @@ describe("ContactAction", () => {
     expect(pending.closest("a, button")).toBeNull();
   });
 
-  it("renders a ready destination as an email link by default", () => {
+  it("uses a scheme-neutral label for a ready destination by default", () => {
     render(
       <ContactAction
-        contact={{ kind: "ready", href: "mailto:hello@prizic.com" }}
+        contact={{ kind: "ready", href: "https://contact.prizic.com" }}
       />,
     );
 
-    expect(screen.getByRole("link", { name: "Email Prizic" })).toHaveAttribute(
-      "href",
-      "mailto:hello@prizic.com",
-    );
+    expect(
+      screen.getByRole("link", { name: "Contact Prizic" }),
+    ).toHaveAttribute("href", "https://contact.prizic.com");
   });
 
   it("uses an explicit label for a ready destination", () => {

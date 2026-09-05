@@ -143,3 +143,52 @@ test("core homepage content and navigation work without JavaScript", async ({
     await context.close();
   }
 });
+
+test("mobile navigation remains complete and usable without JavaScript", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    baseURL: "http://127.0.0.1:3100",
+    javaScriptEnabled: false,
+    viewport: { width: 375, height: 812 },
+  });
+  const page = await context.newPage();
+
+  try {
+    const response = await page.goto("/");
+    expect(response?.ok()).toBe(true);
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
+
+    const navigation = page.getByRole("navigation", {
+      name: "Mobile fallback",
+    });
+    await expect(navigation).toBeVisible();
+    await expect(navigation.getByRole("link")).toHaveText([
+      "Thinking",
+      "Capabilities",
+      "Partnerships",
+      "About",
+      "Start a conversation",
+    ]);
+    expect(
+      await navigation.getByRole("link").evaluateAll((links) =>
+        links.map((link) => link.getAttribute("href")),
+      ),
+    ).toEqual([
+      "/thinking",
+      "/capabilities",
+      "/partnerships",
+      "/about",
+      "mailto:preview@prizic.test",
+    ]);
+    await expect(
+      navigation.getByRole("link", { name: "Start a conversation" }),
+    ).toHaveAttribute("href", "mailto:preview@prizic.test");
+
+    for (const link of await navigation.getByRole("link").all()) {
+      await expect(link).toBeVisible();
+    }
+  } finally {
+    await context.close();
+  }
+});

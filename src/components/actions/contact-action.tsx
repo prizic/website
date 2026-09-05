@@ -8,7 +8,7 @@ type ContactActionProps = {
 
 export function ContactAction({
   contact,
-  label = "Email Prizic",
+  label = "Contact Prizic",
   className,
 }: ContactActionProps) {
   const classes = ["contact-action", className].filter(Boolean).join(" ");

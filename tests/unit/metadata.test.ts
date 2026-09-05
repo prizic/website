@@ -146,6 +146,27 @@ describe("structured discovery metadata", () => {
     });
   });
 
+  it("builds discovery URLs from the validated canonical origin", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://prizic.com/");
+
+    expect(robots()).toEqual({
+      rules: { userAgent: "*", allow: "/" },
+      sitemap: "https://prizic.com/sitemap.xml",
+    });
+    expect(sitemap().at(-1)?.url).toBe("https://prizic.com/contact");
+  });
+
+  it.each([
+    "https://prizic.com/about",
+    "https://prizic.com?source=preview",
+    "https://prizic.com#company",
+  ])("rejects invalid discovery origins: %s", (siteUrl) => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", siteUrl);
+
+    expect(() => robots()).toThrow(/invalid NEXT_PUBLIC_SITE_URL/i);
+    expect(() => sitemap()).toThrow(/invalid NEXT_PUBLIC_SITE_URL/i);
+  });
+
   it("keeps production discovery config behind existing URL validation", () => {
     expect(() => resolveSiteConfig({}, "production")).toThrow(
       "Production requires NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_CONTACT_URL",

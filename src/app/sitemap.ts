@@ -20,6 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (!canonicalUrl) return [];
 
   return PUBLIC_ROUTES.map((path) => ({
-    url: new URL(path, `${canonicalUrl}/`).toString(),
+    url: new URL(path, canonicalUrl).toString(),
   }));
 }

@@ -2,7 +2,7 @@
 
 The corporate site for Prizic, a founder-led technology company turning possibility into working systems.
 
-This repository contains the site code. It does not claim that the site is deployed.
+Production: [prizic.com](https://prizic.com)
 
 ![Prizic homepage](.impeccable/review/prizic-desktop.png)
 
@@ -45,6 +45,8 @@ pnpm start
 ```
 
 Preview and development builds may omit them and show the truthful pending-contact state. Test-only addresses belong in commands or CI configuration, never in company content.
+
+The production site is deployed from the `katanaz/prizic` Vercel project. The apex domain is the canonical address. Vercel stores the production and preview values for both public environment variables; update the contact destination there when the Prizic company inbox is ready.
 
 ## Site structure
 

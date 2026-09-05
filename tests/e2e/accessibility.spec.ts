@@ -31,25 +31,70 @@ test("reduced motion exposes the settled wordmark and complete process", async (
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      }),
+  );
 
   const wordmark = page
     .locator(".living-wordmark__figure")
     .filter({ visible: true });
-  await expect(wordmark).toHaveAttribute("data-word", "Prizic");
+  const initialWordmarkState = await wordmark.evaluate((element) => {
+    const displayWord = element.querySelector<HTMLElement>(
+      ".living-wordmark__display-word",
+    );
+    const styles = displayWord ? getComputedStyle(displayWord) : null;
+
+    return {
+      word: element.getAttribute("data-word"),
+      filter: styles?.filter,
+      opacity: styles?.opacity,
+      transform: styles?.transform,
+    };
+  });
+  expect(initialWordmarkState).toEqual({
+    word: "Prizic",
+    filter: "blur(0px)",
+    opacity: "1",
+    transform: "none",
+  });
 
   const visibleSystem = page
     .locator(".home-system .prizic-blueprint")
     .filter({ visible: true });
-  await expect(visibleSystem.locator("strong")).toHaveText([
-    "Question",
-    "Direction",
-    "Software",
-    "Learning",
-  ]);
-  await expect(
-    visibleSystem.locator('[data-route-progress][data-motion="static"]'),
-  ).toBeVisible();
+  const processState = await visibleSystem.evaluate((element) => ({
+    routeMotion: element
+      .querySelector<HTMLElement>("[data-route-progress]")
+      ?.getAttribute("data-motion"),
+    stages: Array.from(element.querySelectorAll<HTMLElement>("strong")).map(
+      (label) => {
+        const styles = getComputedStyle(label);
+        const bounds = label.getBoundingClientRect();
+
+        return {
+          text: label.textContent,
+          visible:
+            styles.display !== "none" &&
+            styles.visibility !== "hidden" &&
+            Number(styles.opacity) > 0 &&
+            bounds.width > 0 &&
+            bounds.height > 0,
+        };
+      },
+    ),
+  }));
+  expect(processState).toEqual({
+    routeMotion: "static",
+    stages: [
+      { text: "Question", visible: true },
+      { text: "Direction", visible: true },
+      { text: "Software", visible: true },
+      { text: "Learning", visible: true },
+    ],
+  });
 });
 
 test("core homepage content and navigation work without JavaScript", async ({

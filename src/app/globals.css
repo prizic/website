@@ -147,8 +147,16 @@ svg {
 }
 
 .site-header__logo {
-  inline-size: 9.5rem;
   block-size: auto;
+}
+
+.site-header__logo--desktop {
+  inline-size: 9.5rem;
+}
+
+.site-header__logo--mobile {
+  display: none;
+  inline-size: 2.5rem;
 }
 
 .site-header__navigation {
@@ -387,6 +395,14 @@ svg {
 }
 
 @media (max-width: 56.24rem) {
+  .site-header__logo--desktop {
+    display: none;
+  }
+
+  .site-header__logo--mobile {
+    display: block;
+  }
+
   .site-header__navigation,
   .site-header__contact {
     display: none;
@@ -412,10 +428,6 @@ svg {
 
   .site-header__inner {
     min-block-size: 4.5rem;
-  }
-
-  .site-header__logo {
-    inline-size: 7.75rem;
   }
 
   .site-footer {

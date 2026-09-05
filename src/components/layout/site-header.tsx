@@ -21,7 +21,16 @@ export function SiteHeader({
       </a>
       <div className="site-frame site-header__inner">
         <Link aria-label="Prizic home" className="site-header__brand" href="/">
-          <PrizicLogo className="site-header__logo" decorative preload />
+          <PrizicLogo
+            className="site-header__logo site-header__logo--desktop"
+            decorative
+            preload
+          />
+          <PrizicLogo
+            className="site-header__logo site-header__logo--mobile"
+            decorative
+            variant="mark"
+          />
         </Link>
 
         <nav aria-label="Primary" className="site-header__navigation">

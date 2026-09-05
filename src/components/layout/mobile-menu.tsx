@@ -25,6 +25,25 @@ export function MobileMenu({ navigation, contact }: MobileMenuProps) {
   }, []);
 
   useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+
+    const desktopBreakpoint = window.matchMedia("(min-width: 56.25rem)");
+
+    function closeAtDesktop(
+      mediaQuery: MediaQueryList | MediaQueryListEvent,
+    ) {
+      if (mediaQuery.matches) setIsOpen(false);
+    }
+
+    closeAtDesktop(desktopBreakpoint);
+    desktopBreakpoint.addEventListener("change", closeAtDesktop);
+
+    return () => {
+      desktopBreakpoint.removeEventListener("change", closeAtDesktop);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isOpen) return;
 
     const previousOverflow = document.body.style.overflow;

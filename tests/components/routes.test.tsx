@@ -72,6 +72,85 @@ describe("supporting corporate routes", () => {
     }
   });
 
+  it("expands every Thinking principle beyond its homepage summary", () => {
+    render(<ThinkingPage />);
+
+    const expandedPrinciples = [
+      {
+        title: "Clarity before complexity.",
+        homepage: "Understand the actual problem before choosing the technology.",
+        expanded:
+          "Start by separating the real problem from the requested feature. The situation, constraints and desired change come before a choice of technology.",
+      },
+      {
+        title: "Useful before impressive.",
+        homepage:
+          "A system should improve real work, not merely look advanced.",
+        expanded:
+          "Judge the work by whether it improves what people need to do. Novelty and technical spectacle do not make a system useful.",
+      },
+      {
+        title: "Systems over one-offs.",
+        homepage:
+          "What is built today should make the next decision easier, not create another dead end.",
+        expanded:
+          "Build each decision so the next one has a clearer foundation. Reusable knowledge, written reasoning and connected parts prevent another dead end.",
+      },
+    ];
+
+    for (const principle of expandedPrinciples) {
+      const heading = screen.getByRole("heading", { name: principle.title });
+      const item = heading.closest("li");
+
+      expect(item).not.toBeNull();
+      expect(within(item!).getByText(principle.expanded)).toBeVisible();
+      expect(within(item!).queryByText(principle.homepage)).not.toBeInTheDocument();
+    }
+  });
+
+  it("explains every Thinking process stage beyond its homepage summary", () => {
+    render(<ThinkingPage />);
+
+    const expandedStages = [
+      {
+        title: "Question",
+        homepage:
+          "Start with the real situation, constraints and desired change.",
+        expanded:
+          "Look at the work as it exists now. Name the people involved, the constraint that matters and the change worth making.",
+      },
+      {
+        title: "Direction",
+        homepage: "Decide what should exist, what should not, and why.",
+        expanded:
+          "Choose the smallest coherent response. Define what belongs, what stays out and the reasoning behind both.",
+      },
+      {
+        title: "Software",
+        homepage:
+          "Build the focused system with production concerns included.",
+        expanded:
+          "Turn that direction into a focused working system. Security, quality and maintainability stay in the production baseline.",
+      },
+      {
+        title: "Learning",
+        homepage:
+          "Observe use, improve the system and carry the knowledge forward.",
+        expanded:
+          "Watch how the system is used, record what changes and bring that knowledge into the next decision.",
+      },
+    ];
+
+    for (const stage of expandedStages) {
+      const heading = screen.getByRole("heading", { name: stage.title });
+      const item = heading.closest("li");
+
+      expect(item).not.toBeNull();
+      expect(within(item!).getByText(stage.expanded)).toBeVisible();
+      expect(within(item!).queryByText(stage.homepage)).not.toBeInTheDocument();
+    }
+  });
+
   it("limits Capabilities examples to the approved artifact categories", () => {
     render(<CapabilitiesPage />);
 

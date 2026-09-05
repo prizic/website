@@ -138,6 +138,45 @@ export const SITE_CONTENT = {
     thinking: {
       title: "Thinking",
       introduction: "Clarity is part of the work.",
+      principles: [
+        {
+          title: "Clarity before complexity.",
+          description:
+            "Start by separating the real problem from the requested feature. The situation, constraints and desired change come before a choice of technology.",
+        },
+        {
+          title: "Useful before impressive.",
+          description:
+            "Judge the work by whether it improves what people need to do. Novelty and technical spectacle do not make a system useful.",
+        },
+        {
+          title: "Systems over one-offs.",
+          description:
+            "Build each decision so the next one has a clearer foundation. Reusable knowledge, written reasoning and connected parts prevent another dead end.",
+        },
+      ],
+      processStages: [
+        {
+          title: "Question",
+          description:
+            "Look at the work as it exists now. Name the people involved, the constraint that matters and the change worth making.",
+        },
+        {
+          title: "Direction",
+          description:
+            "Choose the smallest coherent response. Define what belongs, what stays out and the reasoning behind both.",
+        },
+        {
+          title: "Software",
+          description:
+            "Turn that direction into a focused working system. Security, quality and maintainability stay in the production baseline.",
+        },
+        {
+          title: "Learning",
+          description:
+            "Watch how the system is used, record what changes and bring that knowledge into the next decision.",
+        },
+      ],
       commitmentsHeadline: "Production commitments.",
       commitments: [
         {

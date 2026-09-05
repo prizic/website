@@ -13,7 +13,7 @@ export default function ThinkingPage() {
         className="editorial-section editorial-section--light"
       >
         <ol className="site-frame editorial-sequence editorial-sequence--three">
-          {SITE_CONTENT.principles.items.map((principle, index) => (
+          {page.principles.map((principle, index) => (
             <li key={principle.title}>
               <span aria-hidden="true" className="editorial-index">
                 {String(index + 1).padStart(2, "0")}
@@ -34,7 +34,7 @@ export default function ThinkingPage() {
         <div className="site-frame editorial-split">
           <h2 id="thinking-system-title">{SITE_CONTENT.process.headline}</h2>
           <ol className="editorial-rows">
-            {SITE_CONTENT.process.stages.map((stage, index) => (
+            {page.processStages.map((stage, index) => (
               <li key={stage.title}>
                 <span aria-hidden="true" className="editorial-index">
                   {String(index + 1).padStart(2, "0")}

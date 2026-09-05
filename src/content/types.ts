@@ -76,6 +76,8 @@ export interface SiteContent {
   };
   pages: {
     thinking: PageIntroduction & {
+      principles: EditorialItem[];
+      processStages: EditorialItem[];
       commitmentsHeadline: string;
       commitments: EditorialItem[];
     };

@@ -48,7 +48,7 @@ function installDesktopBreakpoint(initialMatches = false) {
 }
 
 describe("SiteHeader", () => {
-  it("exposes the home link and primary navigation", () => {
+  it("exposes the home link, primary navigation, and accent control", () => {
     render(<SiteHeader navigation={SITE_CONTENT.navigation} />);
 
     expect(screen.getByRole("link", { name: "Prizic home" })).toHaveAttribute(
@@ -58,6 +58,7 @@ describe("SiteHeader", () => {
     expect(
       screen.getByRole("navigation", { name: "Primary" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Accent color" })).toBeVisible();
   });
 
   it("uses one home link with full and compact responsive logo assets", () => {
@@ -70,7 +71,7 @@ describe("SiteHeader", () => {
       'img[src="/brand/prizic-lockup-on-dark.svg"]',
     );
     const mark = homeLinks[0].querySelector(
-      'img[src="/brand/prizic-mark-on-dark.svg"]',
+      'img[src="/brand/prizic-mark-on-light.svg"]',
     );
 
     expect(lockup).toHaveClass("site-header__logo--desktop");

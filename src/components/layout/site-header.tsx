@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ContactAction } from "@/components/actions/contact-action";
 import { PrizicLogo } from "@/components/brand/prizic-logo";
 import { MobileMenu } from "@/components/layout/mobile-menu";
+import { AccentSwitcher } from "@/components/theme/accent-switcher";
 import type { ContactState, NavigationItem } from "@/content/types";
 
 type SiteHeaderProps = {
@@ -29,6 +30,7 @@ export function SiteHeader({
           <PrizicLogo
             className="site-header__logo site-header__logo--mobile"
             decorative
+            surface="light"
             variant="mark"
           />
         </Link>
@@ -40,6 +42,8 @@ export function SiteHeader({
             </Link>
           ))}
         </nav>
+
+        <AccentSwitcher className="site-header__accent" />
 
         <ContactAction
           className="site-header__contact"

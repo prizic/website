@@ -222,16 +222,14 @@ svg {
 }
 
 .site-header {
-  border-block-end: 1px solid var(--border);
   background: var(--bg);
 }
 
 .site-header__inner {
   display: flex;
-  min-block-size: 5.5rem;
+  min-block-size: 4.75rem;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-8);
+  gap: clamp(var(--space-3), 1.8vw, var(--space-8));
 }
 
 .site-header__brand {
@@ -239,6 +237,9 @@ svg {
   min-block-size: 44px;
   align-items: center;
   flex: 0 0 auto;
+  padding-inline: var(--space-3);
+  border-radius: 999px;
+  background: var(--ink);
 }
 
 .site-header__logo {
@@ -246,7 +247,7 @@ svg {
 }
 
 .site-header__logo--desktop {
-  inline-size: 9.5rem;
+  inline-size: 6.6rem;
 }
 
 .site-header__logo--mobile {
@@ -257,8 +258,12 @@ svg {
 .site-header__navigation {
   display: flex;
   align-items: center;
-  gap: clamp(var(--space-6), 3vw, var(--space-12));
+  gap: clamp(var(--space-3), 1.6vw, var(--space-6));
   margin-inline-start: auto;
+}
+
+.site-header__accent {
+  flex: 0 0 auto;
 }
 
 .site-header__navigation a,
@@ -266,8 +271,12 @@ svg {
   display: inline-flex;
   min-block-size: 44px;
   align-items: center;
-  color: var(--text-muted);
-  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-decoration: none;
   transition: color 160ms ease-out;
 }
@@ -279,6 +288,55 @@ svg {
   color: var(--text);
 }
 
+.accent-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.accent-switcher label {
+  position: relative;
+  display: grid;
+  inline-size: 44px;
+  block-size: 44px;
+  place-items: center;
+  cursor: pointer;
+}
+
+.accent-switcher input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.accent-switcher label > span:not(.sr-only) {
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 34%, transparent);
+  border-radius: 50%;
+  background: var(--swatch);
+  transition: transform 160ms ease-out;
+}
+
+.accent-switcher input:checked + span {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+  transform: scale(1.06);
+}
+
+.accent-switcher input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 .contact-action {
   display: inline-flex;
   min-block-size: 44px;
@@ -286,12 +344,17 @@ svg {
   justify-content: center;
   gap: var(--space-4);
   padding: var(--space-2) var(--space-4);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  color: var(--accent);
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding-inline: var(--space-4) var(--space-3);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper-bright);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   line-height: 1.2;
+  text-transform: uppercase;
   text-decoration: none;
   transition:
     background-color 160ms ease-out,
@@ -300,8 +363,9 @@ svg {
 
 .contact-action:hover,
 .contact-action:focus-visible {
+  border-color: var(--accent);
   background: var(--accent);
-  color: var(--accent-text);
+  color: var(--accent-ink);
 }
 
 .contact-action:active {
@@ -313,6 +377,7 @@ svg {
 .contact-action--pending {
   cursor: not-allowed;
   border-color: var(--border);
+  background: transparent;
   color: var(--text-muted);
 }
 
@@ -321,14 +386,9 @@ svg {
   color: var(--text-muted);
 }
 
-.contact-action__arrow {
-  inline-size: 1rem;
-  block-size: 1rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-  stroke-width: 1.5;
+.contact-action .editorial-arrow {
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
 }
 
 .mobile-menu {
@@ -340,7 +400,7 @@ svg {
   inline-size: 44px;
   block-size: 44px;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 50%;
   background: transparent;
 }
 
@@ -453,8 +513,38 @@ svg {
 }
 
 .site-footer {
-  padding-block: var(--space-16) var(--space-8);
-  border-block-start: 1px solid var(--border);
+  padding-block: var(--space-16) var(--space-6);
+}
+
+.site-footer__folio {
+  padding: clamp(var(--space-6), 4vw, var(--space-12));
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: var(--paper-bright);
+}
+
+.site-footer__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block-end: var(--space-6);
+  border-block-end: 1px solid color-mix(in srgb, var(--paper-bright) 22%, transparent);
+  color: color-mix(in srgb, var(--paper-bright) 72%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer__topline .folio-label {
+  color: inherit;
+}
+
+.site-footer__topline .folio-label__index {
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .site-footer__inner {
@@ -462,6 +552,7 @@ svg {
   grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr));
   gap: var(--space-12);
   align-items: start;
+  padding-block-start: clamp(var(--space-8), 5vw, var(--space-16));
 }
 
 .site-footer__identity img {
@@ -472,13 +563,26 @@ svg {
 .site-footer__identity p {
   max-inline-size: 24rem;
   margin-block: var(--space-6) 0;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--paper-bright) 70%, transparent);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
 }
 
 .site-footer__navigation {
   display: grid;
   justify-items: start;
   gap: var(--space-1);
+}
+
+.site-footer__navigation a {
+  color: color-mix(in srgb, var(--paper-bright) 72%, transparent);
+}
+
+.site-footer__navigation a:hover,
+.site-footer__navigation a:focus-visible {
+  color: var(--paper-bright);
 }
 
 .site-footer__closing {
@@ -489,16 +593,43 @@ svg {
 
 .site-footer__closing p {
   margin: 0;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--paper-bright) 62%, transparent);
   font-family: var(--font-mono);
   font-size: 0.75rem;
+}
+
+.site-footer .contact-action {
+  border-color: var(--paper-bright);
+  background: var(--paper-bright);
+  color: var(--ink);
+}
+
+.site-footer .contact-action:hover,
+.site-footer .contact-action:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.site-footer .contact-action--pending,
+.site-footer .contact-action--pending:hover {
+  border-color: color-mix(in srgb, var(--paper-bright) 30%, transparent);
+  background: transparent;
+  color: color-mix(in srgb, var(--paper-bright) 62%, transparent);
 }
 
 .page-intro {
   padding-block: clamp(var(--space-16), 10vw, var(--space-32));
 }
 
-.page-intro h1 {
+.page-intro__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(var(--space-8), 7vw, var(--space-24));
+  margin-block-start: var(--space-8);
+}
+
+.page-intro__grid h1 {
   max-inline-size: 14ch;
   margin: 0;
   font-family: var(--font-display);
@@ -509,9 +640,9 @@ svg {
   text-wrap: balance;
 }
 
-.page-intro p {
+.page-intro__grid p {
   max-inline-size: 68ch;
-  margin-block: var(--space-8) 0;
+  margin: 0;
   color: var(--text-muted);
   font-size: clamp(1rem, 1.8vw, 1.25rem);
 }
@@ -1331,8 +1462,7 @@ svg {
   display: grid;
   min-block-size: min(56svh, 36rem);
   align-content: end;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(var(--space-8), 7vw, var(--space-24));
+  gap: 0;
   padding-block: clamp(var(--space-24), 10vw, var(--space-32));
 }
 
@@ -1345,12 +1475,12 @@ svg {
   content: "";
 }
 
-.editorial-page .page-intro h1 {
+.editorial-page .page-intro__grid h1 {
   max-inline-size: 11ch;
   align-self: end;
 }
 
-.editorial-page .page-intro p {
+.editorial-page .page-intro__grid p {
   align-self: end;
   margin: 0;
   font-size: clamp(1.125rem, 1.8vw, 1.375rem);
@@ -1779,7 +1909,7 @@ svg {
     max-inline-size: 40rem;
   }
 
-  .editorial-page .page-intro,
+  .page-intro__grid,
   .editorial-split,
   .about-name__grid,
   .contact-page__grid {
@@ -1788,10 +1918,9 @@ svg {
 
   .editorial-page .page-intro {
     min-block-size: min(48svh, 30rem);
-    gap: var(--space-8);
   }
 
-  .editorial-page .page-intro p {
+  .editorial-page .page-intro__grid p {
     max-inline-size: 50rem;
   }
 
@@ -1817,13 +1946,23 @@ svg {
     display: block;
   }
 
+  .site-header__brand {
+    padding-inline: 0;
+    background: transparent;
+  }
+
   .site-header__navigation,
   .site-header__contact {
     display: none;
   }
 
   .mobile-menu {
-    display: block;
+    display: flex;
+    align-items: center;
+  }
+
+  .site-header__accent {
+    margin-inline-start: auto;
   }
 
   .site-footer__inner {
@@ -1947,7 +2086,7 @@ svg {
     padding-block: var(--space-16);
   }
 
-  .editorial-page .page-intro h1 {
+  .editorial-page .page-intro__grid h1 {
     max-inline-size: none;
     font-size: clamp(3rem, 14vw, 4.75rem);
   }

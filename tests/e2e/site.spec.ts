@@ -70,15 +70,28 @@ test("desktop keyboard order moves from the logo through the primary action", as
     page.locator("header").getByRole("link", { name: "Capabilities" }),
     page.locator("header").getByRole("link", { name: "Partnerships" }),
     page.locator("header").getByRole("link", { name: "About", exact: true }),
-    page
-      .locator("header")
-      .getByRole("link", { name: "Start a conversation" }),
+    page.locator("header").getByRole("radio", { name: "Prizic cyan" }),
   ];
 
   for (const target of focusOrder) {
     await page.keyboard.press("Tab");
     await expect(target).toBeFocused();
   }
+
+  await page.keyboard.press("ArrowRight");
+  await expect(
+    page.locator("header").getByRole("radio", { name: "Electric lime" }),
+  ).toBeFocused();
+  await page.keyboard.press("ArrowRight");
+  await expect(
+    page.locator("header").getByRole("radio", { name: "Signal yellow" }),
+  ).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(
+    page
+      .locator("header")
+      .getByRole("link", { name: "Start a conversation" }),
+  ).toBeFocused();
 });
 
 test("the branded missing route returns visitors home", async ({ page }) => {

@@ -1,3 +1,4 @@
+import { EditorialArrow } from "@/components/editorial/editorial-arrow";
 import type { ContactState } from "@/content/types";
 
 type ContactActionProps = {
@@ -24,13 +25,7 @@ export function ContactAction({
   return (
     <a className={classes} href={contact.href}>
       <span>{label}</span>
-      <svg
-        aria-hidden="true"
-        className="contact-action__arrow"
-        viewBox="0 0 16 16"
-      >
-        <path d="M3 13 13 3M6 3h7v7" />
-      </svg>
+      <EditorialArrow />
     </a>
   );
 }

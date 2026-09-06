@@ -16,9 +16,10 @@ export function PrizicLogo({
   preload = false,
 }: PrizicLogoProps) {
   const isMark = variant === "mark";
-  const source = isMark
-    ? `/brand/prizic-mark-on-${surface}.svg`
-    : "/brand/prizic-lockup-on-dark.svg";
+  const source =
+    variant === "lockup"
+      ? "/brand/prizic-lockup-on-dark.svg"
+      : `/brand/prizic-mark-on-${surface}.svg`;
 
   return (
     <Image

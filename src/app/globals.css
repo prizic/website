@@ -225,11 +225,11 @@ a:is(:hover, :focus-visible) .editorial-arrow[data-direction="down"] {
   transform-origin: left;
 }
 
-.editorial-artwork[data-motion="enabled"] .editorial-artwork__route {
+.editorial-artwork[data-motion="enabled"][data-entered="true"] .editorial-artwork__route {
   animation: editorial-route-pass 3.2s cubic-bezier(0.16, 1, 0.3, 1) 1;
 }
 
-.editorial-artwork[data-motion="enabled"] .editorial-artwork__orbits {
+.editorial-artwork[data-motion="enabled"][data-entered="true"] .editorial-artwork__orbits {
   transform-origin: center;
   animation: editorial-orbit-arrive 3.8s cubic-bezier(0.16, 1, 0.3, 1) 1;
 }

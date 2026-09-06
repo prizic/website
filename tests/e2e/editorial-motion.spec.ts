@@ -8,6 +8,63 @@ test("the method follows the opening folio without a dead vertical band", async 
   expect(gap).toBeLessThanOrEqual(64);
 });
 
+test("later orbit and accent line wait for first entry and never replay on re-entry", async ({ page }) => {
+  await page.goto("/");
+  const artwork = page.locator(".direction-spread__artwork");
+  await expect(artwork).toHaveAttribute("data-motion", "enabled");
+  await expect(artwork).not.toBeInViewport();
+  const animatedDetails = artwork.locator(".editorial-artwork__orbits, .editorial-artwork__route");
+  expect(await animatedDetails.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName))).toEqual(["none", "none"]);
+
+  await artwork.evaluate((element) => element.scrollIntoView({ behavior: "instant", block: "center" }));
+  await expect.poll(() => animatedDetails.evaluateAll((elements) => elements.every((element) => element.getAnimations().some((animation) => animation.playState === "running")))).toBe(true);
+  await animatedDetails.evaluateAll(async (elements) => {
+    await Promise.all(elements.flatMap((element) => element.getAnimations().map((animation) => animation.finished)));
+  });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect(artwork).not.toBeInViewport();
+  await artwork.evaluate((element) => element.scrollIntoView({ behavior: "instant", block: "center" }));
+  await expect(artwork).toBeInViewport();
+  expect(await animatedDetails.evaluateAll((elements) => elements.flatMap((element) => element.getAnimations()).filter((animation) => animation.playState === "running").length)).toBe(0);
+});
+
+test("live reduction cancels an entered orbit and its accent line without restarting", async ({ page }) => {
+  await page.goto("/");
+  const artwork = page.locator(".direction-spread__artwork");
+  await artwork.evaluate((element) => element.scrollIntoView({ behavior: "instant", block: "center" }));
+  const details = artwork.locator(".editorial-artwork__orbits, .editorial-artwork__route");
+  await expect.poll(() => details.evaluateAll((elements) => elements.every((element) => element.getAnimations().some((animation) => animation.playState === "running")))).toBe(true);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(artwork).toHaveAttribute("data-motion", "static");
+  expect(await details.evaluateAll((elements) => elements.map((element) => ({ transform: getComputedStyle(element).transform, running: element.getAnimations().filter((animation) => animation.playState === "running").length })))).toEqual([{ transform: "none", running: 0 }, { transform: "none", running: 0 }]);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await artwork.evaluate((element) => element.scrollIntoView({ behavior: "instant", block: "center" }));
+  expect(await details.evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName))).toEqual(["none", "none"]);
+});
+
+for (const width of [320, 375]) {
+  test(`short mobile artwork keeps its image beyond both panel edges during parallax at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 812 });
+    await page.goto("/");
+    const artwork = page.locator(".introduction-spread__materials .editorial-artwork").first();
+    const image = artwork.locator("[data-artwork-parallax]");
+    for (const top of [40, 640]) {
+      await artwork.evaluate((element, targetTop) => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - targetTop, behavior: "instant" }), top);
+      await expect(artwork).toBeInViewport();
+      await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+      await expect.poll(() => image.evaluate((element) => getComputedStyle(element).transform)).not.toBe("none");
+      const coverage = await artwork.evaluate((element) => {
+        const panel = element.getBoundingClientRect();
+        const image = element.querySelector("[data-artwork-parallax]")!.getBoundingClientRect();
+        return { top: image.top - panel.top, bottom: panel.bottom - image.bottom };
+      });
+      expect(coverage.top).toBeLessThanOrEqual(0);
+      expect(coverage.bottom).toBeLessThanOrEqual(0);
+    }
+  });
+}
+
 test("every directional arrow travels on hover and keyboard focus", async ({ page }) => {
   await page.goto("/");
   const links = page.locator("a:visible:has(.editorial-arrow)");

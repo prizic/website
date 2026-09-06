@@ -31,6 +31,7 @@ export function ScrollReveal({ as: Tag = "section", reveal = "lines", artwork = 
       const parallax = root.querySelector<HTMLElement>("[data-artwork-parallax]");
       if (!played.current) {
         played.current = true;
+        root.setAttribute("data-entered", "true");
         if (artwork && crop) {
           changed.add(crop);
           animations.push(animate(crop, { clipPath: ["inset(0 18% 0 0)", "inset(0px)"], scale: [1.12, 1], x: [-6, 0] }, { duration: 4.2, ease, clipPath: { duration: 1.1, ease } }));
@@ -54,7 +55,9 @@ export function ScrollReveal({ as: Tag = "section", reveal = "lines", artwork = 
         cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => {
           const bounds = root.getBoundingClientRect();
-          const distance = Math.max(-8, Math.min(8, (innerHeight / 2 - bounds.top - bounds.height / 2) * 0.018));
+          // 5% overscan gives 2.5% bleed per edge; retain one pixel for rounding.
+          const maxTravel = Math.min(8, Math.max(0, parallax.clientHeight * 0.025 - 1));
+          const distance = Math.max(-maxTravel, Math.min(maxTravel, (innerHeight / 2 - bounds.top - bounds.height / 2) * 0.018));
           parallax.style.transform = `translateY(${distance}px) scale(1.05)`;
         });
       };
@@ -68,11 +71,13 @@ export function ScrollReveal({ as: Tag = "section", reveal = "lines", artwork = 
       const leave = () => { depth.style.transform = "none"; };
       updateScroll();
       window.addEventListener("scroll", updateScroll, { passive: true });
+      window.addEventListener("resize", updateScroll);
       root.addEventListener("pointermove", move);
       root.addEventListener("pointerleave", leave);
       removeInteraction = () => {
         cancelAnimationFrame(frame);
         window.removeEventListener("scroll", updateScroll);
+        window.removeEventListener("resize", updateScroll);
         root.removeEventListener("pointermove", move);
         root.removeEventListener("pointerleave", leave);
       };

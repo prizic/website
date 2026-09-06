@@ -1,0 +1,58 @@
+{
+  "source": "http://127.0.0.1:3428/",
+  "build": "Next.js production webpack build of editorial-deck after root font-variable correction",
+  "buildEnvironment": {
+    "NEXT_PUBLIC_SITE_URL": "http://127.0.0.1:3429",
+    "NEXT_PUBLIC_CONTACT_URL": "mailto:preview@prizic.test"
+  },
+  "runtimeEnvironment": {
+    "NEXT_PUBLIC_SITE_URL": "http://127.0.0.1:3428",
+    "NEXT_PUBLIC_CONTACT_URL": "mailto:preview@prizic.test"
+  },
+  "browser": "Chromium 153.0.8010.12",
+  "deviceScaleFactor": 1,
+  "accent": "cyan",
+  "preconditions": [
+    "Document top, scrollY 0",
+    "document.fonts.ready; computed Inter body and Space Grotesk headings",
+    "Required images decoded",
+    "Living wordmark settled on Prizic",
+    "No running animations",
+    "No console or page errors"
+  ],
+  "captures": [
+    {
+      "file": "desktop.png",
+      "capturedAt": "2026-09-06T11:08:29.714Z",
+      "viewport": [1440, 900],
+      "imageSize": [1440, 900],
+      "reducedMotion": false,
+      "sha256": "e3cd9ae03446cef1891bd76302ae9adc6dff18147f66e02bc819a56707af3ff7"
+    },
+    {
+      "file": "mobile.png",
+      "capturedAt": "2026-09-06T11:08:37.982Z",
+      "viewport": [375, 812],
+      "imageSize": [375, 812],
+      "reducedMotion": false,
+      "sha256": "3f3c360ce0e51011abea171c2d05b473cc2991d80379506524c1425cc5258318"
+    },
+    {
+      "file": "desktop-full-page.png",
+      "capturedAt": "2026-09-06T11:08:32.713Z",
+      "viewport": [1440, 900],
+      "imageSize": [1440, 6133],
+      "reducedMotion": true,
+      "sha256": "b9f8a01595f997490a2a7912233b61ca0ebbd81dec1f4b2337903eafae1690d8"
+    },
+    {
+      "file": "mobile-full-page.png",
+      "capturedAt": "2026-09-06T11:08:39.628Z",
+      "viewport": [375, 812],
+      "imageSize": [375, 8559],
+      "reducedMotion": true,
+      "sha256": "57f427e458e513c1b008d9345950a7a199383e2e24838b57442d9097ec6752e1"
+    }
+  ],
+  "notes": "Viewport captures use normal motion after settling. Full-page captures switch to reduced motion and eagerly decode all images. Lime and yellow were captured in the same round as local review evidence. Authored artwork provenance remains in public/images/editorial/."
+}

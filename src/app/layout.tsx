@@ -30,7 +30,7 @@ const monoFont = JetBrains_Mono({
 });
 
 const DIRECTION_CONTRACT =
-  "THESIS: Prizic makes its method the proof and refuses the generic agency portfolio. OWN-WORLD: near-black architectural field, off-white type, sparse cyan routes, measured P/Z geometry. STORY: understand the company, inspect how it thinks, then start a conversation. FIRST VIEWPORT: copy at left, four-state blueprint at right, contact action in the header. FORM: approved Blueprint plus living wordmark, seed 89484ca6. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.";
+  "THESIS: Prizic makes its method the proof through an Editorial Systems Deck. OWN-WORLD: warm paper, near-black rounded panels, large editorial type, compact folios, and one scarce dynamic cyan, lime, or yellow accent. STORY: understand the company, inspect Question, Direction, Software, and Learning, then start a conversation. FIRST VIEWPORT: compact animated full identity, panoramic statement and authored monochrome material imagery, settled living wordmark, and attached contact modules. FORM: unequal twelve-column spreads, deliberate mobile chapters, original P/Z assets and crops, varied finite motion, and complete reduced-motion and no-JavaScript states. FINISH: reviewed desktop and mobile captures, synchronized DESIGN.md and sidecar, and provenance for every shipping raster.";
 
 const rootSiteConfig = resolveSiteConfig(process.env, process.env.NODE_ENV);
 
@@ -48,6 +48,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
 
   return (
     <html
+      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
       data-accent="cyan"
       data-scroll-behavior="smooth"
       lang="en"
@@ -56,9 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <head>
         <script dangerouslySetInnerHTML={{ __html: ACCENT_BOOTSTRAP_SCRIPT }} />
       </head>
-      <body
-        className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
-      >
+      <body>
         <template
           dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }}
           data-impeccable-contract="89484ca6"

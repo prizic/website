@@ -9,6 +9,30 @@ const PUBLIC_ROUTES = [
   { path: "/contact", heading: "Start a conversation" },
 ] as const;
 
+test("the editorial type hierarchy uses the loaded brand fonts", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+
+  for (const [selector, family] of [
+    ["body", "Inter"],
+    ["h1", "Space Grotesk"],
+    [".folio-label", "JetBrains Mono"],
+  ]) {
+    const font = await page.locator(selector).first().evaluate((element) => {
+      const style = getComputedStyle(element);
+      const primaryFamily = style.fontFamily.split(",")[0];
+      return {
+        family: style.fontFamily,
+        loaded: document.fonts.check(
+          `${style.fontWeight} ${style.fontSize} ${primaryFamily}`,
+        ),
+      };
+    });
+    expect(font.family.split(",")[0].replaceAll('"', "")).toBe(family);
+    expect(font.loaded).toBe(true);
+  }
+});
+
 test.describe("public routes", () => {
   for (const route of PUBLIC_ROUTES) {
     test(`${route.path} responds successfully with one visible H1`, async ({

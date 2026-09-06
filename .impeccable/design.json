@@ -1,174 +1,395 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-05T20:12:42Z",
-  "title": "Design System: Prizic Corporate Website",
+  "generatedAt": "2026-09-06T11:07:03.752Z",
+  "title": "Design System: Prizic Editorial Systems Deck",
   "extensions": {
     "colorMeta": {
-      "system-night": {
-        "role": "neutral",
-        "displayName": "System Night",
-        "canonical": "#0a0e1a",
-        "tonalRamp": ["#070a12", "#0a0e1a", "#11182a", "#24304b", "#46516b", "#778096", "#b5bac7", "#edeff5"]
-      },
-      "deep-indigo": {
-        "role": "neutral",
-        "displayName": "Deep Indigo",
-        "canonical": "#141a2e",
-        "tonalRamp": ["#090c17", "#141a2e", "#202a47", "#344366", "#526080", "#78839b", "#b2b8c8", "#eceef4"]
-      },
-      "measured-slate": {
-        "role": "neutral",
-        "displayName": "Measured Slate",
-        "canonical": "#2a3350",
-        "tonalRamp": ["#0c101c", "#171d30", "#2a3350", "#414c6d", "#606b87", "#858da2", "#b8bdca", "#eef0f5"]
-      },
-      "paper-white": {
-        "role": "neutral",
-        "displayName": "Paper White",
-        "canonical": "#edeff5",
-        "tonalRamp": ["#11131a", "#252832", "#444955", "#69707e", "#9299a6", "#bdc2cc", "#dadde4", "#edeff5"]
-      },
-      "quiet-blue-gray": {
-        "role": "neutral",
-        "displayName": "Quiet Blue Gray",
-        "canonical": "#8b93ab",
-        "tonalRamp": ["#11141e", "#252b3b", "#3e465c", "#5f687f", "#8b93ab", "#aab0c0", "#cdd1db", "#f0f1f5"]
-      },
-      "signal-cyan": {
+      "accent": {
         "role": "primary",
-        "displayName": "Signal Cyan",
+        "displayName": "Prizic Cyan",
         "canonical": "#00d9ff",
-        "tonalRamp": ["#00252c", "#003f4a", "#005f70", "#00849a", "#00abc8", "#00d9ff", "#79eaff", "#dcfaff"]
+        "tonalRamp": [
+          "oklch(15% 0.1453 216.50)",
+          "oklch(26.43% 0.1453 216.50)",
+          "oklch(37.86% 0.1453 216.50)",
+          "oklch(49.29% 0.1453 216.50)",
+          "oklch(60.71% 0.1453 216.50)",
+          "oklch(72.14% 0.1453 216.50)",
+          "oklch(83.57% 0.1453 216.50)",
+          "oklch(95% 0.1453 216.50)"
+        ]
+      },
+      "accent-lime": {
+        "role": "primary",
+        "displayName": "Electric Lime",
+        "canonical": "#65ed9d",
+        "tonalRamp": [
+          "oklch(15% 0.1646 154.75)",
+          "oklch(26.43% 0.1646 154.75)",
+          "oklch(37.86% 0.1646 154.75)",
+          "oklch(49.29% 0.1646 154.75)",
+          "oklch(60.71% 0.1646 154.75)",
+          "oklch(72.14% 0.1646 154.75)",
+          "oklch(83.57% 0.1646 154.75)",
+          "oklch(95% 0.1646 154.75)"
+        ]
+      },
+      "accent-yellow": {
+        "role": "primary",
+        "displayName": "Signal Yellow",
+        "canonical": "#eff300",
+        "tonalRamp": [
+          "oklch(15% 0.2044 110.99)",
+          "oklch(26.43% 0.2044 110.99)",
+          "oklch(37.86% 0.2044 110.99)",
+          "oklch(49.29% 0.2044 110.99)",
+          "oklch(60.71% 0.2044 110.99)",
+          "oklch(72.14% 0.2044 110.99)",
+          "oklch(83.57% 0.2044 110.99)",
+          "oklch(95% 0.2044 110.99)"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Cyan Ink",
+        "canonical": "#081013",
+        "tonalRamp": [
+          "oklch(15% 0.0139 222.90)",
+          "oklch(26.43% 0.0139 222.90)",
+          "oklch(37.86% 0.0139 222.90)",
+          "oklch(49.29% 0.0139 222.90)",
+          "oklch(60.71% 0.0139 222.90)",
+          "oklch(72.14% 0.0139 222.90)",
+          "oklch(83.57% 0.0139 222.90)",
+          "oklch(95% 0.0139 222.90)"
+        ]
+      },
+      "accent-lime-ink": {
+        "role": "primary",
+        "displayName": "Lime Ink",
+        "canonical": "#0b1710",
+        "tonalRamp": [
+          "oklch(15% 0.0224 157.82)",
+          "oklch(26.43% 0.0224 157.82)",
+          "oklch(37.86% 0.0224 157.82)",
+          "oklch(49.29% 0.0224 157.82)",
+          "oklch(60.71% 0.0224 157.82)",
+          "oklch(72.14% 0.0224 157.82)",
+          "oklch(83.57% 0.0224 157.82)",
+          "oklch(95% 0.0224 157.82)"
+        ]
+      },
+      "accent-yellow-ink": {
+        "role": "primary",
+        "displayName": "Yellow Ink",
+        "canonical": "#171800",
+        "tonalRamp": [
+          "oklch(15% 0.0445 111.81)",
+          "oklch(26.43% 0.0445 111.81)",
+          "oklch(37.86% 0.0445 111.81)",
+          "oklch(49.29% 0.0445 111.81)",
+          "oklch(60.71% 0.0445 111.81)",
+          "oklch(72.14% 0.0445 111.81)",
+          "oklch(83.57% 0.0445 111.81)",
+          "oklch(95% 0.0445 111.81)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f1f0ed",
+        "tonalRamp": [
+          "oklch(15% 0.0041 91.45)",
+          "oklch(26.43% 0.0041 91.45)",
+          "oklch(37.86% 0.0041 91.45)",
+          "oklch(49.29% 0.0041 91.45)",
+          "oklch(60.71% 0.0041 91.45)",
+          "oklch(72.14% 0.0041 91.45)",
+          "oklch(83.57% 0.0041 91.45)",
+          "oklch(95% 0.0041 91.45)"
+        ]
+      },
+      "paper-bright": {
+        "role": "neutral",
+        "displayName": "Bright Paper",
+        "canonical": "#fbfaf8",
+        "tonalRamp": [
+          "oklch(15% 0.0029 84.56)",
+          "oklch(26.43% 0.0029 84.56)",
+          "oklch(37.86% 0.0029 84.56)",
+          "oklch(49.29% 0.0029 84.56)",
+          "oklch(60.71% 0.0029 84.56)",
+          "oklch(72.14% 0.0029 84.56)",
+          "oklch(83.57% 0.0029 84.56)",
+          "oklch(95% 0.0029 84.56)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Editorial Ink",
+        "canonical": "#11120f",
+        "tonalRamp": [
+          "oklch(15% 0.0062 122.05)",
+          "oklch(26.43% 0.0062 122.05)",
+          "oklch(37.86% 0.0062 122.05)",
+          "oklch(49.29% 0.0062 122.05)",
+          "oklch(60.71% 0.0062 122.05)",
+          "oklch(72.14% 0.0062 122.05)",
+          "oklch(83.57% 0.0062 122.05)",
+          "oklch(95% 0.0062 122.05)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#20211e",
+        "tonalRamp": [
+          "oklch(15% 0.0058 121.87)",
+          "oklch(26.43% 0.0058 121.87)",
+          "oklch(37.86% 0.0058 121.87)",
+          "oklch(49.29% 0.0058 121.87)",
+          "oklch(60.71% 0.0058 121.87)",
+          "oklch(72.14% 0.0058 121.87)",
+          "oklch(83.57% 0.0058 121.87)",
+          "oklch(95% 0.0058 121.87)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Quiet Panel",
+        "canonical": "#dededb",
+        "tonalRamp": [
+          "oklch(15% 0.0040 106.48)",
+          "oklch(26.43% 0.0040 106.48)",
+          "oklch(37.86% 0.0040 106.48)",
+          "oklch(49.29% 0.0040 106.48)",
+          "oklch(60.71% 0.0040 106.48)",
+          "oklch(72.14% 0.0040 106.48)",
+          "oklch(83.57% 0.0040 106.48)",
+          "oklch(95% 0.0040 106.48)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Measured Line",
+        "canonical": "#c9c9c5",
+        "tonalRamp": [
+          "oklch(15% 0.0055 106.52)",
+          "oklch(26.43% 0.0055 106.52)",
+          "oklch(37.86% 0.0055 106.52)",
+          "oklch(49.29% 0.0055 106.52)",
+          "oklch(60.71% 0.0055 106.52)",
+          "oklch(72.14% 0.0055 106.52)",
+          "oklch(83.57% 0.0055 106.52)",
+          "oklch(95% 0.0055 106.52)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "#51524e",
+        "tonalRamp": [
+          "oklch(15% 0.0066 118.09)",
+          "oklch(26.43% 0.0066 118.09)",
+          "oklch(37.86% 0.0066 118.09)",
+          "oklch(49.29% 0.0066 118.09)",
+          "oklch(60.71% 0.0066 118.09)",
+          "oklch(72.14% 0.0066 118.09)",
+          "oklch(83.57% 0.0066 118.09)",
+          "oklch(95% 0.0066 118.09)"
+        ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero statements and the primary first-viewport message."
+        "purpose": "Opening statement."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Major editorial sections and supporting-route headings."
+        "purpose": "Standard homepage chapter headings; route-specific scales remain local."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Inter module titles."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Company explanation and readable supporting copy."
+        "purpose": "Company explanation and supporting copy."
       },
       "label": {
-        "displayName": "System Label",
-        "purpose": "Coordinates, indices, controls and technical metadata."
+        "displayName": "Label",
+        "purpose": "Folios, navigation, controls, and sequence metadata."
       }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "focus-separation",
+        "value": "0 0 0 4px var(--paper-bright)",
+        "purpose": "Accessibility separation around the dark focus outline; no decorative elevation."
+      }
+    ],
     "motion": [
       {
         "name": "control-response",
         "value": "160ms ease-out",
-        "purpose": "Default hover and focus response for links and controls."
+        "purpose": "Color response for controls."
       },
       {
-        "name": "route-draw",
-        "value": "1.6s cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "One-time blueprint route explanation."
+        "name": "arrow-response",
+        "value": "240ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Directional arrow movement on hover and focus."
       },
       {
-        "name": "word-resolve",
-        "value": "600ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Suffix transitions in the living wordmark."
+        "name": "chapter-arrival",
+        "value": "850ms; 75ms stagger",
+        "purpose": "Varied finite chapter entrances."
+      },
+      {
+        "name": "artwork-settle",
+        "value": "4.2s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Artwork scale settles after entering view."
       },
       {
         "name": "reduced-motion",
-        "value": "0.01ms",
-        "purpose": "Immediate final state for motion-sensitive visitors."
+        "value": "none",
+        "purpose": "Complete content and final identity immediately."
       }
     ],
     "breakpoints": [
-      { "name": "stack-layout", "value": "63.99rem" },
-      { "name": "mobile-navigation", "value": "56.24rem" },
-      { "name": "compact-blueprint", "value": "47.99rem" },
-      { "name": "narrow-gutter", "value": "40rem" }
+      {
+        "name": "six-column-layout",
+        "value": "63.99rem"
+      },
+      {
+        "name": "mobile-navigation",
+        "value": "56.24rem"
+      },
+      {
+        "name": "single-column-chapters",
+        "value": "47.99rem"
+      },
+      {
+        "name": "narrow-gutter",
+        "value": "40rem"
+      },
+      {
+        "name": "compact-identity",
+        "value": "23.99rem"
+      }
     ]
   },
   "components": [
     {
-      "name": "Primary Contact Action",
+      "name": "Contact Capsule",
+      "kind": "button",
+      "refersTo": "contact-action",
+      "description": "Header contact action with the active signal on hover and focus.",
+      "html": "<a class=\"ds-contact-action\" href=\"mailto:seifsaif151@gmail.com\">Start a conversation <svg class=\"ds-editorial-arrow\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
+      "css": ".ds-contact-action {\n  display: inline-flex;\n  min-block-size: 44px;\n  align-items: center;\n  justify-content: center;\n  gap: var(--space-4);\n  padding: var(--space-2) var(--space-4);\n  padding-inline: var(--space-4) var(--space-3);\n  border: 1px solid var(--ink);\n  border-radius: 999px;\n  background: var(--ink);\n  color: var(--paper-bright);\n  font-family: var(--font-mono);\n  font-size: 0.6875rem;\n  font-weight: 600;\n  letter-spacing: 0.05em;\n  line-height: 1.2;\n  text-transform: uppercase;\n  text-decoration: none;\n  transition:\n    background-color 160ms ease-out,\n    color 160ms ease-out;\n}\n.ds-contact-action:hover,\n.ds-contact-action:focus-visible {\n  border-color: var(--accent);\n  background: var(--accent);\n  color: var(--accent-ink);\n}\n.ds-contact-action:active {\n  background: var(--text);\n  border-color: var(--text);\n  color: var(--bg);\n}\n.ds-contact-action .ds-editorial-arrow {\n  inline-size: 0.9rem;\n  block-size: 0.9rem;\n}.ds-editorial-arrow {\n  inline-size: 1.35rem;\n  block-size: 1.35rem;\n  flex: 0 0 auto;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.75;\n  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);\n}\na:is(:hover, :focus-visible) .ds-editorial-arrow,\nbutton:is(:hover, :focus-visible) .ds-editorial-arrow {\n  transform: translate(4px, -4px);\n}.ds-contact-action:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper-bright); }"
+    },
+    {
+      "name": "Primary Action",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The decisive path to the configured contact destination.",
-      "html": "<a class=\"ds-contact-primary\" href=\"#\">Start a conversation <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\"><path d=\"M3 13 13 3M6 3h7v7\"/></svg></a>",
-      "css": ".ds-contact-primary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 16px; padding: 12px 16px; border: 1px solid var(--accent, #00d9ff); border-radius: 6px; background: var(--accent, #00d9ff); color: var(--accent-text, #0a0e1a); font: 600 14px/1.2 Inter, sans-serif; text-decoration: none; transition: background-color 160ms ease-out, color 160ms ease-out; } .ds-contact-primary svg { width: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; } .ds-contact-primary:hover, .ds-contact-primary:focus-visible { border-color: var(--text, #edeff5); background: var(--text, #edeff5); color: var(--bg, #0a0e1a); } .ds-contact-primary:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; }"
+      "description": "Direct accent action on supporting routes.",
+      "html": "<a class=\"ds-home-action ds-home-action--primary\" href=\"#\">Start a conversation <svg class=\"ds-editorial-arrow\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
+      "css": ".ds-home-action { border-radius: 999px; }\n.ds-home-action--primary {\n  border-color: var(--accent);\n  background: var(--accent);\n  color: var(--accent-text);\n}\n.ds-home-action--primary:hover,\n.ds-home-action--primary:focus-visible {\n  background: var(--text);\n  border-color: var(--text);\n  color: var(--bg);\n}.ds-editorial-arrow {\n  inline-size: 1.35rem;\n  block-size: 1.35rem;\n  flex: 0 0 auto;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.75;\n  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);\n}\na:is(:hover, :focus-visible) .ds-editorial-arrow,\nbutton:is(:hover, :focus-visible) .ds-editorial-arrow {\n  transform: translate(4px, -4px);\n}.ds-home-action--primary:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper-bright); }.ds-home-action { font-family: var(--font-body); }"
     },
     {
       "name": "Secondary Action",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "A quiet route to supporting company context.",
-      "html": "<a class=\"ds-action-secondary\" href=\"#\">See how Prizic thinks <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\"><path d=\"M3 13 13 3M6 3h7v7\"/></svg></a>",
-      "css": ".ds-action-secondary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 16px; padding: 12px 16px; border: 1px solid var(--border, #2a3350); border-radius: 6px; background: transparent; color: var(--text, #edeff5); font: 600 14px/1.2 Inter, sans-serif; text-decoration: none; transition: border-color 160ms ease-out, color 160ms ease-out; } .ds-action-secondary svg { width: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; } .ds-action-secondary:hover, .ds-action-secondary:focus-visible { border-color: var(--accent, #00d9ff); color: var(--accent, #00d9ff); } .ds-action-secondary:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; }"
+      "description": "Bordered action for a supporting route.",
+      "html": "<a class=\"ds-home-action ds-home-action--secondary\" href=\"#\">See how Prizic thinks <svg class=\"ds-editorial-arrow\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
+      "css": ".ds-home-action { border-radius: 999px; }\n.ds-home-action--secondary { color: var(--paper-bright); border-color: #62635e; }\n.ds-home-action--secondary:hover,\n.ds-home-action--secondary:focus-visible {\n  border-color: var(--accent);\n  color: var(--accent);\n}.ds-editorial-arrow {\n  inline-size: 1.35rem;\n  block-size: 1.35rem;\n  flex: 0 0 auto;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.75;\n  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);\n}\na:is(:hover, :focus-visible) .ds-editorial-arrow,\nbutton:is(:hover, :focus-visible) .ds-editorial-arrow {\n  transform: translate(4px, -4px);\n}.ds-home-action--secondary:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper-bright); }.ds-home-action { font-family: var(--font-body); }"
     },
     {
-      "name": "Navigation Link",
+      "name": "Editorial Navigation",
       "kind": "nav",
-      "description": "Quiet global navigation that gains authority only on interaction.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Preview\"><a href=\"#\">Thinking</a><a href=\"#\">Capabilities</a><a href=\"#\">Partnerships</a></nav>",
-      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; background: var(--bg, #0a0e1a); } .ds-nav a { display: inline-flex; min-height: 44px; align-items: center; color: var(--text-muted, #8b93ab); font: 400 15px/1.4 Inter, sans-serif; text-decoration: none; transition: color 160ms ease-out; } .ds-nav a:hover, .ds-nav a:focus-visible { color: var(--text, #edeff5); } .ds-nav a:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; }"
+      "refersTo": "navigation",
+      "description": "Compact uppercase mono links with 44px targets.",
+      "html": "<nav class=\"ds-site-header__navigation\" aria-label=\"Preview\"><a href=\"#thinking\">Thinking</a><a href=\"#capabilities\">Capabilities</a><a href=\"#partnerships\">Partnerships</a></nav>",
+      "css": ".ds-site-header__navigation {\n  display: flex;\n  align-items: center;\n  gap: clamp(var(--space-3), 1.6vw, var(--space-6));\n  margin-inline-start: auto;\n}\n.ds-site-header__navigation a,\n.ds-site-footer__navigation a {\n  display: inline-flex;\n  min-block-size: 44px;\n  align-items: center;\n  color: var(--ink-soft);\n  font-family: var(--font-mono);\n  font-size: 0.6875rem;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  text-decoration: none;\n  transition: color 160ms ease-out;\n}\n.ds-site-header__navigation a:hover,\n.ds-site-header__navigation a:focus-visible,\n.ds-site-footer__navigation a:hover,\n.ds-site-footer__navigation a:focus-visible {\n  color: var(--text);\n}.ds-site-header__navigation a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper-bright); }"
     },
     {
-      "name": "Blueprint Stage",
-      "kind": "custom",
-      "refersTo": "system-node",
-      "description": "A stage in the Question, Direction, Software and Learning system.",
-      "html": "<article class=\"ds-system-node\"><span>01</span><div><strong>Question</strong><p>Start with the real situation, constraints and desired change.</p></div></article>",
-      "css": ".ds-system-node { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; width: 250px; min-height: 104px; align-items: center; padding: 12px; border: 1px solid var(--border, #2a3350); border-radius: 48px; background: var(--bg, #0a0e1a); color: var(--text, #edeff5); } .ds-system-node > span { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid var(--border, #2a3350); border-radius: 50%; color: var(--accent, #00d9ff); font: 400 12px/1 JetBrains Mono, monospace; } .ds-system-node strong { font: 500 20px/1.1 Space Grotesk, sans-serif; } .ds-system-node p { margin: 4px 0 0; color: var(--text-muted, #8b93ab); font: 400 12px/1.35 Inter, sans-serif; }"
+      "name": "Accent Selector",
+      "kind": "input",
+      "refersTo": "accent-swatch",
+      "description": "Native radio controls with a visible selected state and keyboard focus.",
+      "html": "<fieldset class=\"ds-accent-switcher\" aria-label=\"Accent color\"><label style=\"--swatch:#00d9ff\"><input type=\"radio\" name=\"ds-accent\" value=\"cyan\" aria-label=\"Prizic cyan\" checked><span aria-hidden=\"true\"></span></label><label style=\"--swatch:#65ed9d\"><input type=\"radio\" name=\"ds-accent\" value=\"lime\" aria-label=\"Electric lime\" ><span aria-hidden=\"true\"></span></label><label style=\"--swatch:#eff300\"><input type=\"radio\" name=\"ds-accent\" value=\"yellow\" aria-label=\"Signal yellow\" ><span aria-hidden=\"true\"></span></label></fieldset>",
+      "css": ".ds-accent-switcher {\n  display: inline-flex;\n  align-items: center;\n  gap: 0;\n  min-inline-size: 0;\n  margin: 0;\n  padding: 0;\n  border: 0;\n}\n.ds-accent-switcher label {\n  position: relative;\n  display: grid;\n  inline-size: 44px;\n  block-size: 44px;\n  place-items: center;\n  cursor: pointer;\n}\n.ds-accent-switcher input {\n  position: absolute;\n  inset: 0;\n  z-index: 1;\n  inline-size: 100%;\n  block-size: 100%;\n  margin: 0;\n  opacity: 0;\n  cursor: pointer;\n}\n.ds-accent-switcher label > span:not(.ds-sr-only) {\n  inline-size: 0.75rem;\n  block-size: 0.75rem;\n  border: 1px solid color-mix(in srgb, var(--ink) 34%, transparent);\n  border-radius: 50%;\n  background: var(--swatch);\n  transition: transform 160ms ease-out;\n}\n.ds-accent-switcher input:checked + span {\n  outline: 1px solid var(--ink);\n  outline-offset: 3px;\n  transform: scale(1.06);\n}\n.ds-accent-switcher input:focus-visible + span {\n  outline: 2px solid var(--ink);\n  outline-offset: 4px;\n}"
     },
     {
-      "name": "Replay Control",
-      "kind": "button",
-      "description": "An explicit, accessible replay for the otherwise one-time wordmark sequence.",
-      "html": "<button class=\"ds-replay\" type=\"button\"><svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"M16.4 8.2A6.7 6.7 0 1 0 16 13M16.4 8.2V3.8M16.4 8.2H12\"/></svg>Replay</button>",
-      "css": ".ds-replay { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; padding: 8px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted, #8b93ab); cursor: pointer; font: 400 12px/1.2 JetBrains Mono, monospace; letter-spacing: 0.04em; transition: background-color 160ms ease-out, color 160ms ease-out; } .ds-replay svg { width: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; } .ds-replay:hover, .ds-replay:focus-visible { background: var(--surface, #141a2e); color: var(--text, #edeff5); } .ds-replay:focus-visible { outline: 2px solid var(--accent, #00d9ff); outline-offset: 4px; } .ds-replay:active { color: var(--accent, #00d9ff); }"
+      "name": "Folio Index",
+      "kind": "chip",
+      "refersTo": "folio-index",
+      "description": "Compact chapter index paired with mono publication metadata.",
+      "html": "<p class=\"ds-folio-label\"><span class=\"ds-folio-label__index\">01</span> Method <span class=\"ds-folio-label__detail\">Question / Learning</span></p>",
+      "css": ".ds-folio-label {\n  display: flex;\n  align-items: baseline;\n  gap: 0.65rem;\n  margin: 0;\n  color: var(--ink-soft);\n  font-family: var(--font-mono);\n  font-size: 0.6875rem;\n  font-weight: 600;\n  letter-spacing: 0.08em;\n  line-height: 1.2;\n  text-transform: uppercase;\n}\n.ds-folio-label__index {\n  color: var(--accent-ink);\n  background: var(--accent);\n  padding: 0.22rem 0.35rem;\n  border-radius: 999px;\n}\n.ds-folio-label__detail {\n  margin-inline-start: auto;\n  color: var(--text-muted);\n  text-align: end;\n}"
     },
     {
-      "name": "Living Wordmark Signal",
-      "kind": "custom",
-      "description": "A calibrated field framing the persistent Pr and c anchors around the resolving word.",
-      "html": "<div class=\"ds-wordmark\"><span class=\"ds-anchor\">Pr</span><strong>Prizic</strong><span class=\"ds-anchor ds-anchor-end\">c</span></div>",
-      "css": ".ds-wordmark { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; width: 420px; align-items: center; gap: 16px; padding: 16px 0; border-block: 1px solid var(--border, #2a3350); background: var(--bg, #0a0e1a); color: var(--text, #edeff5); } .ds-wordmark::after { position: absolute; inset: 50% 0 auto; height: 1px; background: var(--border, #2a3350); content: \"\"; } .ds-wordmark strong { position: relative; z-index: 1; color: var(--accent, #00d9ff); font: 500 56px/0.9 Space Grotesk, sans-serif; letter-spacing: -0.04em; } .ds-anchor { position: relative; z-index: 1; display: grid; min-width: 28px; min-height: 28px; place-items: center; border: 1px solid var(--border, #2a3350); background: var(--bg, #0a0e1a); color: var(--text-muted, #8b93ab); font: 400 10px/1 JetBrains Mono, monospace; text-transform: uppercase; } .ds-anchor-end { color: var(--accent, #00d9ff); }"
+      "name": "Method Module",
+      "kind": "card",
+      "refersTo": "method-module",
+      "description": "A numbered method link, shown in the accent treatment used for Question.",
+      "html": "<div class=\"ds-method-spread\"><ol class=\"ds-method-spread__modules\"><li><a href=\"#thinking\"><h3>Question</h3><p>Find the problem worth solving.</p><span class=\"ds-method-spread__index\">01 <svg class=\"ds-editorial-arrow\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></span></a></li></ol></div>",
+      "css": ".ds-method-spread__modules {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.75rem;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n.ds-method-spread__modules > li {\n  position: relative;\n  overflow: hidden;\n  background: var(--panel);\n  border-radius: var(--radius-lg);\n}\n.ds-method-spread__modules > li:first-child { background: var(--accent); color: var(--accent-ink); }\n.ds-method-spread__modules a {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  min-block-size: 25rem;\n  padding: 2rem;\n  text-decoration: none;\n}\n.ds-method-spread h3 { margin: 0; font-size: 1.5rem; font-weight: 500; letter-spacing: -0.03em; }\n.ds-method-spread p { max-inline-size: 26ch; margin-block: 0.75rem 3rem; font-size: 0.875rem; line-height: 1.5; }\n.ds-method-spread__index { display: flex; align-items: baseline; justify-content: space-between; margin-block-start: auto; font-size: clamp(4rem, 8vw, 7rem); letter-spacing: -0.07em; line-height: 1; }\n.ds-method-spread__index .ds-editorial-arrow { align-self: end; margin-block-end: 0.5rem; }\n.ds-method-spread__modules a:focus-visible {\n  outline: 3px solid currentColor;\n  outline-offset: -6px;\n  border-radius: inherit;\n  box-shadow: none;\n}.ds-editorial-arrow {\n  inline-size: 1.35rem;\n  block-size: 1.35rem;\n  flex: 0 0 auto;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.75;\n  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);\n}\na:is(:hover, :focus-visible) .ds-editorial-arrow,\nbutton:is(:hover, :focus-visible) .ds-editorial-arrow {\n  transform: translate(4px, -4px);\n}.ds-method-spread { font-family: var(--font-body); } .ds-method-spread__modules { grid-template-columns: 1fr; } .ds-method-spread a:hover h3 { text-decoration: underline; }"
     }
   ],
   "narrative": {
-    "northStar": "The Prizic System",
-    "overview": "The visual world behaves like a precise architectural drawing brought to life. A near-black field holds off-white language, measured slate construction lines and one scarce cyan signal. The work feels calm, technically credible and deliberately unfinished at the edges, as if every visible decision belongs to a larger system.\n\nThe company method is the proof. Type, route geometry, registration marks and written constraints replace stock imagery and invented evidence. Framer-level craft is a quality reference, but the composition, P/Z geometry and living wordmark remain recognizably Prizic.",
+    "northStar": "Editorial Systems Deck",
+    "overview": "Prizic reads like a composed presentation spread: warm paper, decisive near-black panels, large tightly tracked statements, and compact supporting information. Unequal modules share a disciplined grid; rounded material windows and deliberate pauses keep the dense editorial rhythm legible.\n\nAuthored monochrome P/Z material studies make the company's thinking tangible. The identity is alive but settles: a compact full-logo header, a calibrated living wordmark, varied chapter entrances, and small directional responses connect the work. One visitor-selected signal color carries state and emphasis throughout the deck.",
     "keyCharacteristics": [
-      "Asymmetric editorial layouts with a 5/7 desktop rhythm",
-      "Flat fields separated by rules instead of decorative shadows",
-      "Sparse cyan reserved for routes, punctuation and decisive actions",
-      "Authored P/Z geometry, measurements and calibration marks",
-      "Motion that explains sequence once, then becomes still",
-      "Plain language and visible limits instead of unsupported claims"
+      "Warm paper and near-black fields with flat tonal depth.",
+      "Rounded modular panels, unequal proportions, and compact folio details.",
+      "Large Space Grotesk statements paired with Inter copy and mono metadata.",
+      "Authored P/Z material imagery with intentional responsive crops.",
+      "One scarce dynamic accent: cyan, electric lime, or signal yellow.",
+      "Varied finite entrances and bounded artwork interaction, with a complete static fallback."
     ],
     "rules": [
-      { "name": "The One Signal Rule", "body": "Cyan is the only chromatic accent and should occupy roughly five percent or less of a viewport.", "section": "colors" },
-      { "name": "The Flat Field Rule", "body": "Depth comes from tone, borders and overlap. Do not introduce gradients, glows, glass effects or decorative shadows.", "section": "colors" },
-      { "name": "The Left Edge Rule", "body": "Paragraphs remain left aligned. Hierarchy comes from scale and position, not centered marketing copy.", "section": "typography" },
-      { "name": "The Mono Is Metadata Rule", "body": "Monospace type labels the system; it does not carry headlines or paragraphs.", "section": "typography" },
-      { "name": "The No Decoration Depth Rule", "body": "A new shadow is a design-system change, not a convenient way to make a surface visible.", "section": "elevation" }
+      {
+        "name": "The One Signal Rule",
+        "body": "Use one active accent family at a time; keep it scarce and attach it to state, direction, or emphasis.",
+        "section": "colors"
+      },
+      {
+        "name": "The Type Is Composition Rule",
+        "body": "Preserve the authored headline wraps, tight tracking, and unequal text measures; judge changes in their actual panel at desktop and mobile widths.",
+        "section": "typography"
+      },
+      {
+        "name": "The Composed Spread Rule",
+        "body": "Keep each chapter's specific proportions, reading order, and tonal balance; the shared grid supports different compositions.",
+        "section": "layout"
+      },
+      {
+        "name": "The Tonal Depth Rule",
+        "body": "Separate modules with tone, spacing, clipping, and fine rules; keep simulated elevation inside the authored imagery.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Static Completion Rule",
+        "body": "Server-rendered and reduced-motion views show complete content and the final Prizic identity immediately; remove animation, transition, transforms, and clipping from motion targets. Cancelling motion settles the current playback until an explicit Replay.",
+        "section": "components"
+      }
     ],
     "dos": [
-      "Do let typography, authored geometry and documented method carry the company story.",
-      "Do keep cyan scarce and attach it to meaning, movement or action.",
-      "Do preserve the static P/Z mark, visible Pr and c anchors, one-time sequence and settled final state.",
-      "Do use approved assets from the authoritative Prizic logo source and runtime copies from public/brand/.",
-      "Do keep navigation, content and the final reduced-motion state understandable without JavaScript.",
-      "Do add real company evidence only after it is approved and represented accurately."
+      "Do preserve the Editorial Systems Deck's authored proportions, compact rhythm, and responsive reading order.",
+      "Do use one active accent family with its matching dark ink.",
+      "Do retain the original material assets, provenance, and deliberate crops.",
+      "Do keep the P/Z mark still and preserve the settled wordmark and visible anchors.",
+      "Do vary chapter motion while keeping content readable before enhancement.",
+      "Do preserve visible focus, 44px targets, and the static reduced-motion and no-JavaScript experience."
     ],
     "donts": [
-      "Don't use gradients, glows, glassmorphism, stock imagery, AI-generated people, looping logos, marquees or parallax fields.",
-      "Don't turn the blueprint into a dashboard, workflow screenshot or generic technology illustration.",
-      "Don't fabricate projects, customers, logos, testimonials, reviews, prices or performance metrics.",
-      "Don't publish dental, clinic or booking content in this corporate release.",
-      "Don't imply a launched product, large team, legal status or partnership terms that have not been confirmed.",
-      "Don't replace the 5/7 hierarchy with repeated equal cards or centered marketing sections."
+      "Don't introduce gradients, glassmorphism, glows, or decorative elevation shadows.",
+      "Don't replace composed spreads with a uniform grid of generic cards.",
+      "Don't substitute stock people, fake application screenshots, or unrelated imagery for the authored material studies.",
+      "Don't fabricate customer work, logos, testimonials, metrics, or product evidence.",
+      "Don't make animation necessary to read, navigate, or understand the company.",
+      "Don't stretch, redraw, recolor, or animate the approved P/Z mark."
     ]
   }
 }

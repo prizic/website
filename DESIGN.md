@@ -1,200 +1,221 @@
 ---
-name: Prizic Corporate Website
-description: From possibility to working systems.
+name: Prizic Editorial Systems Deck
+description: A warm-paper editorial deck with authored material imagery, animated identity, and one dynamic signal.
 colors:
-  system-night: "#0a0e1a"
-  deep-indigo: "#141a2e"
-  measured-slate: "#2a3350"
-  paper-white: "#edeff5"
-  quiet-blue-gray: "#8b93ab"
-  signal-cyan: "#00d9ff"
+  accent: "#00d9ff"
+  accent-lime: "#65ed9d"
+  accent-yellow: "#eff300"
+  accent-ink: "#081013"
+  accent-lime-ink: "#0b1710"
+  accent-yellow-ink: "#171800"
+  paper: "#f1f0ed"
+  paper-bright: "#fbfaf8"
+  ink: "#11120f"
+  ink-soft: "#20211e"
+  panel: "#dededb"
+  line: "#c9c9c5"
+  text-muted: "#51524e"
 typography:
   display:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "clamp(3.5rem, 4.4vw, 4rem)"
+    fontSize: "clamp(4.5rem, 7.2vw, 6.5rem)"
     fontWeight: 500
     lineHeight: 0.94
-    letterSpacing: "-0.04em"
+    letterSpacing: "-0.055em"
   headline:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "clamp(2.6rem, 5.3vw, 5rem)"
+    fontSize: "clamp(3rem, 6.3vw, 5.75rem)"
     fontWeight: 500
-    lineHeight: 0.96
-    letterSpacing: "-0.04em"
+    lineHeight: 0.98
+    letterSpacing: "-0.05em"
+  title:
+    fontFamily: "Inter, sans-serif"
+    fontSize: "1.5rem"
+    fontWeight: 500
+    lineHeight: 1.15
+    letterSpacing: "-0.035em"
   body:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(1rem, 1.45vw, 1.15rem)"
+    fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
-    letterSpacing: "normal"
   label:
     fontFamily: "JetBrains Mono, monospace"
-    fontSize: "0.75rem"
-    fontWeight: 400
+    fontSize: "0.6875rem"
+    fontWeight: 600
     lineHeight: 1.2
-    letterSpacing: "0.06em"
+    letterSpacing: "0.08em"
 rounded:
-  control: "6px"
-  system-node: "3rem"
-  circular: "999px"
+  sm: "0.75rem"
+  md: "1.5rem"
+  lg: "2.25rem"
+  capsule: "999px"
+  action: "6px"
 spacing:
-  "1": "4px"
-  "2": "8px"
-  "3": "12px"
-  "4": "16px"
-  "6": "24px"
-  "8": "32px"
-  "12": "48px"
-  "16": "64px"
-  "24": "96px"
-  "32": "128px"
+  space-1: "0.25rem"
+  space-2: "0.5rem"
+  space-3: "0.75rem"
+  space-4: "1rem"
+  space-6: "1.5rem"
+  space-8: "2rem"
+  space-12: "3rem"
+  space-16: "4rem"
+  space-24: "6rem"
+  space-32: "8rem"
 components:
+  contact-action:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper-bright}"
+    rounded: "{rounded.capsule}"
+    padding: "0.5rem 0.75rem 0.5rem 1rem"
+  contact-action-hover:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.accent-ink}"
   button-primary:
-    backgroundColor: "{colors.signal-cyan}"
-    textColor: "{colors.system-night}"
-    rounded: "{rounded.control}"
-    padding: "12px 16px"
-    height: "44px"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.accent-ink}"
+    rounded: "{rounded.action}"
+    padding: "0.75rem 1rem"
   button-secondary:
     backgroundColor: "transparent"
-    textColor: "{colors.paper-white}"
-    rounded: "{rounded.control}"
-    padding: "12px 16px"
-    height: "44px"
-  system-node:
-    backgroundColor: "{colors.system-night}"
-    textColor: "{colors.paper-white}"
-    rounded: "{rounded.system-node}"
-    padding: "12px"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.action}"
+    padding: "0.75rem 1rem"
+  editorial-panel:
+    backgroundColor: "{colors.panel}"
+    rounded: "{rounded.md}"
+  method-module:
+    backgroundColor: "{colors.panel}"
+    rounded: "{rounded.lg}"
+    padding: "2rem"
+  navigation:
+    textColor: "{colors.ink-soft}"
+  accent-swatch:
+    rounded: "50%"
+    width: "0.75rem"
+    height: "0.75rem"
+  folio-index:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.accent-ink}"
+    rounded: "{rounded.capsule}"
+    padding: "0.22rem 0.35rem"
 ---
 
-# Design System: Prizic Corporate Website
+# Design System: Prizic Editorial Systems Deck
 
 ## Overview
 
-**Creative North Star: "The Prizic System"**
+**Creative North Star: "Editorial Systems Deck"**
 
-The visual world behaves like a precise architectural drawing brought to life. A near-black field holds off-white language, measured slate construction lines and one scarce cyan signal. The work feels calm, technically credible and deliberately unfinished at the edges, as if every visible decision belongs to a larger system.
+Prizic reads like a composed presentation spread: warm paper, decisive near-black panels, large tightly tracked statements, and compact supporting information. Unequal modules share a disciplined grid; rounded material windows and deliberate pauses keep the dense editorial rhythm legible.
 
-The company method is the proof. Type, route geometry, registration marks and written constraints replace stock imagery and invented evidence. Framer-level craft is a quality reference, but the composition, P/Z geometry and living wordmark remain recognizably Prizic.
+Authored monochrome P/Z material studies make the company's thinking tangible. The identity is alive but settles: a compact full-logo header, a calibrated living wordmark, varied chapter entrances, and small directional responses connect the work. One visitor-selected signal color carries state and emphasis throughout the deck.
 
 **Key Characteristics:**
 
-- Asymmetric editorial layouts with a 5/7 desktop rhythm
-- Flat fields separated by rules instead of decorative shadows
-- Sparse cyan reserved for routes, punctuation and decisive actions
-- Authored P/Z geometry, measurements and calibration marks
-- Motion that explains sequence once, then becomes still
-- Plain language and visible limits instead of unsupported claims
+- Warm paper and near-black fields with flat tonal depth.
+- Rounded modular panels, unequal proportions, and compact folio details.
+- Large Space Grotesk statements paired with Inter copy and mono metadata.
+- Authored P/Z material imagery with intentional responsive crops.
+- One scarce dynamic accent: cyan, electric lime, or signal yellow.
+- Varied finite entrances and bounded artwork interaction, with a complete static fallback.
 
 ## Colors
 
-The palette is narrow and structural: one dark field, one lifted dark surface, one construction tone, two text roles and one electric signal.
+A neutral editorial field holds one active signal family. The frontmatter records the implemented colors; the sidecar's generated tonal ramps are preview metadata, not additional application tokens.
 
 ### Primary
 
-- **Signal Cyan:** Reserved for the connected route, focal punctuation, active interaction and the strongest action. It must remain rare enough to read as information.
+Prizic Cyan is the first-visit accent. Electric Lime and Signal Yellow are alternate selections of the same semantic role, each paired with its own dark accent ink. Selection updates the root accent variables and persists locally across navigation and visits. Accent fills mark the opening action, one method stage, selected panels, routes, and identity details.
+
+**The One Signal Rule.** Use one active accent family at a time; keep it scarce and attach it to state, direction, or emphasis.
 
 ### Neutral
 
-- **System Night:** The default page field and dark text used on light or cyan surfaces.
-- **Deep Indigo:** A restrained alternate surface for section pacing and interactive hover states.
-- **Measured Slate:** Borders, registration marks, axes and structural dividers.
-- **Paper White:** Primary text and the occasional light editorial field.
-- **Quiet Blue Gray:** Supporting copy, captions and low-priority navigation. Never use it for essential small text when contrast would suffer.
+Warm Paper is the canvas. Bright Paper carries light text and high-contrast supporting surfaces. Editorial Ink anchors large panels and primary text; Soft Ink supports secondary dark modules. Quiet Panel fills supporting blocks, Measured Line separates content, and Muted Ink carries secondary text on light fields. On dark panels, secondary copy and rules mix from the local light foreground.
 
-### Named Rules
-
-**The One Signal Rule.** Cyan is the only chromatic accent and should occupy roughly five percent or less of a viewport.
-
-**The Flat Field Rule.** Depth comes from tone, borders and overlap. Do not introduce gradients, glows, glass effects or decorative shadows.
+Selection and caret colors follow the accent. Scrollbars use the paper and line roles. Keyboard focus combines a dark outline with a bright separation ring so it remains visible across contrasting fields.
 
 ## Typography
 
-**Display Font:** Space Grotesk with a sans-serif fallback
+Space Grotesk supplies the display voice, Inter carries prose and many module titles, and JetBrains Mono labels navigation, folios, controls, and sequence metadata. Next's font pipeline serves the three families locally after build; sans-serif and monospace remain the fallbacks.
 
-**Body Font:** Inter with a sans-serif fallback
+The frontmatter display and headline roles describe the opening statement and standard homepage section heading. The introduction deliberately exceeds that headline scale (up to 7.5rem); section-specific overrides are composition decisions. Secondary-route headings and narrow layouts use their own fluid scales. Preserve their established proportions when editing copy.
 
-**Label/Mono Font:** JetBrains Mono with a monospace fallback
+Body copy is left aligned and usually shortened to fit modules. The opening description has a 43ch measure, principle statements use 42ch, and compact method copy uses 26ch on desktop and 34ch on mobile. Homepage supporting copy commonly uses a 1.55 line height. Uppercase mono details remain compact; they never replace readable explanatory paragraphs.
 
-**Character:** Space Grotesk gives large statements a precise but human voice. Inter keeps longer explanations quiet and readable. JetBrains Mono marks coordinates, indices and system controls without turning the whole interface into a developer tool.
-
-### Hierarchy
-
-- **Display:** Medium weight, tightly tracked and compact. Used for the hero and first-order page statements.
-- **Headline:** Medium weight with the same close rhythm. Used for major editorial sections and supporting-route headings.
-- **Title:** Space Grotesk at a fluid scale. Used inside system nodes, capability statements and section sequences.
-- **Body:** Inter at regular or medium weight with a 1.6 line height and a practical 60 to 72 character measure.
-- **Label:** JetBrains Mono at 0.75rem with restrained tracking. Used for stage numbers, coordinates, replay and small system notes.
-
-### Named Rules
-
-**The Left Edge Rule.** Paragraphs remain left aligned. Hierarchy comes from scale and position, not centered marketing copy.
-
-**The Mono Is Metadata Rule.** Monospace type labels the system; it does not carry headlines or paragraphs.
+**The Type Is Composition Rule.** Preserve the authored headline wraps, tight tracking, and unequal text measures; judge changes in their actual panel at desktop and mobile widths.
 
 ## Layout
 
-The shared frame is capped at 80rem with logical inline gutters. Desktop heroes and major editorial splits use asymmetric 5/7 or 7/5 grids. The blueprint owns the larger hero column, while the copy remains readable and direct. Section spacing follows the 4px-derived scale and expands fluidly between 96px and 128px for major transitions.
+The shared frame is capped at 88rem, with 1.5rem outer gutters that reduce to 1rem at 40rem. Editorial spreads use twelve columns with fluid gaps from 1rem to 2rem. Connected opening and method modules use tighter 0.75rem seams. Standard homepage spreads use fluid block padding from 2.5rem to 3.5rem, preserving the tighter final rhythm.
 
-At 63.99rem and below, the hero and editorial splits become a single column. At 56.24rem, primary navigation becomes a full-screen labelled mobile dialog. At 47.99rem, the desktop blueprint is replaced by a vertical compact route, multi-column sequences stack, and actions can fill the available width. At 40rem, outer gutters reduce to 16px. Logical CSS properties preserve a future path to right-to-left layouts.
+At 63.99rem, major homepage spreads use six columns, method modules become two columns, and several secondary-route splits stack. At 56.24rem, desktop navigation and the header contact capsule give way to the mobile menu. At 47.99rem, chapters become a single ordered column, the opening statement and artwork join vertically, and the opening actions stack. Below 23.99rem, the full header identity compacts further while keeping its mark and name.
 
-All layouts must remain readable without horizontal scrolling at 320, 375, 768, 1280 and 1440 pixels. Touch targets are at least 44 by 44 pixels. Content order remains meaningful without CSS or JavaScript.
+Artwork has deliberate desktop and mobile proportions rather than a single forced ratio. The base frame is 800:520; opening materials use tall opposing rounded ends, with a shorter mobile image window. Raster object positions are fold (50% 48%), ribs (42% 50%), and stack (64% 56%). Shared image sizing hints account for full-width mobile and narrower desktop panels.
+
+**The Composed Spread Rule.** Keep each chapter's specific proportions, reading order, and tonal balance; the shared grid supports different compositions.
 
 ## Elevation & Depth
 
-The system is flat by default and has no shadow vocabulary. Deep Indigo separates selected sections from System Night; Paper White provides one editorial contrast field. One-pixel rules, overlapping route geometry and layered blueprint contours create depth without simulating raised cards.
+Depth is flat and tonal. Paper, quiet gray, and ink establish hierarchy without decorative elevation shadows. Monochrome material photography carries physical depth inside the artwork windows. The only box-shadow treatment is an accessibility separation ring for focus, including the skip-link accent variant; it is not surface elevation.
 
-**The No Decoration Depth Rule.** A new shadow is a design-system change, not a convenient way to make a surface visible.
+**The Tonal Depth Rule.** Separate modules with tone, spacing, clipping, and fine rules; keep simulated elevation inside the authored imagery.
 
 ## Shapes
 
-Controls use compact 6px corners. Blueprint stages use long 3rem capsules connected by round cyan paths. Stage indices, origin rings and partnership nodes are circular. Registration marks stay square and precise, creating tension against the rounded route. Content sections use hard field boundaries rather than repeated floating containers.
+The radius scale provides gently rounded small surfaces, medium panels, and generous large-panel corners. Header identity and contact controls use full capsules; selected swatches, origin points, and orbital studies are circular. Supporting route actions retain compact action corners, while the closing spread rounds them into capsules.
 
-The approved logo files are immutable source artwork. Runtime copies live in `public/brand/`; the authoritative exports remain under `02 Brand/Logo/Prizic/` in the company operations workspace. Do not redraw, recolor, crop or animate the P/Z mark.
+Opposing long curves in the opening material windows and paired introduction studies are intentional signature shapes. Keep clipping on the image frame so motion preserves a clean edge. The approved P/Z mark remains a static, immutable asset; runtime files live under public/brand/.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** Compact technical corners with a 6px radius and a 44px minimum height.
-- **Primary:** Signal Cyan field with System Night text. Hover and focus invert to Paper White on System Night.
-- **Secondary:** Transparent field, Paper White text and a Measured Slate border. Hover and focus shift the border and text to Signal Cyan.
-- **Pending:** A noninteractive Measured Slate state with Quiet Blue Gray text. It must say that the contact destination is pending.
-- **Focus:** Every interactive element receives a visible 2px cyan outline offset by 4px.
+The header contact action is a dark mono capsule with a 44px minimum height. Hover and focus adopt the active accent and its paired ink; press returns to the local text/background pairing. Supporting primary actions use the accent, and secondary actions use a fine border on a transparent field. The dark footer reverses its contact action to Bright Paper. The opening contact module is a larger accent panel with an arrow and an underline response.
+
+Directional arrows are authored SVG with consistent rounded strokes. Hover and keyboard focus move the up-right arrow by 4px in both axes; downward arrows move 5px. Color feedback takes 160ms, and arrow movement takes 240ms with the shared exponential ease-out.
+
+### Accent Selector
+
+Three labelled native radio controls use 44px targets around small circular swatches. A visible selection outline and scale change distinguish the active mode; keyboard focus adds a stronger outline. The server begins in cyan, and an early bootstrap restores a valid stored selection. Blocked storage falls back without losing the control.
 
 ### Cards / Containers
 
-The site does not use a generic card component. Editorial sequences, capability ledgers and founder fields are bounded by shared rules or tonal fields. Blueprint stages are the deliberate exception because their capsules are part of the method diagram, not reusable marketing cards.
+Editorial panels are a layout vocabulary, not one repeated card template. The method row combines accent, gray, and ink modules with indices 01–04 and a directional action. Capability modules use unequal widths, heights, and vertical offsets. Fine ledgers and open editorial copy balance the enclosed fields.
 
 ### Navigation
 
-Desktop navigation uses quiet body-sized links with 44px hit areas and a clear text-color change on hover or keyboard focus. Mobile navigation opens as an opaque System Night dialog, keeps semantic reading order, locks body scrolling, closes on Escape or route selection and restores focus to its trigger.
+The compact header places the complete Prizic identity in a dark capsule beside uppercase mono links and the accent selector. Navigation targets are at least 44px tall. Mobile uses an opaque paper dialog with labelled controls, scroll lock, Escape handling, route-close behavior, and focus restoration. A server-rendered mobile fallback keeps routes and contact available without JavaScript. The footer closes with a near-black rounded folio.
 
-### The Blueprint
+### Authored Artwork and Chapter Motion
 
-The desktop drawing uses a single rounded cyan route through Question, Direction, Software and Learning. Ten offset construction contours, four measurement axes, twelve registration marks, coordinate labels and stage callouts establish architectural authority around the static center mark. The route draws over 1.6 seconds with a calm ease-out, but every label and connection exists in the document before motion begins. The mobile version turns the system into a vertical route and preserves the same stage order.
+The fold, ribs, and stack variants use the approved monolith, ribbon-system, and iteration WebP assets from public/images/editorial/; the orbit variant is authored SVG. Asset provenance remains beside the images. Raster variants use Next Image with explicit dimensions, responsive sizes, and deliberate crops.
 
-### The Living Wordmark
+Chapter motion varies between line reveals, lateral clipping, and staggered panel arrivals (850ms with 75ms stagger). Artwork crops reveal over 1.1 seconds while their scale settles over 4.2 seconds. Route and orbit details arrive once over 3.2 and 3.8 seconds. While artwork is in view, scroll travel is bounded to 8px and further limited by available crop bleed; mouse movement adds a small perspective response. Listeners detach when the artwork leaves view.
 
-The P/Z mark remains static beside a calibrated signal field. `Pr` and `c` stay mounted while Precise, Prism, Prize and Prizic resolve in order, each exploratory state holding for 1.2 seconds. The final state performs one restrained 720ms eye blink and 820ms smile resolution, then becomes still. Replay is always a labelled 44px control. With reduced motion, the final Prizic state and completed route render immediately, and all animation and transition durations collapse to 0.01ms.
+### Animated Identity
+
+The compact header keeps the P/Z mark still while its line and eye details play once over 1.8 seconds. The hero living wordmark preserves visible Pr and c anchors, moves through Precise, Prism, Prize, and Prizic with 1.2-second exploratory holds, and settles into its fixed-width final word. Its calibrated lines finish once; Replay explicitly restarts the word sequence.
+
+**The Static Completion Rule.** Server-rendered and reduced-motion views show complete content and the final Prizic identity immediately; remove animation, transition, transforms, and clipping from motion targets. Cancelling motion settles the current playback until an explicit Replay.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** let typography, authored geometry and documented method carry the company story.
-- **Do** keep cyan scarce and attach it to meaning, movement or action.
-- **Do** preserve the static P/Z mark, visible `Pr` and `c` anchors, one-time sequence and settled final state.
-- **Do** use approved assets from the authoritative Prizic logo source and runtime copies from `public/brand/`.
-- **Do** keep navigation, content and the final reduced-motion state understandable without JavaScript.
-- **Do** add real company evidence only after it is approved and represented accurately.
+- Do preserve the Editorial Systems Deck's authored proportions, compact rhythm, and responsive reading order.
+- Do use one active accent family with its matching dark ink.
+- Do retain the original material assets, provenance, and deliberate crops.
+- Do keep the P/Z mark still and preserve the settled wordmark and visible anchors.
+- Do vary chapter motion while keeping content readable before enhancement.
+- Do preserve visible focus, 44px targets, and the static reduced-motion and no-JavaScript experience.
 
 ### Don't:
 
-- **Don't** use gradients, glows, glassmorphism, stock imagery, AI-generated people, looping logos, marquees or parallax fields.
-- **Don't** turn the blueprint into a dashboard, workflow screenshot or generic technology illustration.
-- **Don't** fabricate projects, customers, logos, testimonials, reviews, prices or performance metrics.
-- **Don't** publish dental, clinic or booking content in this corporate release.
-- **Don't** imply a launched product, large team, legal status or partnership terms that have not been confirmed.
-- **Don't** replace the 5/7 hierarchy with repeated equal cards or centered marketing sections.
+- Don't introduce gradients, glassmorphism, glows, or decorative elevation shadows.
+- Don't replace composed spreads with a uniform grid of generic cards.
+- Don't substitute stock people, fake application screenshots, or unrelated imagery for the authored material studies.
+- Don't fabricate customer work, logos, testimonials, metrics, or product evidence.
+- Don't make animation necessary to read, navigate, or understand the company.
+- Don't stretch, redraw, recolor, or animate the approved P/Z mark.

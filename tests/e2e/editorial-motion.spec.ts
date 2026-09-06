@@ -67,6 +67,12 @@ for (const width of [320, 375]) {
 
 test("every directional arrow travels on hover and keyboard focus", async ({ page }) => {
   await page.goto("/");
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    // Tab changes focus and scroll position between links; keep that scroll
+    // from moving the next hovered target away from the stationary pointer.
+    document.documentElement.style.scrollBehavior = "auto";
+  });
   const links = page.locator("a:visible:has(.editorial-arrow)");
   expect(await links.count()).toBeGreaterThan(10);
   for (const link of await links.all()) {

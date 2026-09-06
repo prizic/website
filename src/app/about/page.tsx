@@ -51,6 +51,28 @@ export default function AboutPage() {
       </section>
 
       <section
+        aria-labelledby="about-principles-title"
+        className="editorial-section about-page__principles"
+        data-spread="principles"
+      >
+        <div className="site-frame editorial-split">
+          <h2 id="about-principles-title">
+            {SITE_CONTENT.principles.headline}
+          </h2>
+          <ul className="editorial-rows editorial-rows--plain">
+            {SITE_CONTENT.principles.items.map((principle) => (
+              <li key={principle.title}>
+                <div>
+                  <h3>{principle.title}</h3>
+                  <p>{principle.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section
         aria-labelledby="about-name-title"
         className="editorial-section about-name"
         data-spread="name-study"

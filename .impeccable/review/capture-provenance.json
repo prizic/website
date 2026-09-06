@@ -54,5 +54,5 @@
       "sha256": "57f427e458e513c1b008d9345950a7a199383e2e24838b57442d9097ec6752e1"
     }
   ],
-  "notes": "Viewport captures use normal motion after settling. Full-page captures switch to reduced motion and eagerly decode all images. Lime and yellow were captured in the same round as local review evidence. Authored artwork provenance remains in public/images/editorial/."
+  "notes": "Viewport captures use normal motion after settling. Full-page captures switch to reduced motion and eagerly decode all images. Lime and yellow were captured in the same round as local review evidence. Authored artwork provenance is recorded in docs/assets/2026-09-06-editorial-imagery.md."
 }

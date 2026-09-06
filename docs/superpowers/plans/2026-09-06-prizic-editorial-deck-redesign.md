@@ -718,7 +718,7 @@ Thinking gets an indexed opening, a three-principle summary, an alternating four
 
 - [ ] **Step 4: Recompose Partnerships, About, Contact, and Not Found**
 
-Partnerships shows roles and process only. About includes founder, purpose, pronunciation, associations, and the existing living wordmark. Contact keeps one real direct-contact action plus the three non-form prompts: Idea, Current situation, Desired change. Not Found retains HTTP 404 behavior and the return-home link.
+Partnerships shows roles and process only. About includes founder, purpose, all three approved company principles from `SITE_CONTENT.principles` with their existing descriptions, pronunciation, associations, and the existing living wordmark. Compose the principles as a compact editorial ledger and require all three headings and descriptions in the About component coverage. Contact keeps one real direct-contact action plus the three non-form prompts: Idea, Current situation, Desired change. Not Found retains HTTP 404 behavior and the return-home link.
 
 The contact prompts are structural labels and must not be rendered as inputs:
 

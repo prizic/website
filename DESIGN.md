@@ -186,11 +186,11 @@ Editorial panels are a layout vocabulary, not one repeated card template. The me
 
 ### Navigation
 
-The compact header places the complete Prizic identity in a dark capsule beside uppercase mono links and the accent selector. Navigation targets are at least 44px tall. Mobile uses an opaque paper dialog with labelled controls, scroll lock, Escape handling, route-close behavior, and focus restoration. A server-rendered mobile fallback keeps routes and contact available without JavaScript. The footer closes with a near-black rounded folio.
+The compact header places the complete Prizic identity in a dark capsule beside uppercase mono links and the accent selector. Navigation targets are at least 44px wide and tall. Mobile uses an opaque paper dialog with labelled controls, scroll lock, Escape handling, route-close behavior, and focus restoration. Hovered and keyboard-focused route names use the selected accent as a background paired with its contrasting ink. A server-rendered mobile fallback keeps routes and contact available without JavaScript. The footer closes with a near-black rounded folio.
 
 ### Authored Artwork and Chapter Motion
 
-The fold, ribs, and stack variants use the approved monolith, ribbon-system, and iteration WebP assets from public/images/editorial/; the orbit variant is authored SVG. Asset provenance remains beside the images. Raster variants use Next Image with explicit dimensions, responsive sizes, and deliberate crops.
+The fold, ribs, and stack variants use the approved monolith, ribbon-system, and iteration WebP assets from public/images/editorial/; the orbit variant is authored SVG. Asset provenance is recorded in [docs/assets/2026-09-06-editorial-imagery.md](docs/assets/2026-09-06-editorial-imagery.md). Raster variants use Next Image with explicit dimensions, responsive sizes, and deliberate crops.
 
 Chapter motion varies between line reveals, lateral clipping, and staggered panel arrivals (850ms with 75ms stagger). Artwork crops reveal over 1.1 seconds while their scale settles over 4.2 seconds. Route and orbit details arrive once over 3.2 and 3.8 seconds. While artwork is in view, scroll travel is bounded to 8px and further limited by available crop bleed; mouse movement adds a small perspective response. Listeners detach when the artwork leaves view.
 

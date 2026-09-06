@@ -7,6 +7,7 @@ import ContactPage from "@/app/contact/page";
 import NotFound from "@/app/not-found";
 import PartnershipsPage from "@/app/partnerships/page";
 import ThinkingPage from "@/app/thinking/page";
+import { SITE_CONTENT } from "@/content/site";
 import { assertPublicContent } from "@/lib/public-content";
 
 vi.mock("motion/react", async () => {
@@ -221,6 +222,21 @@ describe("supporting corporate routes", () => {
     expect(container.textContent).not.toMatch(
       /equity|revenue split|exclusivity|guaranteed outcome/i,
     );
+  });
+
+  it("includes all three approved About principles with their original descriptions", () => {
+    render(<AboutPage />);
+
+    const principles = screen.getByRole("region", {
+      name: SITE_CONTENT.principles.headline,
+    });
+    expect(within(principles).getAllByRole("listitem")).toHaveLength(3);
+    for (const { title, description } of SITE_CONTENT.principles.items) {
+      expect(
+        within(principles).getByRole("heading", { level: 3, name: title }),
+      ).toBeVisible();
+      expect(within(principles).getByText(description)).toBeVisible();
+    }
   });
 
   it("keeps the About wordmark settled until replay is requested", () => {

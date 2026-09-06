@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-06T11:07:03.752Z",
+  "generatedAt": "2026-09-06T12:03:50.626Z",
   "title": "Design System: Prizic Editorial Systems Deck",
   "extensions": {
     "colorMeta": {
@@ -310,7 +310,7 @@
       "refersTo": "navigation",
       "description": "Compact uppercase mono links with 44px targets.",
       "html": "<nav class=\"ds-site-header__navigation\" aria-label=\"Preview\"><a href=\"#thinking\">Thinking</a><a href=\"#capabilities\">Capabilities</a><a href=\"#partnerships\">Partnerships</a></nav>",
-      "css": ".ds-site-header__navigation {\n  display: flex;\n  align-items: center;\n  gap: clamp(var(--space-3), 1.6vw, var(--space-6));\n  margin-inline-start: auto;\n}\n.ds-site-header__navigation a,\n.ds-site-footer__navigation a {\n  display: inline-flex;\n  min-block-size: 44px;\n  align-items: center;\n  color: var(--ink-soft);\n  font-family: var(--font-mono);\n  font-size: 0.6875rem;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  text-decoration: none;\n  transition: color 160ms ease-out;\n}\n.ds-site-header__navigation a:hover,\n.ds-site-header__navigation a:focus-visible,\n.ds-site-footer__navigation a:hover,\n.ds-site-footer__navigation a:focus-visible {\n  color: var(--text);\n}.ds-site-header__navigation a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper-bright); }"
+      "css": ".ds-site-header__navigation {\n  display: flex;\n  align-items: center;\n  gap: clamp(var(--space-3), 1.6vw, var(--space-6));\n  margin-inline-start: auto;\n}\n.ds-site-header__navigation a,\n.ds-site-footer__navigation a {\n  display: inline-flex;\n  min-inline-size: 44px;\n  min-block-size: 44px;\n  align-items: center;\n  color: var(--ink-soft);\n  font-family: var(--font-mono);\n  font-size: 0.6875rem;\n  font-weight: 600;\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  text-decoration: none;\n  transition: color 160ms ease-out;\n}\n.ds-site-header__navigation a:hover,\n.ds-site-header__navigation a:focus-visible,\n.ds-site-footer__navigation a:hover,\n.ds-site-footer__navigation a:focus-visible {\n  color: var(--text);\n}.ds-site-header__navigation a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper-bright); }"
     },
     {
       "name": "Accent Selector",

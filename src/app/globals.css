@@ -1,17 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0e1a;
-  --surface: #141a2e;
-  --border: #2a3350;
-  --text: #edeff5;
-  --text-muted: #8b93ab;
+  --paper: #f1f0ed;
+  --paper-bright: #fbfaf8;
+  --ink: #11120f;
+  --ink-soft: #20211e;
+  --panel: #dededb;
+  --line: #c9c9c5;
   --accent: #00d9ff;
-  --accent-text: #0a0e1a;
+  --accent-ink: #081013;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 2.25rem;
+  --frame: 88rem;
+
+  /* Legacy aliases remain until each route is moved to the editorial system. */
+  --bg: var(--paper);
+  --surface: var(--panel);
+  --border: var(--line);
+  --text: var(--ink);
+  --text-muted: #51524e;
+  --accent-text: var(--accent-ink);
   --font-display: var(--font-space-grotesk), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
-  --frame: 80rem;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -24,12 +36,22 @@
   --space-32: 8rem;
 }
 
+html[data-accent="lime"] {
+  --accent: #65ed9d;
+  --accent-ink: #0b1710;
+}
+
+html[data-accent="yellow"] {
+  --accent: #eff300;
+  --accent-ink: #171800;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: smooth;
   scrollbar-color: var(--border) var(--bg);
 }
@@ -95,6 +117,79 @@ svg {
 .site-frame {
   inline-size: min(calc(100% - (var(--space-6) * 2)), var(--frame));
   margin-inline: auto;
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.folio-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.folio-label__index {
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 0.22rem 0.35rem;
+  border-radius: 999px;
+}
+
+.folio-label__detail {
+  margin-inline-start: auto;
+  color: var(--text-muted);
+  text-align: end;
+}
+
+.editorial-arrow {
+  inline-size: 1.35rem;
+  block-size: 1.35rem;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+}
+
+.editorial-artwork {
+  min-inline-size: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  color: var(--ink);
+  background: var(--panel);
+}
+
+.editorial-artwork > svg {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.editorial-spread {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.editorial-panel {
+  min-inline-size: 0;
+  border-radius: var(--radius-md);
+  background: var(--panel);
 }
 
 .light-field {

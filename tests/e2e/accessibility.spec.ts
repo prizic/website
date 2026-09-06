@@ -45,6 +45,53 @@ test("enabling reduced motion during playback immediately settles the wordmark",
   await expect(page.getByRole("button", { name: "Replay Prizic word animation" })).toBeHidden();
 });
 
+test("reduced motion snaps the final Prizic entrance to a still frame", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Replay Prizic word animation" }).click();
+  await page.waitForFunction(() => {
+    const figure = document.querySelector('.living-wordmark__figure[data-word="Prizic"]');
+    const word = figure?.querySelector(".living-wordmark__display-word");
+    return word && Number(getComputedStyle(word).opacity) < 1;
+  });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.getByRole("button", { name: "Replay Prizic word animation" })).toBeHidden();
+  expect(await page.locator(".living-wordmark__display-word").evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { opacity: style.opacity, filter: style.filter, transform: style.transform,
+      running: element.getAnimations().filter((animation) => animation.playState === "running").length };
+  })).toEqual({ opacity: "1", filter: "blur(0px)", transform: "none", running: 0 });
+});
+
+for (const stage of ["during playback", "after completion"]) {
+  test(`restoring normal motion ${stage} keeps Prizic until explicit Replay`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+    const replay = page.getByRole("button", { name: "Replay Prizic word animation" });
+    await replay.click();
+    const figure = page.locator(".living-wordmark__figure");
+    if (stage === "after completion") {
+      await expect(figure).toHaveAttribute("data-word", "Prizic");
+      await expect(figure).toHaveAttribute("data-settling", "false");
+    }
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(replay).toBeHidden();
+    await expect(figure).toHaveAttribute("data-word", "Prizic");
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await expect(replay).toBeVisible();
+    expect(await figure.getAttribute("data-word")).toBe("Prizic");
+    // A restarted sequence advances to Prism after 1200ms.
+    await page.waitForTimeout(1500);
+    expect(await figure.getAttribute("data-word")).toBe("Prizic");
+    await expect(figure).toHaveAttribute("data-settling", "false");
+    await replay.click();
+    await expect(figure).toHaveAttribute("data-word", "Precise");
+    await expect(figure).toHaveAttribute("data-word", "Prism");
+    await expect(figure).toHaveAttribute("data-word", "Prizic");
+    await expect(figure).toHaveAttribute("data-settling", "false");
+  });
+}
+
 test("mobile dialog traps keyboard focus, locks scroll, and restores focus on Escape", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");

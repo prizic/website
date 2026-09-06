@@ -60,15 +60,21 @@ export function LivingWordmark({
   );
   const [replayCount, setReplayCount] = useState(0);
   const [isSettling, setIsSettling] = useState(false);
-  const visibleStateIndex = !hydrated || shouldReduceMotion
+  const [isCancelled, setIsCancelled] = useState(false);
+  // A motion opt-out finishes this playback, including after the preference
+  // changes back. Only explicit Replay starts another sequence.
+  if (hydrated && shouldReduceMotion && !isCancelled) {
+    setIsCancelled(true);
+  }
+  const visibleStateIndex = !hydrated || shouldReduceMotion || isCancelled
     ? FINAL_STATE_INDEX
     : stateIndex;
   const state = WORD_STATES[visibleStateIndex];
   const shouldAnimateFrame =
-    hydrated && !shouldReduceMotion && (autoPlay || replayCount > 0);
+    hydrated && !shouldReduceMotion && !isCancelled && (autoPlay || replayCount > 0);
 
   useEffect(() => {
-    if (shouldReduceMotion || (!autoPlay && replayCount === 0)) return;
+    if (shouldReduceMotion || isCancelled || (!autoPlay && replayCount === 0)) return;
 
     const timers: ReturnType<typeof setTimeout>[] = [];
     let elapsedMs = 0;
@@ -91,11 +97,12 @@ export function LivingWordmark({
     });
 
     return () => timers.forEach(clearTimeout);
-  }, [autoPlay, replayCount, shouldReduceMotion]);
+  }, [autoPlay, replayCount, shouldReduceMotion, isCancelled]);
 
   function replay() {
     if (shouldReduceMotion) return;
 
+    setIsCancelled(false);
     setIsSettling(false);
     setStateIndex(0);
     setReplayCount((count) => count + 1);
@@ -108,7 +115,7 @@ export function LivingWordmark({
       <figure
         aria-label="Prizic"
         className="living-wordmark__figure"
-        data-settling={isSettling && !shouldReduceMotion ? "true" : "false"}
+        data-settling={isSettling && !shouldReduceMotion && !isCancelled ? "true" : "false"}
         data-word={state.word}
         role="img"
       >
@@ -148,7 +155,7 @@ export function LivingWordmark({
                     ? { filter: "blur(3px)", opacity: 0.55, y: "0.14em" }
                     : false
                 }
-                key={`${replayCount}-${state.word}`}
+                key={`${replayCount}-${state.word}-${shouldAnimateFrame ? "animated" : "static"}`}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
                 {state.word}

@@ -1890,6 +1890,339 @@ svg {
   margin-block-start: var(--space-8);
 }
 
+/* Supporting-route spreads */
+.thinking-principles {
+  padding-block-start: 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.thinking-principles__header {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(12rem, 3fr);
+  gap: var(--space-8);
+  padding-block: clamp(var(--space-12), 7vw, var(--space-24));
+}
+
+.thinking-principles__header h2 {
+  max-inline-size: 7ch;
+  font-size: clamp(3.25rem, 7vw, 7rem);
+}
+
+.thinking-principles__header .editorial-artwork {
+  min-block-size: 13rem;
+  background: #30312d;
+  color: var(--paper);
+}
+
+.thinking-principles__list {
+  border-color: color-mix(in srgb, var(--paper) 35%, transparent);
+}
+
+.thinking-principles__list li + li {
+  border-color: color-mix(in srgb, var(--paper) 25%, transparent);
+}
+
+.thinking-principles .editorial-index,
+.thinking-principles p {
+  color: color-mix(in srgb, var(--paper) 75%, transparent);
+}
+
+.thinking-method__stages li:nth-child(even) {
+  margin-inline-start: clamp(0rem, 5vw, 5rem);
+}
+
+.thinking-method__stages li:nth-child(2) .editorial-index,
+.thinking-method__stages li:nth-child(4) .editorial-index {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+.thinking-commitments {
+  background: var(--panel);
+}
+
+.thinking-commitments__grid {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+}
+
+.thinking-commitments .editorial-rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.thinking-commitments .editorial-rows li {
+  padding: var(--space-8);
+}
+
+.thinking-commitments .editorial-rows li:nth-child(odd) {
+  border-inline-end: 1px solid var(--border);
+}
+
+.thinking-commitments .editorial-rows li:nth-child(-n + 2) {
+  border-block-end: 1px solid var(--border);
+}
+
+.capabilities-page__opening {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-4);
+}
+
+.capabilities-page__opening .page-intro {
+  inline-size: 100%;
+  min-block-size: min(70svh, 42rem);
+  margin: 0;
+}
+
+.capabilities-page__opening > .editorial-artwork {
+  align-self: end;
+  min-block-size: min(70svh, 42rem);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.capabilities-page__opening > .editorial-artwork svg {
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.capabilities-territories {
+  background: var(--panel);
+}
+
+.capabilities-territories .capability-ledger article:first-child {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.capabilities-territories .capability-ledger article:nth-child(2) {
+  min-block-size: 30rem;
+}
+
+.capabilities-territories .capability-ledger article:last-child {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.capabilities-territories .capability-ledger article:first-child p,
+.capabilities-territories .capability-ledger article:last-child p {
+  color: currentColor;
+}
+
+.capabilities-artifacts {
+  background: var(--paper-bright);
+}
+
+.capabilities-artifacts .artifact-list li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-6);
+}
+
+.capabilities-artifacts .artifact-list li::before {
+  color: var(--accent);
+  content: "—";
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.capabilities-boundaries {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.capabilities-boundaries .editorial-rows,
+.capabilities-boundaries .editorial-rows li {
+  border-color: color-mix(in srgb, var(--paper) 28%, transparent);
+}
+
+.capabilities-boundaries .editorial-section p,
+.capabilities-boundaries p {
+  color: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+
+.partnership-page__path-spread {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.partnership-page__lead {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(12rem, 4fr);
+  align-items: end;
+  gap: var(--space-8);
+}
+
+.partnership-page__lead .editorial-artwork {
+  min-block-size: 12rem;
+  color: var(--paper);
+  background: #2f302c;
+}
+
+.partnership-page .partnership-path__node {
+  background: var(--ink);
+}
+
+.partnership-page .partnership-path p {
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.partnership-page__path-spread .home-action--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.about-page__founder {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.about-page__founder-copy {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.about-page__founder .editorial-statement {
+  color: var(--paper);
+}
+
+.about-page__founder .editorial-artwork {
+  min-block-size: 17rem;
+  background: #282925;
+  color: var(--paper);
+}
+
+.about-page__purpose .editorial-statement {
+  max-inline-size: 30ch;
+  font-size: clamp(1.7rem, 3.2vw, 3rem);
+  line-height: 1.12;
+}
+
+.about-name {
+  background: var(--panel);
+}
+
+.about-name .living-wordmark {
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--paper-bright);
+}
+
+.contact-page .page-intro {
+  min-block-size: min(48svh, 30rem);
+}
+
+.contact-page__field {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.contact-page__field::before {
+  position: absolute;
+  inset: 0 0 auto auto;
+  inline-size: min(35vw, 31rem);
+  block-size: 100%;
+  background: var(--accent);
+  content: "";
+}
+
+.contact-page__grid {
+  position: relative;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr);
+}
+
+.contact-page__grid > p {
+  color: var(--paper);
+}
+
+.contact-page__action {
+  align-self: end;
+}
+
+.contact-page__action p {
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.contact-prompts {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  background: var(--accent);
+  color: var(--accent-ink);
+  list-style: none;
+}
+
+.contact-prompts li {
+  display: grid;
+  gap: var(--space-1);
+  border-block-end: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  padding-block-end: var(--space-4);
+}
+
+.contact-prompts li:last-child {
+  border: 0;
+  padding: 0;
+}
+
+.contact-prompts span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.contact-prompts strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.not-found {
+  display: block;
+  min-block-size: min(74svh, 48rem);
+  padding-block: clamp(var(--space-12), 8vw, var(--space-24));
+}
+
+.not-found__panel {
+  display: grid;
+  min-block-size: min(62svh, 40rem);
+  align-content: start;
+  justify-items: start;
+  gap: var(--space-8);
+  padding: clamp(var(--space-8), 6vw, var(--space-24));
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.not-found__panel .folio-label {
+  color: var(--paper);
+}
+
+.not-found__panel > img {
+  inline-size: 4rem;
+  block-size: 4rem;
+  margin-block: auto 0;
+}
+
+.not-found__panel h1 {
+  max-inline-size: 11ch;
+}
+
+.not-found__panel p {
+  color: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.not-found__panel .home-action--secondary {
+  border-color: color-mix(in srgb, var(--paper) 38%, transparent);
+  color: var(--paper);
+}
+
 @keyframes prizic-eye-blink {
   0%,
   34%,
@@ -2168,5 +2501,73 @@ svg {
   .living-wordmark__figure[data-settling="true"] .living-wordmark__eye,
   .living-wordmark__figure[data-settling="true"] .living-wordmark__smile {
     animation: none;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .thinking-principles__header,
+  .capabilities-page__opening,
+  .partnership-page__lead {
+    grid-template-columns: 1fr;
+  }
+
+  .capabilities-page__opening .page-intro,
+  .capabilities-page__opening > .editorial-artwork {
+    min-block-size: auto;
+  }
+
+  .capabilities-page__opening > .editorial-artwork {
+    aspect-ratio: 2 / 1;
+  }
+
+  .thinking-commitments__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .thinking-principles__header {
+    gap: var(--space-6);
+  }
+
+  .thinking-principles__header .editorial-artwork,
+  .partnership-page__lead .editorial-artwork {
+    min-block-size: 9rem;
+  }
+
+  .thinking-method__stages li:nth-child(even) {
+    margin-inline-start: 0;
+  }
+
+  .thinking-commitments .editorial-rows {
+    grid-template-columns: 1fr;
+  }
+
+  .thinking-commitments .editorial-rows li,
+  .thinking-commitments .editorial-rows li:nth-child(-n + 2) {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--border);
+  }
+
+  .capabilities-territories .capability-ledger article:nth-child(2) {
+    min-block-size: 15rem;
+  }
+
+  .contact-page__field::before {
+    inline-size: 38%;
+    opacity: 0.9;
+  }
+
+  .contact-page__grid {
+    gap: var(--space-12);
+  }
+
+  .contact-prompts {
+    padding: var(--space-6);
+  }
+
+  .not-found__panel {
+    min-block-size: 34rem;
+    border-radius: var(--radius-md);
   }
 }

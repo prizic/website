@@ -45,7 +45,33 @@ const routeExpectations = [
   },
 ] as const;
 
+const editorialRouteExpectations = [
+  { Page: ThinkingPage, page: "thinking", spread: "commitments" },
+  { Page: CapabilitiesPage, page: "capabilities", spread: "artifacts" },
+  {
+    Page: PartnershipsPage,
+    page: "partnerships",
+    spread: "partnership-path",
+  },
+  { Page: AboutPage, page: "about", spread: "name-study" },
+  { Page: ContactPage, page: "contact", spread: "contact-field" },
+] as const;
+
 describe("supporting corporate routes", () => {
+  it.each(editorialRouteExpectations)(
+    "composes $page as an editorial route",
+    ({ Page, page, spread }) => {
+      const { container } = render(<Page />);
+
+      expect(
+        container.querySelector(`[data-page="${page}"]`),
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector(`[data-spread="${spread}"]`),
+      ).toBeInTheDocument();
+    },
+  );
+
   it.each(routeExpectations)(
     "renders $heading with its defining approved statement",
     ({ Page, heading, statement }) => {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
 import { PageIntro } from "@/components/layout/page-intro";
 import { SITE_CONTENT } from "@/content/site";
 import { createPageMetadata } from "@/lib/metadata";
@@ -17,12 +18,21 @@ export default function CapabilitiesPage() {
   const page = SITE_CONTENT.pages.capabilities;
 
   return (
-    <article className="editorial-page">
-      <PageIntro introduction={page.introduction} title={page.title} />
+    <article className="editorial-page capabilities-page" data-page="capabilities">
+      <div className="capabilities-page__opening site-frame" data-spread="opening">
+        <PageIntro
+          className="capabilities-page__intro"
+          index="02"
+          introduction={page.introduction}
+          title={page.title}
+        />
+        <EditorialArtwork decorative variant="stack" />
+      </div>
 
       <section
         aria-label={SITE_CONTENT.capabilities.headline}
-        className="editorial-section editorial-section--surface"
+        className="editorial-section capabilities-territories"
+        data-spread="territories"
       >
         <div className="site-frame capability-ledger">
           {SITE_CONTENT.capabilities.items.map((capability) => (
@@ -36,7 +46,8 @@ export default function CapabilitiesPage() {
 
       <section
         aria-labelledby="artifacts-title"
-        className="editorial-section"
+        className="editorial-section capabilities-artifacts"
+        data-spread="artifacts"
       >
         <div className="site-frame editorial-split">
           <h2 id="artifacts-title">{page.artifactsHeadline}</h2>
@@ -50,7 +61,8 @@ export default function CapabilitiesPage() {
 
       <section
         aria-labelledby="boundaries-title"
-        className="editorial-section editorial-section--light"
+        className="editorial-section capabilities-boundaries"
+        data-spread="boundaries"
       >
         <div className="site-frame editorial-split">
           <h2 id="boundaries-title">{page.boundariesHeadline}</h2>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
 import { PageIntro } from "@/components/layout/page-intro";
 import { SITE_CONTENT } from "@/content/site";
 import { createPageMetadata } from "@/lib/metadata";
@@ -17,14 +18,23 @@ export default function ThinkingPage() {
   const page = SITE_CONTENT.pages.thinking;
 
   return (
-    <article className="editorial-page">
-      <PageIntro introduction={page.introduction} title={page.title} />
+    <article className="editorial-page thinking-page" data-page="thinking">
+      <PageIntro
+        index="01"
+        introduction={page.introduction}
+        title={page.title}
+      />
 
       <section
         aria-label={SITE_CONTENT.principles.headline}
-        className="editorial-section editorial-section--light"
+        className="editorial-section thinking-principles"
+        data-spread="principles"
       >
-        <ol className="site-frame editorial-sequence editorial-sequence--three">
+        <div className="site-frame thinking-principles__header">
+          <h2>{SITE_CONTENT.principles.headline}</h2>
+          <EditorialArtwork decorative variant="ribs" />
+        </div>
+        <ol className="site-frame editorial-sequence editorial-sequence--three thinking-principles__list">
           {page.principles.map((principle, index) => (
             <li key={principle.title}>
               <span aria-hidden="true" className="editorial-index">
@@ -41,11 +51,12 @@ export default function ThinkingPage() {
 
       <section
         aria-labelledby="thinking-system-title"
-        className="editorial-section"
+        className="editorial-section thinking-method"
+        data-spread="method"
       >
         <div className="site-frame editorial-split">
           <h2 id="thinking-system-title">{SITE_CONTENT.process.headline}</h2>
-          <ol className="editorial-rows">
+          <ol className="editorial-rows thinking-method__stages">
             {page.processStages.map((stage, index) => (
               <li key={stage.title}>
                 <span aria-hidden="true" className="editorial-index">
@@ -63,9 +74,10 @@ export default function ThinkingPage() {
 
       <section
         aria-labelledby="commitments-title"
-        className="editorial-section editorial-section--surface"
+        className="editorial-section thinking-commitments"
+        data-spread="commitments"
       >
-        <div className="site-frame editorial-split">
+        <div className="site-frame editorial-split thinking-commitments__grid">
           <h2 id="commitments-title">{page.commitmentsHeadline}</h2>
           <ul className="editorial-rows editorial-rows--plain">
             {page.commitments.map((commitment) => (

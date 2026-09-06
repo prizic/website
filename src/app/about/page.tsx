@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { LivingWordmark } from "@/components/brand/living-wordmark";
+import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
 import { PageIntro } from "@/components/layout/page-intro";
 import { SITE_CONTENT } from "@/content/site";
 import { createPageMetadata } from "@/lib/metadata";
@@ -17,22 +18,31 @@ export default function AboutPage() {
   const page = SITE_CONTENT.pages.about;
 
   return (
-    <article className="editorial-page about-page">
-      <PageIntro introduction={page.introduction} title={page.title} />
+    <article className="editorial-page about-page" data-page="about">
+      <PageIntro
+        index="04"
+        introduction={page.introduction}
+        title={page.title}
+      />
 
       <section
         aria-labelledby="about-founder-title"
-        className="editorial-section editorial-section--surface"
+        className="editorial-section about-page__founder"
+        data-spread="founder"
       >
         <div className="site-frame editorial-split">
           <h2 id="about-founder-title">{SITE_CONTENT.founder.headline}</h2>
-          <p className="editorial-statement">{SITE_CONTENT.founder.body}</p>
+          <div className="about-page__founder-copy">
+            <p className="editorial-statement">{SITE_CONTENT.founder.body}</p>
+            <EditorialArtwork decorative variant="fold" />
+          </div>
         </div>
       </section>
 
       <section
         aria-labelledby="about-purpose-title"
-        className="editorial-section"
+        className="editorial-section about-page__purpose"
+        data-spread="purpose"
       >
         <div className="site-frame editorial-split">
           <h2 id="about-purpose-title">{page.purposeHeadline}</h2>
@@ -42,7 +52,8 @@ export default function AboutPage() {
 
       <section
         aria-labelledby="about-name-title"
-        className="editorial-section editorial-section--surface about-name"
+        className="editorial-section about-name"
+        data-spread="name-study"
       >
         <div className="site-frame about-name__grid">
           <div>

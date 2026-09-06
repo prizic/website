@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SITE_CONTENT } from "@/content/site";
+import { ACCENT_BOOTSTRAP_SCRIPT } from "@/lib/accent-theme";
 import {
   createOrganizationJsonLd,
   createPageMetadata,
@@ -46,7 +47,15 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   const organizationJsonLd = createOrganizationJsonLd(siteConfig.canonicalUrl);
 
   return (
-    <html data-scroll-behavior="smooth" lang="en">
+    <html
+      data-accent="cyan"
+      data-scroll-behavior="smooth"
+      lang="en"
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: ACCENT_BOOTSTRAP_SCRIPT }} />
+      </head>
       <body
         className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
       >

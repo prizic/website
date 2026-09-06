@@ -33,13 +33,7 @@ type LivingWordmarkProps = {
 
 function FinalFace() {
   return (
-    <span className="living-wordmark__face">
-      <span className="living-wordmark__eye living-wordmark__eye--first" />
-      <span className="living-wordmark__eye living-wordmark__eye--second" />
-      <svg aria-hidden="true" className="living-wordmark__smile" viewBox="0 0 48 18">
-        <path d="M4 3c8 15 28 15 40 0" />
-      </svg>
-    </span>
+    <>Pr<span className="identity-i"><span className="identity-i__stem">i</span><span className="living-wordmark__eye" /></span>z<span className="identity-i"><span className="identity-i__stem">i</span><span className="living-wordmark__eye" /></span>c</>
   );
 }
 
@@ -117,6 +111,7 @@ export function LivingWordmark({
         className="living-wordmark__figure"
         data-settling={isSettling && !shouldReduceMotion && !isCancelled ? "true" : "false"}
         data-word={state.word}
+        data-motion={shouldAnimateFrame ? "enabled" : "static"}
         role="img"
       >
         <div aria-hidden="true" className="living-wordmark__visual">
@@ -148,18 +143,17 @@ export function LivingWordmark({
                 Pr
               </span>
               <motion.span
-                animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 className="living-wordmark__display-word"
                 initial={
                   shouldAnimateFrame
-                    ? { filter: "blur(3px)", opacity: 0.55, y: "0.14em" }
+                    ? { opacity: 0.55, y: "0.14em" }
                     : false
                 }
                 key={`${replayCount}-${state.word}-${shouldAnimateFrame ? "animated" : "static"}`}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
-                {state.word}
-                {state.word === "Prizic" ? <FinalFace /> : null}
+                {state.word === "Prizic" ? <FinalFace /> : state.word}
               </motion.span>
               <span className="living-wordmark__anchor living-wordmark__anchor--ending">
                 c

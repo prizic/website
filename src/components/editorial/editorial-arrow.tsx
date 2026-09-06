@@ -12,6 +12,7 @@ export function EditorialArrow({ direction = "up-right" }: EditorialArrowProps) 
     <svg
       aria-hidden="true"
       className="editorial-arrow"
+      data-direction={direction}
       focusable="false"
       viewBox="0 0 24 24"
     >

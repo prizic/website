@@ -6,21 +6,22 @@ import { EditorialArrow } from "@/components/editorial/editorial-arrow";
 import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
 import { FolioLabel } from "@/components/editorial/folio-label";
 import { SITE_CONTENT } from "@/content/site";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 
 export function OpeningSpread() {
   const [primary, secondary] = SITE_CONTENT.hero.actions;
 
   return (
-    <section aria-labelledby="home-title" className="site-frame opening-spread" data-spread="opening">
+    <ScrollReveal aria-labelledby="home-title" className="site-frame opening-spread" data-spread="opening" reveal="slide">
       <div className="opening-spread__grid">
         <div className="opening-spread__statement">
-          <h1 id="home-title">{SITE_CONTENT.hero.headline}</h1>
-          <p>{SITE_CONTENT.hero.supportingText}</p>
+          <h1 data-motion-item="" id="home-title">{SITE_CONTENT.hero.headline}</h1>
+          <p data-motion-item="">{SITE_CONTENT.hero.supportingText}</p>
         </div>
         <div className="opening-spread__feature">
           <div className="opening-spread__materials">
-            <EditorialArtwork decorative variant="fold" />
-            <EditorialArtwork decorative variant="ribs" />
+            <EditorialArtwork decorative variant="fold" preload sizes="(max-width: 767px) 51vw, (max-width: 1023px) 28vw, 27vw" />
+            <EditorialArtwork decorative variant="ribs" sizes="(max-width: 767px) 35vw, (max-width: 1023px) 20vw, 19vw" />
           </div>
           <LivingWordmark expandedSignal />
         </div>
@@ -36,6 +37,6 @@ export function OpeningSpread() {
         <FolioLabel detail="Technology company" index="01" section="Prizic" />
         <Link aria-label="Continue to A way of thinking." href="#method"><span>Continue</span><EditorialArrow direction="down" /></Link>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

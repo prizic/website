@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Capability } from "@/content/types";
 import { EditorialArrow } from "@/components/editorial/editorial-arrow";
 import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 
 type CapabilitiesSectionProps = {
   headline: string;
@@ -14,17 +15,18 @@ export function CapabilitiesSection({
   items,
 }: CapabilitiesSectionProps) {
   return (
-    <section
+    <ScrollReveal
+      reveal="panels"
       aria-labelledby="capabilities-title"
       className="site-frame home-spread capabilities-spread"
       data-spread="capabilities"
     >
       <div className="editorial-spread capabilities-spread__grid">
         <h2 id="capabilities-title">{headline}</h2>
-        <EditorialArtwork className="capabilities-spread__artwork" decorative variant="ribs" />
+        <EditorialArtwork className="capabilities-spread__artwork" decorative variant="stack" />
         <ul className="capabilities-spread__list">
           {items.map((item) => (
-            <li key={item.title}>
+            <li data-motion-item="" key={item.title}>
               <Link href={item.href}>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
@@ -34,6 +36,6 @@ export function CapabilitiesSection({
           ))}
         </ul>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }

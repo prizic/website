@@ -61,21 +61,21 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("group", { name: "Accent color" })).toBeVisible();
   });
 
-  it("uses one home link with full and compact responsive logo assets", () => {
+  it("uses one accessible home link with a stable animated identity", () => {
     render(<SiteHeader navigation={SITE_CONTENT.navigation} />);
 
     const homeLinks = screen.getAllByRole("link", { name: "Prizic home" });
     expect(homeLinks).toHaveLength(1);
 
-    const lockup = homeLinks[0].querySelector(
-      'img[src="/brand/prizic-lockup-on-dark.svg"]',
-    );
+    const identity = homeLinks[0].querySelector("[data-header-identity]");
     const mark = homeLinks[0].querySelector(
-      'img[src="/brand/prizic-mark-on-light.svg"]',
+      'img[src="/brand/prizic-mark-on-dark.svg"]',
     );
 
-    expect(lockup).toHaveClass("site-header__logo--desktop");
-    expect(mark).toHaveClass("site-header__logo--mobile");
+    expect(identity).toBeVisible();
+    expect(identity).toHaveTextContent("Prizic");
+    expect(mark).toBeInTheDocument();
+    expect(identity?.querySelectorAll("[data-identity-eye]")).toHaveLength(2);
   });
 
   it("opens the mobile dialog, closes on Escape, and restores trigger focus", async () => {

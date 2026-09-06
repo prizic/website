@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { PrizicLogo } from "@/components/brand/prizic-logo";
@@ -17,6 +17,14 @@ const SETTLE_DURATION_MS = 900;
 const subscribeToHydration = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+const getReducedMotion = () => window.matchMedia?.(reducedMotionQuery).matches ?? false;
+function subscribeToReducedMotion(onChange: () => void) {
+  if (typeof window.matchMedia !== "function") return () => {};
+  const media = window.matchMedia(reducedMotionQuery);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
 
 type LivingWordmarkProps = {
   autoPlay?: boolean;
@@ -39,7 +47,11 @@ export function LivingWordmark({
   autoPlay = true,
   expandedSignal = false,
 }: LivingWordmarkProps) {
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const shouldReduceMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotion,
+    () => true,
+  );
   // The server and hydration frame share a complete, still identity. Only
   // hydrated clients with motion enabled enter the exploratory sequence.
   const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
@@ -153,6 +165,7 @@ export function LivingWordmark({
       <button
         aria-label="Replay Prizic word animation"
         className="living-wordmark__replay"
+        hidden={!hydrated || shouldReduceMotion}
         onClick={replay}
         type="button"
       >

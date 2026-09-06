@@ -110,8 +110,9 @@ svg {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ink);
   outline-offset: 4px;
+  box-shadow: 0 0 0 4px var(--paper-bright);
 }
 
 .site-frame {
@@ -309,12 +310,13 @@ svg {
 
 .accent-switcher input {
   position: absolute;
-  inline-size: 1px;
-  block-size: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
+  inset: 0;
+  z-index: 1;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .accent-switcher label > span:not(.sr-only) {
@@ -333,7 +335,7 @@ svg {
 }
 
 .accent-switcher input:focus-visible + span {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ink);
   outline-offset: 4px;
 }
 
@@ -858,6 +860,10 @@ svg {
   transition:
     background-color 160ms ease-out,
     color 160ms ease-out;
+}
+
+.living-wordmark__replay[hidden] {
+  display: none;
 }
 
 .living-wordmark__replay:hover,
@@ -1434,6 +1440,13 @@ svg {
 .method-spread__index { display: flex; align-items: baseline; justify-content: space-between; margin-block-start: auto; font-size: clamp(4rem, 8vw, 7rem); letter-spacing: -0.07em; line-height: 1; }
 .method-spread__index .editorial-arrow { align-self: end; margin-block-end: 0.5rem; }
 .method-spread a:hover h3, .opening-spread__thinking:hover span, .opening-spread__contact:hover { text-decoration: underline; }
+
+.method-spread__modules a:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: -6px;
+  border-radius: inherit;
+  box-shadow: none;
+}
 
 @media (max-width: 63.99rem) {
   .opening-spread h1 { font-size: clamp(3.25rem, 7.2vw, 4.5rem); }

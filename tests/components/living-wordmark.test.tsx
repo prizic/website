@@ -3,26 +3,23 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { LivingWordmark } from "@/components/brand/living-wordmark";
 
-const motionPreference = vi.hoisted(() => ({ reduced: false }));
-
-vi.mock("motion/react", async () => {
-  const motion = await vi.importActual<typeof import("motion/react")>(
-    "motion/react",
-  );
-  return {
-    ...motion,
-    useReducedMotion: () => motionPreference.reduced,
-  };
-});
+const motionPreference = { reduced: false };
 
 beforeEach(() => {
   motionPreference.reduced = false;
+  vi.stubGlobal("matchMedia", () => ({
+    matches: motionPreference.reduced,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    addListener: vi.fn(),
+  }));
   vi.useFakeTimers();
 });
 
 afterEach(() => {
   vi.clearAllTimers();
   vi.useRealTimers();
+  vi.unstubAllGlobals();
 });
 
 describe("LivingWordmark", () => {
@@ -116,9 +113,7 @@ describe("LivingWordmark", () => {
     expect(wordmark).toHaveAttribute("data-settling", "false");
 
     act(() => vi.advanceTimersByTime(20_000));
-    fireEvent.click(
-      screen.getByRole("button", { name: "Replay Prizic word animation" }),
-    );
+    expect(screen.queryByRole("button", { name: "Replay Prizic word animation" })).not.toBeInTheDocument();
     expect(wordmark).toHaveAttribute("data-word", "Prizic");
   });
 });

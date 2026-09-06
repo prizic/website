@@ -6,7 +6,7 @@ Surface: All public website routes
 
 ## Objective
 
-Redesign the Prizic corporate website as an editorial, presentation-inspired experience derived from the supplied references. The site should feel like a sequence of exceptionally composed business-deck spreads translated into a responsive website, while remaining recognizably Prizic rather than copying the reference brand.
+Redesign the Prizic corporate website as a high-fidelity web adaptation of the supplied editorial presentation references. At comparable desktop dimensions, the references are the visual authority for composition density, typography scale, spacing, rounded modular panels, image treatment, and the balance between large headlines and compact supporting information. Prizic supplies the identity and content; the reference supplies the UI grammar.
 
 The redesign must preserve the site's purpose: explain what Prizic is, make its way of thinking visible, and provide a direct path to start a conversation. It must not imply customers, results, products, or company scale that Prizic cannot yet substantiate.
 
@@ -27,29 +27,41 @@ The redesign must preserve the site's purpose: explain what Prizic is, make its 
 
 The website uses the spatial confidence of a premium business presentation: large editorial headlines, disciplined modular grids, compact metadata, rounded image fields, and alternating moments of dense information and visual quiet.
 
-The palette is Prizic-owned:
+The base palette follows the references closely:
 
 - warm paper for the primary page field;
 - near-black for strong panels and primary type;
 - soft gray for secondary modules;
-- Prizic cyan as the only signal color;
+- one dynamic signal color selected from Prizic cyan, electric lime, or signal yellow;
 - white for type and diagrams on dark surfaces.
 
-The supplied references establish the desired density, scale, corner language, and editorial rhythm. Their yellow and green accents, company identity, photography, wording, figures, and exact layouts are not copied.
+The supplied references establish the desired density, scale, corner language, editorial rhythm, module proportions, and overall first impression. Their company identity, photography, wording, and figures are not copied. Their UI composition is reproduced at high visual fidelity using Prizic content and authored Prizic imagery.
 
 ### Design character
 
 - Swiss-editorial rather than conventional SaaS marketing.
 - Large, tightly tracked type used as composition, not decoration.
 - Modular panels that join into designed spreads instead of repeated generic cards.
-- Strong black-and-white contrast with cyan used sparingly for state, direction, and emphasis.
+- Strong black-and-white contrast with the selected accent used sparingly for state, direction, and emphasis.
 - Rounded rectangles and capsules balanced by strict alignment and thin rules.
 - Small labels and indices create presentation-like navigation without making the site feel like a slide viewer.
 - No gradients, glassmorphism, decorative shadows, stock people, fake application screenshots, or generic technology icon grids.
 
+### Dynamic accent control
+
+A compact accent selector lets the visitor compare three complete color treatments without changing the layout:
+
+1. Prizic Cyan — `#00D9FF`, the default on a first visit.
+2. Electric Lime — a high-energy green matched to the second supplied reference.
+3. Signal Yellow — a sharp yellow matched to the first supplied reference.
+
+The selector appears as three accessible color swatches in the header or a compact appearance control. It updates one semantic accent-token family rather than recoloring arbitrary elements. The choice persists locally across pages and visits. The default server-rendered experience remains cyan, and the enhancement avoids an obvious color flash during navigation. Each swatch has a text label available to assistive technology, a visible selected state, full keyboard operation, and sufficient contrast in every component state.
+
 ## Content and Evidence Rules
 
 Existing approved Prizic copy remains the source of truth during the first implementation. Copy may be rearranged, shortened for presentation, or repeated as navigation labels, but factual meaning must not change without approval.
+
+Visual fidelity takes priority over final copywriting in this iteration. Temporary headings and short structural labels may be used when they are needed to reproduce the reference composition, provided they do not make factual or commercial claims. Final wording can be replaced later without redesigning the layout.
 
 Temporary content is allowed only when it is visibly non-claiming. Acceptable temporary material includes:
 
@@ -70,7 +82,7 @@ The initial image family consists of:
 1. Folded or extruded forms derived from the diagonal Z stroke.
 2. Repeated soft mechanical forms suggesting systems and iteration.
 3. High-contrast material studies using black, white, and graphite.
-4. Cyan route marks, origin points, and small calibration symbols applied as information rather than decoration.
+4. Accent-colored route marks, origin points, and small calibration symbols applied as information rather than decoration.
 
 These visuals may be implemented as lightweight SVG/CSS compositions or produced raster assets. They must not depict client work. Every generated or sourced raster must carry its provenance metadata and have a deliberate responsive crop.
 
@@ -96,19 +108,19 @@ The footer acts as a final presentation folio: a large closing line, one direct 
 
 ### 1. Opening spread
 
-The first viewport is a single composed thesis, not a standard left-copy/right-image hero.
+The first viewport is a single composed thesis closely matching the reference’s panoramic annual-report opening spread, not a standard left-copy/right-image hero.
 
 - Compact header across the top.
 - A near-black rounded panoramic panel dominates the upper composition.
 - The approved line “From possibility to working systems.” is set at large scale inside or immediately beside the panel.
 - An authored P/Z-derived monochrome visual occupies the panel.
-- Prizic cyan marks one route, origin point, or decisive accent.
+- The selected dynamic accent marks one route, origin point, or decisive accent.
 - The company description and primary contact action sit in smaller supporting modules attached to the main panel.
 - The visitor must understand that Prizic is a technology company and see the next action without scrolling.
 
 ### 2. Contents / method spread
 
-The four-stage method becomes a presentation table of contents: four tall modules labelled Question, Direction, Software, and Learning with indices 01–04. One module is dark and one uses cyan so the row has controlled variation. The modules link to the deeper Thinking content where appropriate.
+The four-stage method becomes a presentation table of contents: four tall modules labelled Question, Direction, Software, and Learning with indices 01–04. One module is dark and one uses the selected accent so the row has controlled variation. The modules link to the deeper Thinking content where appropriate.
 
 ### 3. Company introduction spread
 
@@ -120,7 +132,7 @@ The three approved principles are composed as an executive-summary layout: one d
 
 ### 5. Proposed direction spread
 
-The Question-to-Learning method is shown as a connected set of modules rather than a workflow diagram copied from enterprise software. Cyan highlights the stage currently being described. The approved P/Z blueprint may appear in a simplified editorial form.
+The Question-to-Learning method is shown as a connected set of modules rather than a workflow diagram copied from enterprise software. The selected accent highlights the stage currently being described. The approved P/Z blueprint may appear in a simplified editorial form.
 
 ### 6. Capabilities spread
 
@@ -155,7 +167,7 @@ All secondary pages inherit the editorial-deck system but use different composit
 ### Partnerships
 
 - Opening proposition: “Bring the industry. Prizic brings the technology.”
-- Three-stage partnership path using connected cyan route marks.
+- Three-stage partnership path using connected accent-colored route marks.
 - A quiet collaboration diagram that contains roles and process only, with no invented partner identities.
 - Strong contact close.
 
@@ -175,7 +187,7 @@ All secondary pages inherit the editorial-deck system but use different composit
 
 ### Not found
 
-- Compact editorial error spread using the same paper, black panel, cyan index, and return-home action.
+- Compact editorial error spread using the same paper, black panel, dynamic accent index, and return-home action.
 
 ## Interaction and Motion
 
@@ -197,6 +209,7 @@ The desktop composition targets 1280–1440 pixels and preserves the wide presen
 - headings scale fluidly without clipping;
 - connected desktop modules become ordered vertical chapters;
 - panoramic artwork receives intentional portrait crops or a dedicated compact variant;
+- the accent selector remains available without consuming significant mobile header space;
 - metadata remains readable and avoids excessive microtype;
 - actions can expand to the available width;
 - no horizontal scrolling occurs at 320, 375, 768, 1280, or 1440 pixels.
@@ -226,12 +239,15 @@ Implementation is complete only when:
 - Playwright route, accessibility, navigation, reduced-motion, and responsive tests pass;
 - production build succeeds with required environment variables;
 - desktop and mobile screenshots show the full visual direction without missing or hidden content;
-- visual inspection confirms the supplied reference’s editorial density and composition have been translated into Prizic’s palette and brand grammar;
+- side-by-side visual inspection at the reference’s desktop aspect confirms close fidelity in editorial density, type scale, panel proportions, spacing, corner treatment, and monochrome imagery;
+- all three accent modes render consistently and the selected mode persists between routes;
 - all temporary content is non-claiming and no prohibited evidence appears;
 - the Impeccable detector has run once over changed UI targets;
 - a finish review closes all material findings;
 - `DESIGN.md` and its sidecar are regenerated from the finished implementation.
 
+When evaluating the first build, composition is judged before copy. Incorrect type scale, panel proportions, spacing, cropping, or responsive structure is a build defect; temporary non-claiming wording is not.
+
 ## Acceptance Summary
 
-A first-time visitor should describe the result as a premium editorial technology-company website made from presentation-like compositions, black-and-white abstract system imagery, oversized type, rounded modular panels, and one unmistakable cyan signal. They should understand what Prizic is, how it thinks, and how to start a conversation without encountering fabricated proof.
+A first-time visitor should immediately recognize the supplied reference’s premium presentation aesthetic: black-and-white abstract imagery, oversized editorial type, tightly composed rounded modules, and one vivid signal color. They can switch that signal between cyan, lime, and yellow while the underlying UI remains unchanged. They should understand what Prizic is, how it thinks, and how to start a conversation without encountering fabricated proof.

@@ -1,4 +1,6 @@
-import { PrizicLogo } from "@/components/brand/prizic-logo";
+import Link from "next/link";
+import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
+import { EditorialArrow } from "@/components/editorial/editorial-arrow";
 
 type FounderSectionProps = {
   headline: string;
@@ -9,16 +11,16 @@ export function FounderSection({ headline, body }: FounderSectionProps) {
   return (
     <section
       aria-labelledby="founder-title"
-      className="home-section founder-section"
+      className="site-frame home-spread founder-spread"
+      data-spread="founder"
     >
-      <div className="site-frame founder-section__grid">
-        <div aria-hidden="true" className="founder-section__mark">
-          <PrizicLogo decorative variant="mark" />
-        </div>
-        <div className="founder-section__statement">
+      <div className="editorial-spread founder-spread__grid">
+        <div className="founder-spread__statement">
           <h2 id="founder-title">{headline}</h2>
           <p>{body}</p>
+          <Link className="spread-link" href="/about">More about Prizic<EditorialArrow /></Link>
         </div>
+        <EditorialArtwork className="founder-spread__artwork" decorative variant="fold" />
       </div>
     </section>
   );

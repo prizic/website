@@ -31,7 +31,7 @@ describe("HomePage", () => {
         name: "From possibility to working systems.",
       }),
     ).toBeVisible();
-    expect(screen.getByText(/founder-led technology company/i)).toBeVisible();
+    expect(screen.getByText(SITE_CONTENT.hero.supportingText)).toBeVisible();
     expect(
       screen.getByRole("link", { name: "See how Prizic thinks" }),
     ).toHaveAttribute("href", "/thinking");
@@ -41,6 +41,8 @@ describe("HomePage", () => {
         heading.textContent,
       ),
     ).toEqual([
+      "A way of thinking.",
+      "Introducing Prizic.",
       "Clarity is part of the work.",
       "The Prizic system.",
       "What Prizic can bring to the work.",
@@ -57,27 +59,26 @@ describe("HomePage", () => {
     assertPublicContent(container.textContent ?? "");
   });
 
-  it("keeps the blueprint dominant and the living wordmark distinct in the hero", () => {
+  it("composes the homepage as the approved editorial deck", () => {
     const { container } = render(<HomePage />);
     const hero = screen.getByRole("region", {
       name: SITE_CONTENT.hero.headline,
     });
 
     expect(within(hero).getByRole("img", { name: "Prizic" })).toBeVisible();
-    expect(
-      within(hero).getAllByRole("figure", { name: "The Prizic system" }),
-    ).toHaveLength(2);
-    expect(
-      hero.querySelector(
-        '.home-blueprint--full svg[data-layout="full"]',
-      ),
-    ).toBeInTheDocument();
-    expect(
-      hero.querySelector(
-        '.home-blueprint--compact svg[data-layout="compact"]',
-      ),
-    ).toBeInTheDocument();
-    expect(container.querySelector(".home-hero__grid")).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    for (const spread of ["opening", "method", "introduction", "principles", "direction", "capabilities", "founder", "closing"]) {
+      expect(container.querySelector(`[data-spread="${spread}"]`)).toBeInTheDocument();
+    }
+    expect(hero.querySelector('[data-artwork="fold"]')).toBeInTheDocument();
+    const method = container.querySelector('[data-spread="method"]')! as HTMLElement;
+    const modules = within(method).getAllByRole("listitem");
+    expect(modules).toHaveLength(4);
+    SITE_CONTENT.process.stages.forEach((stage, index) => {
+      expect(within(modules[index]).getByRole("heading", { name: stage.title })).toBeVisible();
+      expect(within(modules[index]).getByText(stage.description)).toBeVisible();
+      expect(within(modules[index]).getByRole("link")).toHaveAttribute("href", "/thinking");
+    });
   });
 
   it("links every capability and both closing actions to their approved routes", () => {

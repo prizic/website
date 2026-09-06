@@ -1,4 +1,5 @@
 import type { Principle } from "@/content/types";
+import { EditorialArtwork } from "@/components/editorial/editorial-artwork";
 
 type PrinciplesSectionProps = {
   headline: string;
@@ -12,15 +13,17 @@ export function PrinciplesSection({
   return (
     <section
       aria-labelledby="principles-title"
-      className="home-section principles-section light-field"
+      className="site-frame home-spread principles-spread"
+      data-spread="principles"
       id="principles"
     >
-      <div className="site-frame principles-section__grid">
+      <div className="editorial-spread principles-spread__grid">
         <h2 id="principles-title">{headline}</h2>
-        <ol className="principles-section__list">
+        <EditorialArtwork className="principles-spread__artwork" decorative variant="ribs" />
+        <ol className="principles-spread__list">
           {items.map((item, index) => (
             <li key={item.title}>
-              <span aria-hidden="true" className="principles-section__index">
+              <span aria-hidden="true" className="spread-index">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div>

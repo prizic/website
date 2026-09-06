@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { PrizicLogo } from "@/components/brand/prizic-logo";
 
@@ -14,6 +14,9 @@ const WORD_STATES = [
 
 const FINAL_STATE_INDEX = WORD_STATES.length - 1;
 const SETTLE_DURATION_MS = 900;
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
 
 type LivingWordmarkProps = {
   autoPlay?: boolean;
@@ -37,17 +40,20 @@ export function LivingWordmark({
   expandedSignal = false,
 }: LivingWordmarkProps) {
   const shouldReduceMotion = Boolean(useReducedMotion());
+  // The server and hydration frame share a complete, still identity. Only
+  // hydrated clients with motion enabled enter the exploratory sequence.
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
   const [stateIndex, setStateIndex] = useState(
     autoPlay ? 0 : FINAL_STATE_INDEX,
   );
   const [replayCount, setReplayCount] = useState(0);
   const [isSettling, setIsSettling] = useState(false);
-  const visibleStateIndex = shouldReduceMotion
+  const visibleStateIndex = !hydrated || shouldReduceMotion
     ? FINAL_STATE_INDEX
     : stateIndex;
   const state = WORD_STATES[visibleStateIndex];
   const shouldAnimateFrame =
-    !shouldReduceMotion && (autoPlay || replayCount > 0);
+    hydrated && !shouldReduceMotion && (autoPlay || replayCount > 0);
 
   useEffect(() => {
     if (shouldReduceMotion || (!autoPlay && replayCount === 0)) return;

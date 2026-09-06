@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { ContactAction } from "@/components/actions/contact-action";
 import type { ContentAction } from "@/content/types";
+import { EditorialArrow } from "@/components/editorial/editorial-arrow";
+import { PrizicLogo } from "@/components/brand/prizic-logo";
 
 type ClosingSectionProps = {
   headline: string;
@@ -19,11 +21,13 @@ export function ClosingSection({
   return (
     <section
       aria-labelledby="closing-title"
-      className="home-section closing-section"
+      className="site-frame home-spread closing-spread"
+      data-spread="closing"
     >
-      <div className="site-frame closing-section__grid">
+      <div className="editorial-spread closing-spread__grid">
         <h2 id="closing-title">{headline}</h2>
-        <div className="closing-section__invitation">
+        <PrizicLogo className="closing-spread__mark" decorative variant="mark" />
+        <div className="closing-spread__invitation">
           <p>{body}</p>
           <div className="home-actions">
             {primaryAction ? (
@@ -39,9 +43,7 @@ export function ClosingSection({
                 href={secondaryAction.href}
               >
                 <span>{secondaryAction.label}</span>
-                <svg aria-hidden="true" viewBox="0 0 16 16">
-                  <path d="M3 13 13 3M6 3h7v7" />
-                </svg>
+                <EditorialArrow />
               </Link>
             ) : null}
           </div>

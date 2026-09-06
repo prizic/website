@@ -1,7 +1,7 @@
 # Prizic Editorial Deck Redesign
 
-Date: 2026-09-06  
-Status: Approved design direction; implementation pending  
+Date: 2026-09-06
+Status: Approved design direction; implementation pending
 Surface: All public website routes
 
 ## Objective

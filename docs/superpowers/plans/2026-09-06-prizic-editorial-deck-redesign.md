@@ -852,7 +852,72 @@ git commit -m "test: harden editorial themes and responsive behavior"
 
 ---
 
-### Task 7: Visual Fidelity Review, Design Documentation, and Production Release
+### Task 7: Motion, Asset, Geometry, and Rhythm Correction
+
+**User-approved correction:** The first preview was too static; the header used a static logo, directional arrows did not move, hero shapes looked broken, and large vertical gaps made the site feel empty. Integrate original generated assets and add a coherent motion system without sacrificing the Task 6 accessibility guarantees.
+
+**Files:**
+
+- Create: `public/images/editorial/prizic-monolith.webp`
+- Create: `public/images/editorial/prizic-ribbon-system.webp`
+- Create: `public/images/editorial/prizic-iteration.webp`
+- Create: `src/components/brand/animated-header-logo.tsx`
+- Create: `src/components/motion/scroll-reveal.tsx`
+- Modify: `src/components/layout/site-header.tsx`
+- Modify: `src/components/editorial/editorial-arrow.tsx`
+- Modify: `src/components/editorial/editorial-artwork.tsx`
+- Modify: `src/components/home/opening-spread.tsx`
+- Modify: `src/components/home/story-spreads.tsx`
+- Modify: `src/app/globals.css`
+- Modify: focused component and browser tests
+- Replace: `.impeccable/review/desktop.png`
+- Replace: `.impeccable/review/mobile.png`
+
+**Generated source assets:**
+
+- Graphite monolith: `/Users/seifelesllamseif/.codex/generated_images/01a063d9-458e-7fe2-a033-a3dd2b34685d/exec-ad6e3d73-e713-42ee-bfbe-1a0b4aa1d92d.png`
+- Ivory ribbon system: `/Users/seifelesllamseif/.codex/generated_images/01a063d9-458e-7fe2-a033-a3dd2b34685d/exec-3b1eabcd-a229-477b-89cf-468c4766c78b.png`
+- Graphite iteration study: `/Users/seifelesllamseif/.codex/generated_images/01a063d9-458e-7fe2-a033-a3dd2b34685d/exec-d936b440-06aa-4d79-bc07-28ed71c0735b.png`
+
+**Interfaces:**
+
+- The header consumes a compact animated Prizic mark/wordmark that never hides `Pr` or `c`, plays one restrained entrance, and settles legibly.
+- Editorial arrows visibly translate in their pointing direction on hover and keyboard focus, with a subtle authored entrance when appropriate.
+- Scroll reveals use one reusable client boundary and preserve visible server-rendered defaults before hydration.
+- Generated assets are optimized to WebP, rendered through `next/image`, and treated as original editorial imagery rather than logos.
+- `prefers-reduced-motion` shows every element and the settled logo immediately, with no autoplay, looping, parallax, or delayed visibility.
+
+- [ ] **Step 1: Add failing behavior tests**
+
+Cover the animated header-logo presence and settled accessible home link, arrow translation state on hover/focus, server-visible scroll-reveal content, and reduced-motion static state. Add a geometry regression for the opening artwork and a vertical-rhythm check that prevents the large dead band after the opening spread.
+
+- [ ] **Step 2: Optimize and install the generated assets**
+
+Convert the three source PNGs to high-quality WebP without changing the originals. Keep reasonable intrinsic dimensions and file sizes for production. Place only the final assets under `public/images/editorial/` and render them with explicit sizes, `sizes`, and suitable priority only for the opening asset.
+
+- [ ] **Step 3: Build the animated header identity**
+
+Replace the static top-left logo presentation with a compact animated Prizic identity using the approved P/Z mark and wordmark language. Keep the home link, accessible name, hit area, and stable settled width. Animate transform/opacity/clip-path only; do not cause layout shift. `Pr` and `c` remain visible throughout; internal line motion and `i`-dot blink may provide the authored moment.
+
+- [ ] **Step 4: Correct hero artwork and visual rhythm**
+
+Replace the two generic/broken vector tiles with intentional crops of the graphite monolith and ivory ribbon assets. Ensure the pair reads as one asymmetric composition at 1440/1280 and stacks cleanly at 768/375/320. Tighten opening and inter-spread spacing so no empty band appears accidental, while preserving separation and the reference's presentation cadence.
+
+- [ ] **Step 5: Add the coherent motion language**
+
+Implement scroll-triggered reveals once per spread with already-visible server defaults and exponential ease-out. Stagger meaningful grouped items. Give arrows directional hover/focus motion. Make motion a defining feature across the generated artwork: layered mask reveals, slow crop drift, scroll-linked parallax, subtle pointer/hover tilt and depth, and restrained accent-line passes. Animate existing internal line details and selected modular panels so the composition responds throughout the page, while varying timing and direction instead of applying one identical entrance everywhere. Keep animation GPU-friendly, avoid layout-property animation, prevent motion from obscuring copy or controls, and make every effect immediately static under reduced motion.
+
+- [ ] **Step 6: Verify motion and visuals**
+
+Run focused component tests, browser interaction tests, all Task 6 accessibility/reduced-motion tests, and overflow checks at 320, 375, 768, 1280, and 1440. Capture verified new desktop and mobile previews from an isolated production-like server. Compare spacing, asset crops, and animation settled states to the supplied reference boards.
+
+- [ ] **Step 7: Run engineering gates and commit**
+
+Run unit/component tests, full E2E, lint, typecheck, and production build. Commit the optimized assets, integration, animation components, tests, and captures as one reviewed correction.
+
+---
+
+### Task 8: Visual Fidelity Review, Design Documentation, and Production Release
 
 **Files:**
 

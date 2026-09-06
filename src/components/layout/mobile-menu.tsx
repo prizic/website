@@ -100,7 +100,10 @@ export function MobileMenu({ navigation, contact }: MobileMenuProps) {
   }, [closeMenu, isOpen]);
 
   return (
-    <div className="mobile-menu">
+    <div
+      className="mobile-menu"
+      data-enhanced={isEnhanced ? "true" : "false"}
+    >
       <button
         aria-controls="mobile-navigation"
         aria-expanded={isOpen}

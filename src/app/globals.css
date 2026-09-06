@@ -1938,6 +1938,11 @@ svg {
 }
 
 @media (max-width: 56.24rem) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
   .site-header__logo--desktop {
     display: none;
   }
@@ -1959,6 +1964,15 @@ svg {
   .mobile-menu {
     display: flex;
     align-items: center;
+  }
+
+  .mobile-menu[data-enhanced="false"] {
+    flex: 0 0 100%;
+    order: 1;
+  }
+
+  .mobile-menu[data-enhanced="false"] .mobile-menu__fallback {
+    inline-size: 100%;
   }
 
   .site-header__accent {

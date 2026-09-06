@@ -57,6 +57,39 @@ test("header navigation reaches every public destination", async ({ page }) => {
   await expect(page).toHaveURL("/");
 });
 
+test("no-JavaScript mobile navigation remains within a 320px viewport", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 320, height: 640 },
+  });
+  const page = await context.newPage();
+
+  await page.goto("/");
+
+  const fallback = page.getByRole("navigation", { name: "Mobile fallback" });
+  await expect(fallback).toBeVisible();
+
+  for (const label of [
+    "Thinking",
+    "Capabilities",
+    "Partnerships",
+    "About",
+    "Start a conversation",
+  ]) {
+    const link = fallback.getByRole("link", { name: label });
+    await expect(link).toBeVisible();
+    const bounds = await link.boundingBox();
+
+    expect(bounds).not.toBeNull();
+    expect(bounds?.x).toBeGreaterThanOrEqual(0);
+    expect((bounds?.x ?? 0) + (bounds?.width ?? 0)).toBeLessThanOrEqual(320);
+  }
+
+  await context.close();
+});
+
 test("desktop keyboard order moves from the logo through the primary action", async ({
   page,
 }) => {

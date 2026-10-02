@@ -8,61 +8,59 @@ web
 
 ## Stack
 
-Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4, Motion for React, pnpm, Vitest, Testing Library and Playwright.
+Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4 (utilities only, tokens in `@theme`), Motion for React, pnpm, Vitest, Testing Library and Playwright.
 
 ## Users
 
-- Prospective clients and founders deciding whether Prizic is thoughtful and technically credible.
-- Industry-oriented collaborators considering Prizic as a technical partner.
-- First-time visitors who need a concise explanation of the company.
-- Future team members and advisers learning how Prizic thinks and works.
+- Local business owners and operators deciding whether Prizic can improve their website, how they handle inquiries and bookings, or how their team manages work.
+- Visitors who arrive with a business problem rather than a technical brief.
+- People checking who Prizic is and how a project would run before getting in touch.
 
 ## Product Purpose
 
-This is Prizic's corporate and public-relations website. It introduces the company, explains its point of view and method, and provides one direct path to begin a conversation. Success means a visitor understands what Prizic is within the first viewport and can inspect how it thinks without being shown an invented track record.
+This is Prizic's capabilities-led website. It explains three services (websites and digital presence, business software, automation and integrations), connects them through one proposition, and gives visitors a clear way to start a project. Success means a visitor recognises their situation, understands what Prizic would do and how delivery works, and sends an inquiry.
 
 ## Positioning
 
-Prizic makes its method part of the public proof. The Question, Direction, Software and Learning loop shows how unclear ideas become working systems. The site communicates technical depth through clear decisions and honest boundaries, not through generic agency claims.
+Prizic connects the experience customers see with the work the team handles behind it: from the first inquiry to bookings, requests and everyday operations. The services are presented as related capabilities, not an unrelated catalogue. The site does not claim an exclusive niche or a geography that has not been confirmed.
 
 ## Operating Context
 
-Visitors may arrive from the company domain, a shared link, search or a social preview. They can read the homepage and five permanent routes: Thinking, Capabilities, Partnerships, About and Contact. The site must remain understandable to nontechnical business visitors while carrying enough substance for technical founders.
+Visitors arrive from search, shared links, social previews or direct outreach. They can read the homepage, a Services index and three service pages, Approach, About and Contact. The site must stay understandable to nontechnical business visitors and usable on a phone.
 
 ## Capabilities and Constraints
 
-- English only in the first release.
-- Static corporate content with no CMS, database, analytics, third-party embeds, account system or contact form.
-- One direct contact destination, configured outside the public copy. Production must fail when the destination or canonical URL is missing or invalid.
-- No dental or booking content and no unreleased product offer.
-- No pricing, packages, checkout, portfolio, customer logos, testimonials, reviews or commercial metrics until real approved evidence exists.
-- Core content and navigation render on the server and remain usable without JavaScript.
+- English only in this release; localise for the market contacted rather than claiming language services.
+- Static content in `src/content/site.ts`; no CMS, analytics, third-party embeds or account system.
+- One inquiry form. Submissions go to the Outreach CRM through its anon-callable `submit_inquiry` RPC. Production builds fail without the inquiry destination, the canonical URL and the contact URL.
+- Introductory-call booking appears only when a scheduling URL is configured.
+- No project names, product listings, repository or portfolio links, screenshots of unpublished systems, customer logos, testimonials, case studies, awards, guarantees, staff-size or years-of-experience claims, or performance metrics.
+- Ads and ongoing social-media management are outside the current offer.
+- Core content, navigation and the inquiry form render on the server and work without JavaScript.
 - Motion is progressive enhancement and never required for comprehension.
 
 ## Brand Commitments
 
 - Company name: Prizic, pronounced "PRIZ-ik."
-- Approved line: "From possibility to working systems."
-- Founder-led positioning and plain, calm, specific language.
+- Software and digital product studio founded by Seifelesllam Seif.
+- Plain, calm, specific language; describe what will be agreed and delivered rather than promising outcomes.
 - Approved P/Z mark, static lockups and the restrained Anchor living-wordmark concept.
 - The P/Z icon stays still during the wordmark sequence. `Pr` and `c` remain visible. The sequence runs once and settles on Prizic.
-- Framer is a craft reference, not a layout to copy.
+- Branding is supporting scope; no client is required to replace an existing logo.
 
 ## Evidence on Hand
 
 - Approved Prizic logo system and animation studies.
-- Approved corporate website design specification and Blueprint composition reference.
-- Approved company principles, voice, strategy and founder statement.
-- No approved public customer work, testimonials, customer logos or performance metrics exist yet. Future work must not fabricate them.
+- Approved capabilities-led website copy (2 October 2026).
+- No approved public customer work, testimonials, customer logos or performance metrics exist yet. Homepage customer situations are illustrative, not case studies.
 
 ## Product Principles
 
-- Clarity before complexity.
-- Useful before impressive.
-- Systems over one-offs.
-- Cut scope, not production quality or security.
+- Understand the situation before recommending a solution.
+- Make scope, responsibilities and review points explicit.
+- Consider use, handover and maintenance as part of the work.
 - State limitations and undecided facts plainly.
 
 ## Accessibility & Inclusion
 
-Target WCAG 2.2 AA. Provide visible keyboard focus, 44 by 44 pixel minimum touch targets, readable content down to 320 pixels, semantic landmarks and complete reduced-motion fallbacks.
+Target WCAG 2.2 AA. Provide visible keyboard focus, 44 by 44 pixel minimum touch targets, readable content down to 320 pixels, semantic landmarks, labelled form controls with associated errors, and complete reduced-motion fallbacks.

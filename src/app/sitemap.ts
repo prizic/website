@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
 
+import { SITE_CONTENT } from "@/content/site";
 import { resolveSiteConfig } from "@/lib/site-config";
 
 const PUBLIC_ROUTES = [
   "/",
-  "/thinking",
-  "/capabilities",
-  "/partnerships",
+  "/services",
+  ...Object.keys(SITE_CONTENT.pages.service).map((slug) => `/services/${slug}`),
+  "/approach",
   "/about",
   "/contact",
-] as const;
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const { canonicalUrl } = resolveSiteConfig(

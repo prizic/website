@@ -11,97 +11,158 @@ export interface ContentAction extends NavigationItem {
   kind: "primary" | "secondary";
 }
 
-export interface Principle {
-  title: string;
-  description: string;
-}
-
-export interface ProcessStage {
-  title: string;
-  description: string;
-}
-
-export interface Capability {
-  title: string;
-  description: string;
-  href: string;
-}
-
-export interface NameAssociation {
-  title: string;
-  description: string;
-}
-
 export interface EditorialItem {
   title: string;
   description: string;
 }
 
-export interface PageIntroduction {
+export interface PageMetadataCopy {
+  title: string;
+  description: string;
+}
+
+export type ServiceSlug = "websites" | "business-software" | "automation";
+
+export interface ServiceSummary {
+  slug: ServiceSlug;
+  index: string;
+  name: string;
+  headline: string;
+  description: string;
+  deliverables: string[];
+  link: NavigationItem;
+}
+
+export interface ServicePageContent {
+  slug: ServiceSlug;
+  metadata: PageMetadataCopy;
   title: string;
   introduction: string;
+  lead: EditorialItem;
+  capabilitiesHeadline: string;
+  capabilities: string[];
+  sections: EditorialItem[];
+  action: ContentAction;
 }
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export type InquiryTopic =
+  | "website"
+  | "business_software"
+  | "automation"
+  | "define_project";
 
 export interface SiteContent {
   navigation: NavigationItem[];
-  hero: {
-    headline: string;
-    supportingText: string;
-    actions: ContentAction[];
+  headerAction: ContentAction;
+  home: {
+    metadata: PageMetadataCopy;
+    hero: {
+      eyebrow: string;
+      headline: string;
+      supportingText: string;
+      actions: [ContentAction, ContentAction];
+    };
+    introduction: {
+      headline: string;
+      paragraphs: string[];
+    };
+    services: {
+      headline: string;
+      items: ServiceSummary[];
+    };
+    situations: {
+      headline: string;
+      items: Array<EditorialItem & { href: string }>;
+    };
+    connected: {
+      headline: string;
+      paragraphs: string[];
+    };
+    delivery: {
+      headline: string;
+      stages: EditorialItem[];
+      link: NavigationItem;
+    };
+    ongoing: {
+      headline: string;
+      body: string;
+      items: string[];
+      link: NavigationItem;
+    };
+    about: {
+      headline: string;
+      paragraphs: string[];
+      link: NavigationItem;
+    };
+    faq: {
+      headline: string;
+      items: FaqItem[];
+    };
+    closing: {
+      headline: string;
+      examples: string[];
+      body: string;
+      primaryAction: ContentAction;
+      emailLabel: string;
+    };
   };
-  principles: {
-    headline: string;
-    items: Principle[];
-  };
-  process: {
-    headline: string;
-    stages: ProcessStage[];
-  };
-  capabilities: {
-    headline: string;
-    items: Capability[];
-  };
-  founder: {
-    headline: string;
-    body: string;
-  };
-  closing: {
-    headline: string;
-    body: string;
-    actions: ContentAction[];
-  };
-  name: {
-    pronunciation: string;
-    associations: NameAssociation[];
+  footer: {
+    tagline: string;
+    copyright: string;
   };
   pages: {
-    thinking: PageIntroduction & {
-      principles: EditorialItem[];
-      processStages: EditorialItem[];
-      commitmentsHeadline: string;
-      commitments: EditorialItem[];
+    services: {
+      metadata: PageMetadataCopy;
+      title: string;
+      introduction: string;
     };
-    capabilities: PageIntroduction & {
-      artifactsHeadline: string;
-      artifacts: string[];
-      boundariesHeadline: string;
-      boundaries: EditorialItem[];
-    };
-    partnerships: PageIntroduction & {
-      stepsHeadline: string;
-      steps: EditorialItem[];
+    service: Record<ServiceSlug, ServicePageContent>;
+    approach: {
+      metadata: PageMetadataCopy;
+      title: string;
+      introduction: string;
+      stages: EditorialItem[];
       action: ContentAction;
     };
-    about: PageIntroduction & {
-      purposeHeadline: string;
-      purposeBody: string;
-      nameHeadline: string;
-      pronunciationLead: string;
+    about: {
+      metadata: PageMetadataCopy;
+      title: string;
+      paragraphs: string[];
+      principles: EditorialItem[];
+      action: ContentAction;
     };
-    contact: PageIntroduction & {
-      body: string;
-      pendingExplanation: string;
-      actionLabel: string;
+    contact: {
+      metadata: PageMetadataCopy;
+      title: string;
+      introduction: string;
+      reassurance: string;
+      form: {
+        name: string;
+        businessName: string;
+        email: string;
+        website: string;
+        topic: string;
+        topics: Array<{ value: InquiryTopic; label: string }>;
+        message: string;
+        messagePlaceholder: string;
+        budget: string;
+        budgetPlaceholder: string;
+        timing: string;
+        timingPlaceholder: string;
+        optional: string;
+        submit: string;
+        submitting: string;
+        supportingText: string;
+        success: string;
+        error: string;
+      };
+      bookingLabel: string;
+      emailLabel: string;
     };
     notFound: {
       title: string;

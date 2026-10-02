@@ -1,99 +1,109 @@
 import { render, screen, within } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import HomePage from "@/app/page";
 import { SITE_CONTENT } from "@/content/site";
 import { assertPublicContent } from "@/lib/public-content";
 
-const motionPreference = vi.hoisted(() => ({ reduced: false }));
+const { home } = SITE_CONTENT;
 
-vi.mock("motion/react", async () => {
-  const motion = await vi.importActual<typeof import("motion/react")>(
-    "motion/react",
-  );
-  return {
-    ...motion,
-    useReducedMotion: () => motionPreference.reduced,
-  };
-});
-
-beforeEach(() => {
-  motionPreference.reduced = false;
-});
+afterEach(() => vi.unstubAllEnvs());
 
 describe("HomePage", () => {
   it("renders the approved narrative in order from typed content", () => {
     const { container } = render(<HomePage />);
 
     expect(
-      screen.getByRole("heading", {
-        level: 1,
-        name: "From possibility to working systems.",
-      }),
+      screen.getByRole("heading", { level: 1, name: home.hero.headline }),
     ).toBeVisible();
-    expect(screen.getByText(SITE_CONTENT.hero.supportingText)).toBeVisible();
-    expect(
-      screen.getByRole("link", { name: "See how Prizic thinks" }),
-    ).toHaveAttribute("href", "/thinking");
+    expect(screen.getByText(home.hero.eyebrow)).toBeVisible();
+    expect(screen.getByText(home.hero.supportingText)).toBeVisible();
 
     expect(
-      screen.getAllByRole("heading", { level: 2 }).map((heading) =>
-        heading.textContent,
-      ),
+      screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent),
     ).toEqual([
-      "A way of thinking.",
-      "Introducing Prizic.",
-      "Clarity is part of the work.",
-      "The Prizic system.",
-      "What Prizic can bring to the work.",
-      "Built close to the work.",
-      "A clear first conversation is enough.",
+      "Your website is where the conversation starts.",
+      "Three ways we can help.",
+      "Start with the part of your business that needs attention.",
+      "Designed together. Built to work together.",
+      "Know what is being built—and what happens next.",
+      "Keep improving after launch.",
+      "Meet the team behind the work.",
+      "Before we get started.",
+      "What is the next improvement your business needs?",
     ]);
-
-    for (const principle of SITE_CONTENT.principles.items) {
-      expect(screen.getByText(principle.title)).toBeVisible();
-      expect(screen.getByText(principle.description)).toBeVisible();
-    }
-    expect(screen.getByText(SITE_CONTENT.founder.body)).toBeVisible();
-    expect(screen.getByText(SITE_CONTENT.closing.body)).toBeVisible();
     assertPublicContent(container.textContent ?? "");
   });
 
-  it("composes the homepage as the approved editorial deck", () => {
+  it("composes the homepage as an editorial deck with one page heading", () => {
     const { container } = render(<HomePage />);
-    const hero = screen.getByRole("region", {
-      name: SITE_CONTENT.hero.headline,
-    });
+    const hero = screen.getByRole("region", { name: home.hero.headline });
 
     expect(within(hero).getByRole("img", { name: "Prizic" })).toBeVisible();
+    expect(hero.querySelector('[data-artwork="fold"]')).toBeInTheDocument();
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    for (const spread of ["opening", "method", "introduction", "principles", "direction", "capabilities", "founder", "closing"]) {
+    for (const spread of ["opening", "introduction", "services", "situations", "connected", "delivery", "studio", "faq", "closing"]) {
       expect(container.querySelector(`[data-spread="${spread}"]`)).toBeInTheDocument();
     }
-    expect(hero.querySelector('[data-artwork="fold"]')).toBeInTheDocument();
-    const method = container.querySelector('[data-spread="method"]')! as HTMLElement;
-    const modules = within(method).getAllByRole("listitem");
-    expect(modules).toHaveLength(4);
-    SITE_CONTENT.process.stages.forEach((stage, index) => {
-      expect(within(modules[index]).getByRole("heading", { name: stage.title })).toBeVisible();
-      expect(within(modules[index]).getByText(stage.description)).toBeVisible();
-      expect(within(modules[index]).getByRole("link")).toHaveAttribute("href", "/thinking");
-    });
   });
 
-  it("links every capability and both closing actions to their approved routes", () => {
+  it("sends the hero actions to the inquiry and the services", () => {
+    render(<HomePage />);
+    const hero = screen.getByRole("region", { name: home.hero.headline });
+
+    expect(within(hero).getByRole("link", { name: "Discuss a project" })).toHaveAttribute("href", "/contact");
+    expect(within(hero).getByRole("link", { name: "Explore our services" })).toHaveAttribute("href", "/services");
+  });
+
+  it("presents each service with its deliverables and a matching link", () => {
+    render(<HomePage />);
+    const services = screen.getByRole("region", { name: home.services.headline });
+
+    for (const service of home.services.items) {
+      const card = within(services)
+        .getByRole("heading", { level: 3, name: service.headline })
+        .closest("li")!;
+      expect(
+        within(within(card).getByRole("list", { name: `${service.name} deliverables` }))
+          .getAllByRole("listitem")
+          .map((item) => item.textContent),
+      ).toEqual(service.deliverables);
+      expect(within(card).getByRole("link", { name: service.link.label })).toHaveAttribute("href", service.link.href);
+    }
+  });
+
+  it("links every customer situation to the service that addresses it", () => {
     render(<HomePage />);
 
-    for (const capability of SITE_CONTENT.capabilities.items) {
-      expect(
-        screen.getByRole("link", { name: new RegExp(capability.title, "i") }),
-      ).toHaveAttribute("href", capability.href);
+    for (const situation of home.situations.items) {
+      const heading = screen.getByRole("heading", { level: 3, name: situation.title });
+      expect(heading.closest("a")).toHaveAttribute("href", situation.href);
     }
-    expect(
-      screen.getAllByRole("link", { name: "Start a conversation" }),
-    ).toHaveLength(2);
-    expect(
-      screen.getByRole("link", { name: "Explore partnerships" }),
-    ).toHaveAttribute("href", "/partnerships");
+  });
+
+  it("answers every FAQ in a native disclosure", () => {
+    render(<HomePage />);
+
+    for (const item of home.faq.items) {
+      expect(screen.getByText(item.question).closest("details")).toBeInTheDocument();
+      expect(screen.getByText(item.answer)).toBeInTheDocument();
+    }
+  });
+
+  it("closes with the inquiry and a truthful email state", () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTACT_URL", "");
+    render(<HomePage />);
+    const closing = screen.getByRole("region", { name: home.closing.headline });
+
+    expect(within(closing).getByRole("link", { name: "Discuss a project" })).toHaveAttribute("href", "/contact");
+    expect(within(closing).getByText("Contact destination pending")).toBeVisible();
+  });
+
+  it("uses the configured inbox for Email Prizic", () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTACT_URL", "mailto:preview@prizic.test");
+    render(<HomePage />);
+    const closing = screen.getByRole("region", { name: home.closing.headline });
+
+    expect(within(closing).getByRole("link", { name: "Email Prizic" })).toHaveAttribute("href", "mailto:preview@prizic.test");
   });
 });

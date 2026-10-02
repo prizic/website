@@ -1,14 +1,15 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { useSyncExternalStore } from "react";
 
 import {
   ACCENT_STORAGE_KEY,
   ACCENT_THEMES,
   type AccentTheme,
+  applyAccent,
   isAccentTheme,
 } from "@/lib/accent-theme";
+import { cx } from "@/lib/ui";
 
 type AccentSwitcherProps = {
   className?: string;
@@ -30,10 +31,9 @@ function subscribeToAccent(onChange: () => void) {
 
 export function AccentSwitcher({ className }: AccentSwitcherProps) {
   const accent = useSyncExternalStore(subscribeToAccent, getInitialAccent, () => "cyan" as const);
-  const classes = ["accent-switcher", className].filter(Boolean).join(" ");
 
   function selectAccent(nextAccent: AccentTheme) {
-    document.documentElement.setAttribute("data-accent", nextAccent);
+    applyAccent(document.documentElement, nextAccent);
 
     try {
       localStorage.setItem(ACCENT_STORAGE_KEY, nextAccent);
@@ -42,12 +42,20 @@ export function AccentSwitcher({ className }: AccentSwitcherProps) {
   }
 
   return (
-    <fieldset aria-label="Accent color" className={classes}>
+    <fieldset
+      aria-label="Accent color"
+      className={cx("m-0 inline-flex min-w-0 items-center border-0 p-0", className)}
+    >
       <legend className="sr-only">Accent color</legend>
       {ACCENT_THEMES.map((theme) => (
-        <label key={theme.id} title={theme.label}>
+        <label
+          className="relative grid size-11 cursor-pointer place-items-center"
+          key={theme.id}
+          title={theme.label}
+        >
           <input
             checked={accent === theme.id}
+            className="peer absolute inset-0 z-1 m-0 size-full cursor-pointer opacity-0"
             name="accent-color"
             onChange={() => selectAccent(theme.id)}
             type="radio"
@@ -55,7 +63,8 @@ export function AccentSwitcher({ className }: AccentSwitcherProps) {
           />
           <span
             aria-hidden="true"
-            style={{ "--swatch": theme.color } as CSSProperties}
+            className="size-3 rounded-full border border-ink/34 transition-transform duration-160 ease-out peer-checked:scale-106 peer-checked:outline peer-checked:outline-offset-3 peer-checked:outline-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-ink motion-reduce:transition-none"
+            style={{ backgroundColor: theme.color }}
           />
           <span className="sr-only">{theme.label}</span>
         </label>

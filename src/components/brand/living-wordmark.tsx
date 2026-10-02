@@ -3,7 +3,9 @@
 import { motion } from "motion/react";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
+import { IdentityI } from "@/components/brand/identity-letter";
 import { PrizicLogo } from "@/components/brand/prizic-logo";
+import { cx, label } from "@/lib/ui";
 
 const WORD_STATES = [
   { word: "Precise", holdMs: 1_200 },
@@ -31,9 +33,22 @@ type LivingWordmarkProps = {
   expandedSignal?: boolean;
 };
 
+// Seven measured rules behind the word; the fourth carries the accent.
+const CALIBRATION_LINES = [
+  "top-0 start-0 w-[42%]",
+  "top-1.75 start-[8%] w-[61%] origin-right [animation-direction:reverse]",
+  "top-3.5 end-0 w-[34%]",
+  "top-1/2 -start-1.5 w-[12%] bg-accent origin-right [animation-direction:reverse]",
+  "bottom-3.5 start-[4%] w-[58%]",
+  "bottom-1.75 end-[6%] w-[27%] origin-right [animation-direction:reverse]",
+  "bottom-0 start-[28%] w-[54%]",
+];
+
+const eye = "in-data-[settling=true]:animate-eye-blink-fast";
+
 function FinalFace() {
   return (
-    <>Pr<span className="identity-i"><span className="identity-i__stem">i</span><span className="living-wordmark__eye" /></span>z<span className="identity-i"><span className="identity-i__stem">i</span><span className="living-wordmark__eye" /></span>c</>
+    <>Pr<IdentityI eyeClassName={eye} />z<IdentityI eyeClassName={eye} />c</>
   );
 }
 
@@ -102,49 +117,59 @@ export function LivingWordmark({
     setReplayCount((count) => count + 1);
   }
 
+  const anchor = cx(
+    label,
+    "relative z-1 inline-grid min-h-7 min-w-7 place-items-center border border-line-dark text-[0.625rem] leading-none max-md:min-w-5",
+  );
+
   return (
-    <div
-      className={`living-wordmark${expandedSignal ? " living-wordmark--signal" : ""}`}
-    >
+    <div className={cx("relative grid max-w-full justify-items-start gap-3 px-3", expandedSignal && "w-full")}>
       <figure
         aria-label="Prizic"
-        className="living-wordmark__figure"
+        className={cx("m-0 max-w-full", expandedSignal && "w-full")}
         data-settling={isSettling && !shouldReduceMotion && !isCancelled ? "true" : "false"}
         data-word={state.word}
         data-motion={shouldAnimateFrame ? "enabled" : "static"}
         role="img"
       >
-        <div aria-hidden="true" className="living-wordmark__visual">
+        <div aria-hidden="true" className={cx("flex max-w-full items-center gap-3 lg:gap-6", expandedSignal && "w-full")}>
           <PrizicLogo
-            className="living-wordmark__mark"
+            className="h-auto w-12 shrink-0 max-lg:w-10 max-md:w-9"
             decorative
             variant="mark"
           />
           <span
             className={
-              expandedSignal ? "living-wordmark__signal-field" : undefined
+              expandedSignal ? "relative isolate min-h-20 min-w-0 flex-auto py-4" : undefined
             }
             data-signal-field={expandedSignal ? "" : undefined}
           >
             {expandedSignal ? (
-              <span aria-hidden="true" className="living-wordmark__calibration">
-                {Array.from({ length: 7 }, (_, index) => (
-                  <span data-calibration-line="" key={index} />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-1">
+                {CALIBRATION_LINES.map((position, index) => (
+                  <span
+                    className={cx(
+                      "absolute h-px bg-line-dark",
+                      position,
+                      "origin-left in-data-[motion=enabled]:animate-route-pass-slow motion-reduce:animate-none",
+                    )}
+                    data-calibration-line=""
+                    key={index}
+                  />
                 ))}
                 <span
-                  className="living-wordmark__calibration-origin"
+                  className="absolute -end-1 top-[calc(50%-0.25rem)] size-2 border border-line-dark bg-ink"
                   data-calibration-origin=""
                 />
               </span>
             ) : null}
 
-            <span className="living-wordmark__word">
-              <span className="living-wordmark__anchor living-wordmark__anchor--prefix">
-                Pr
-              </span>
+            <span className="grid min-w-0 grid-cols-[auto_minmax(0,max-content)_auto] items-center justify-start gap-2 whitespace-nowrap text-paper-bright lg:gap-4 max-md:gap-1.5">
+              <span className={cx(anchor, "text-panel")}>Pr</span>
               <motion.span
                 animate={{ opacity: 1, y: 0 }}
-                className="living-wordmark__display-word"
+                className="relative inline-block w-[6.5ch] min-w-0 origin-left font-display text-[clamp(2.5rem,4vw,3.5rem)] leading-[0.9] font-medium tracking-[-0.04em] text-accent max-lg:text-4xl max-md:text-[clamp(1.5rem,7vw,2.5rem)]"
+                data-display-word=""
                 initial={
                   shouldAnimateFrame
                     ? { opacity: 0.55, y: "0.14em" }
@@ -155,9 +180,7 @@ export function LivingWordmark({
               >
                 {state.word === "Prizic" ? <FinalFace /> : state.word}
               </motion.span>
-              <span className="living-wordmark__anchor living-wordmark__anchor--ending">
-                c
-              </span>
+              <span className={cx(anchor, "text-accent")}>c</span>
             </span>
           </span>
         </div>
@@ -165,12 +188,12 @@ export function LivingWordmark({
 
       <button
         aria-label="Replay Prizic word animation"
-        className="living-wordmark__replay"
+        className="absolute end-3 -bottom-3 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-action border-0 bg-ink px-2 py-2 font-mono text-xs tracking-[0.04em] text-panel transition-colors duration-160 ease-out hover:bg-ink-soft hover:text-paper-bright focus-visible:bg-ink-soft focus-visible:text-paper-bright active:text-accent motion-reduce:transition-none"
         hidden={!hydrated || shouldReduceMotion}
         onClick={replay}
         type="button"
       >
-        <svg aria-hidden="true" viewBox="0 0 20 20">
+        <svg aria-hidden="true" className="size-4" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} viewBox="0 0 20 20">
           <path d="M16.4 8.2A6.7 6.7 0 1 0 16 13M16.4 8.2V3.8M16.4 8.2H12" />
         </svg>
         Replay

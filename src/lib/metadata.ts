@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export interface PageMetadataInput {
+  /** The complete document title, including the Prizic identity. */
   title: string;
   description: string;
   path: `/${string}` | "/";
@@ -10,12 +11,8 @@ export interface PageMetadataInput {
 const SOCIAL_IMAGE = {
   width: 1200,
   height: 630,
-  alt: "Prizic. From possibility to working systems.",
+  alt: "Prizic. Web design, business software and automation for local businesses.",
 };
-
-function pageTitle(title: string, path: PageMetadataInput["path"]): string {
-  return path === "/" ? `Prizic | ${title}` : `${title} | Prizic`;
-}
 
 function absoluteUrl(canonicalUrl: string, path: string): string {
   return new URL(path, `${canonicalUrl}/`).toString();
@@ -27,7 +24,6 @@ export function createPageMetadata({
   path,
   canonicalUrl,
 }: PageMetadataInput): Metadata {
-  const resolvedTitle = pageTitle(title, path);
   const canonical = canonicalUrl ? absoluteUrl(canonicalUrl, path) : null;
   const socialImage = canonicalUrl
     ? absoluteUrl(canonicalUrl, "/opengraph-image")
@@ -35,11 +31,11 @@ export function createPageMetadata({
 
   return {
     ...(canonicalUrl ? { metadataBase: new URL(canonicalUrl) } : {}),
-    title: resolvedTitle,
+    title,
     description,
     ...(canonical ? { alternates: { canonical } } : {}),
     openGraph: {
-      title: resolvedTitle,
+      title,
       description,
       siteName: "Prizic",
       type: "website",
@@ -48,7 +44,7 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: resolvedTitle,
+      title,
       description,
       images: [socialImage],
     },

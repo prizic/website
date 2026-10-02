@@ -7,6 +7,7 @@ describe("resolveSiteConfig", () => {
     expect(resolveSiteConfig({}, "development")).toEqual({
       canonicalUrl: null,
       contact: { kind: "pending" },
+      bookingUrl: null,
     });
   });
 
@@ -112,5 +113,20 @@ describe("resolveSiteConfig", () => {
     expect(() => resolveSiteConfig({}, "production")).toThrow(
       "Production requires NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_CONTACT_URL",
     );
+  });
+
+  it("accepts an http or https introductory-call booking URL", () => {
+    expect(
+      resolveSiteConfig(
+        { NEXT_PUBLIC_BOOKING_URL: "https://cal.example/prizic/intro" },
+        "test",
+      ).bookingUrl,
+    ).toBe("https://cal.example/prizic/intro");
+  });
+
+  it("rejects a booking URL that is not http or https", () => {
+    expect(() =>
+      resolveSiteConfig({ NEXT_PUBLIC_BOOKING_URL: "mailto:a@b.co" }, "test"),
+    ).toThrow(/invalid NEXT_PUBLIC_BOOKING_URL/i);
   });
 });

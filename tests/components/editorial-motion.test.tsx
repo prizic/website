@@ -2,17 +2,17 @@ import { render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
-import { SiteHeader } from "@/components/layout/site-header";
 import { OpeningSpread } from "@/components/home/opening-spread";
-import { MethodSpread } from "@/components/home/method-spread";
+import { ServicesSpread } from "@/components/home/services-spread";
+import { SiteHeader } from "@/components/layout/site-header";
 import { SITE_CONTENT } from "@/content/site";
 
 describe("progressive editorial motion", () => {
   it("ships readable server content and material images before hydration", () => {
-    const html = renderToString(<><OpeningSpread /><MethodSpread /></>);
+    const html = renderToString(<><OpeningSpread /><ServicesSpread {...SITE_CONTENT.home.services} /></>);
     const document = new DOMParser().parseFromString(html, "text/html");
-    expect(document.querySelector("[data-reveal] h2")?.textContent).toBe("A way of thinking.");
-    expect(document.querySelectorAll('.opening-spread__materials img[src*="prizic-"]')).toHaveLength(2);
+    expect(document.querySelector('[data-spread="services"] h2')?.textContent).toBe("Three ways we can help.");
+    expect(document.querySelectorAll('[data-spread="opening"] [data-artwork] img[src*="prizic-"]')).toHaveLength(2);
     for (const reveal of document.querySelectorAll<HTMLElement>("[data-reveal]")) {
       expect(reveal.style.opacity).not.toBe("0");
       expect(reveal.style.visibility).not.toBe("hidden");

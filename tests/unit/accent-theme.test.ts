@@ -21,11 +21,29 @@ describe("accent theme contract", () => {
     expect(isAccentTheme(null)).toBe(false);
   });
 
-  it("bootstraps the stored accent before hydration", () => {
+  it("bootstraps the stored accent's tokens before hydration", () => {
     expect(ACCENT_STORAGE_KEY).toBe("prizic-accent");
-    expect(ACCENT_BOOTSTRAP_SCRIPT).toContain("localStorage.getItem");
-    expect(ACCENT_BOOTSTRAP_SCRIPT).toContain(
-      "document.documentElement.dataset.accent",
-    );
+    const root = document.documentElement;
+    localStorage.setItem(ACCENT_STORAGE_KEY, "yellow");
+
+    new Function(ACCENT_BOOTSTRAP_SCRIPT)();
+
+    expect(root.dataset.accent).toBe("yellow");
+    expect(root.style.getPropertyValue("--color-accent")).toBe("#eff300");
+    expect(root.style.getPropertyValue("--color-accent-ink")).toBe("#171800");
+    localStorage.clear();
+  });
+
+  it("ignores an unknown stored accent", () => {
+    const root = document.documentElement;
+    root.removeAttribute("style");
+    root.dataset.accent = "cyan";
+    localStorage.setItem(ACCENT_STORAGE_KEY, "green");
+
+    new Function(ACCENT_BOOTSTRAP_SCRIPT)();
+
+    expect(root.dataset.accent).toBe("cyan");
+    expect(root.style.getPropertyValue("--color-accent")).toBe("");
+    localStorage.clear();
   });
 });

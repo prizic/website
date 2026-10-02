@@ -1,40 +1,28 @@
 import type { Metadata } from "next";
 
 import { ClosingSection } from "@/components/home/closing-section";
-import { ConnectedSpread } from "@/components/home/connected-spread";
-import { DeliverySpread } from "@/components/home/delivery-spread";
-import { FaqSpread } from "@/components/home/faq-spread";
-import { IntroductionSpread } from "@/components/home/introduction-spread";
-import { OpeningSpread } from "@/components/home/opening-spread";
 import { ServicesSpread } from "@/components/home/services-spread";
 import { SituationsSpread } from "@/components/home/situations-spread";
-import { StudioSpread } from "@/components/home/studio-spread";
 import { SITE_CONTENT } from "@/content/site";
 import { createPageMetadata } from "@/lib/metadata";
 import { resolveSiteConfig } from "@/lib/site-config";
 
-const { home } = SITE_CONTENT;
+const page = SITE_CONTENT.pages.services;
 
 export const metadata: Metadata = createPageMetadata({
-  ...home.metadata,
-  path: "/",
+  ...page.metadata,
+  path: "/services",
   canonicalUrl: resolveSiteConfig(process.env, process.env.NODE_ENV).canonicalUrl,
 });
 
-export default function HomePage() {
+export default function ServicesPage() {
   const { contact } = resolveSiteConfig(process.env, process.env.NODE_ENV);
 
   return (
-    <>
-      <OpeningSpread />
-      <IntroductionSpread />
-      <ServicesSpread {...home.services} />
+    <article data-page="services">
+      <ServicesSpread headingLevel="h1" headline={page.introduction} items={SITE_CONTENT.home.services.items} />
       <SituationsSpread />
-      <ConnectedSpread />
-      <DeliverySpread />
-      <StudioSpread />
-      <FaqSpread />
       <ClosingSection contact={contact} />
-    </>
+    </article>
   );
 }

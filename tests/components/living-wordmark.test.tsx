@@ -36,7 +36,7 @@ describe("LivingWordmark", () => {
     expect(
       screen.getByRole("button", { name: "Replay Prizic word animation" }),
     ).toBeEnabled();
-    const displayWord = wordmark.querySelector(".living-wordmark__display-word");
+    const displayWord = wordmark.querySelector("[data-display-word]");
     expect(displayWord).toHaveTextContent("Prizic");
     expect(displayWord).not.toHaveStyle({ filter: "blur(3px)" });
     expect(displayWord).not.toHaveStyle({ opacity: "0.55" });
@@ -67,7 +67,7 @@ describe("LivingWordmark", () => {
     const ending = within(wordmark).getByText("c");
 
     function expectVisibleFrame(word: string) {
-      const display = wordmark.querySelector(".living-wordmark__display-word");
+      const display = wordmark.querySelector("[data-display-word]");
       expect(display).toHaveTextContent(word);
       expect(display).toBeVisible();
       expect(within(wordmark).getByText("Pr")).toBe(prefix);

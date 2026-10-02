@@ -1,273 +1,196 @@
 import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import AboutPage from "@/app/about/page";
-import CapabilitiesPage from "@/app/capabilities/page";
+import ApproachPage from "@/app/approach/page";
 import ContactPage from "@/app/contact/page";
 import NotFound from "@/app/not-found";
-import PartnershipsPage from "@/app/partnerships/page";
-import ThinkingPage from "@/app/thinking/page";
+import ServicesPage from "@/app/services/page";
+import ServicePage, { generateStaticParams } from "@/app/services/[slug]/page";
 import { SITE_CONTENT } from "@/content/site";
+import type { ServiceSlug } from "@/content/types";
 import { assertPublicContent } from "@/lib/public-content";
 
-vi.mock("motion/react", async () => {
-  const motion = await vi.importActual<typeof import("motion/react")>(
-    "motion/react",
-  );
-  return {
-    ...motion,
-    useReducedMotion: () => false,
-  };
+const { pages } = SITE_CONTENT;
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
 });
 
-afterEach(() => vi.unstubAllEnvs());
+async function renderService(slug: string) {
+  return render(await ServicePage({ params: Promise.resolve({ slug }) }));
+}
 
-const routeExpectations = [
-  {
-    Page: ThinkingPage,
-    heading: "Thinking",
-    statement: "Clarity before complexity.",
-  },
-  {
-    Page: CapabilitiesPage,
-    heading: "Capabilities",
-    statement: "Digital products.",
-  },
-  {
-    Page: PartnershipsPage,
-    heading: "Partnerships",
-    statement: "Bring the industry. Prizic brings the technology.",
-  },
-  { Page: AboutPage, heading: "About Prizic", statement: "PRIZ-ik" },
-  {
-    Page: ContactPage,
-    heading: "Start a conversation",
-    statement: "Start with what you are trying to change.",
-  },
-] as const;
+async function fillRequiredFields(user: ReturnType<typeof userEvent.setup>, topic: string, message: string) {
+  await user.type(screen.getByLabelText("Your name"), "Lina Haddad");
+  await user.type(screen.getByLabelText("Business name"), "Haddad Kitchens");
+  await user.type(screen.getByLabelText("Email address"), "lina@haddad.example");
+  await user.click(screen.getByRole("radio", { name: topic }));
+  await user.type(screen.getByLabelText("What do you want to change?"), message);
+}
 
-const editorialRouteExpectations = [
-  { Page: ThinkingPage, page: "thinking", spread: "commitments" },
-  { Page: CapabilitiesPage, page: "capabilities", spread: "artifacts" },
-  {
-    Page: PartnershipsPage,
-    page: "partnerships",
-    spread: "partnership-path",
-  },
-  { Page: AboutPage, page: "about", spread: "name-study" },
-  { Page: ContactPage, page: "contact", spread: "contact-field" },
-] as const;
+describe("Services", () => {
+  it("introduces all three services on the index under one page heading", () => {
+    const { container } = render(<ServicesPage />);
 
-describe("supporting corporate routes", () => {
-  it.each(editorialRouteExpectations)(
-    "composes $page as an editorial route",
-    ({ Page, page, spread }) => {
-      const { container } = render(<Page />);
+    expect(screen.getByRole("heading", { level: 1, name: "Three ways we can help." })).toBeVisible();
+    for (const service of SITE_CONTENT.home.services.items) {
+      expect(screen.getByRole("link", { name: service.link.label })).toHaveAttribute("href", service.link.href);
+    }
+    assertPublicContent(container.textContent ?? "");
+  });
 
+  it("builds exactly the three service routes", () => {
+    expect(generateStaticParams()).toEqual([
+      { slug: "websites" },
+      { slug: "business-software" },
+      { slug: "automation" },
+    ]);
+  });
+
+  it.each(Object.keys(pages.service) as ServiceSlug[])(
+    "renders the %s page from its approved copy",
+    async (slug) => {
+      const page = pages.service[slug];
+      const { container } = await renderService(slug);
+
+      expect(screen.getByRole("heading", { level: 1, name: page.title })).toBeVisible();
+      expect(screen.getByText(page.introduction)).toBeVisible();
+      expect(screen.getByRole("heading", { level: 2, name: page.lead.title })).toBeVisible();
+      const capabilities = screen.getByRole("heading", { name: page.capabilitiesHeadline }).parentElement!;
       expect(
-        container.querySelector(`[data-page="${page}"]`),
-      ).toBeInTheDocument();
-      expect(
-        container.querySelector(`[data-spread="${spread}"]`),
-      ).toBeInTheDocument();
-    },
-  );
-
-  it.each(routeExpectations)(
-    "renders $heading with its defining approved statement",
-    ({ Page, heading, statement }) => {
-      const { container } = render(<Page />);
-
-      expect(
-        screen.getByRole("heading", { level: 1, name: heading }),
-      ).toBeVisible();
-      expect(screen.getByText(new RegExp(statement, "i"))).toBeVisible();
+        within(capabilities).getAllByRole("listitem").map((item) => item.textContent?.replace(/^\d{2}/, "")),
+      ).toEqual(page.capabilities);
+      for (const section of page.sections) {
+        expect(screen.getByRole("heading", { level: 2, name: section.title })).toBeVisible();
+        expect(screen.getByText(section.description)).toBeVisible();
+      }
+      expect(screen.getByRole("link", { name: page.action.label })).toHaveAttribute("href", "/contact");
       assertPublicContent(container.textContent ?? "");
     },
   );
+});
 
-  it("states all four practical Thinking commitments", () => {
-    render(<ThinkingPage />);
+describe("Approach", () => {
+  it("lists the five delivery stages in order and ends with the inquiry", () => {
+    render(<ApproachPage />);
 
-    for (const commitment of [
-      "Security is not an upsell.",
-      "Cut scope, not quality.",
-      "Boring over clever in production code.",
-      "Write decisions down.",
-    ]) {
-      expect(screen.getByText(commitment)).toBeVisible();
+    expect(screen.getByRole("heading", { level: 1, name: pages.approach.title })).toBeVisible();
+    expect(
+      screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent),
+    ).toEqual(pages.approach.stages.map((stage) => stage.title));
+    expect(screen.getByRole("link", { name: "Discuss a project" })).toHaveAttribute("href", "/contact");
+  });
+});
+
+describe("About", () => {
+  it("names the founder and the three working principles", () => {
+    render(<AboutPage />);
+
+    expect(screen.getByRole("heading", { level: 1, name: pages.about.title })).toBeVisible();
+    expect(screen.getByText(/founded by Seifelesllam Seif/)).toBeVisible();
+    for (const principle of pages.about.principles) {
+      expect(screen.getByRole("heading", { level: 2, name: principle.title })).toBeVisible();
+      expect(screen.getByText(principle.description)).toBeVisible();
     }
+    expect(screen.getByRole("link", { name: "Talk to Prizic" })).toHaveAttribute("href", "/contact");
+  });
+});
+
+describe("Contact", () => {
+  it("renders the inquiry form with the approved fields and options", () => {
+    render(<ContactPage />);
+    const form = screen.getByRole("form", { name: "Project inquiry" });
+
+    expect(within(form).getByLabelText("Your name")).toBeRequired();
+    expect(within(form).getByLabelText("Business name")).toBeRequired();
+    expect(within(form).getByLabelText("Email address")).toHaveAttribute("type", "email");
+    expect(within(form).getByLabelText(/Website or business profile/)).not.toBeRequired();
+    expect(
+      within(within(form).getByRole("group", { name: "What would you like help with?" }))
+        .getAllByRole("radio")
+        .map((radio) => radio.closest("label")?.textContent),
+    ).toEqual(pages.contact.form.topics.map((topic) => topic.label));
+    expect(within(form).getByLabelText("What do you want to change?")).toHaveAttribute(
+      "placeholder",
+      "Tell us about the current situation and what you would like to improve.",
+    );
+    expect(within(form).getByLabelText(/Budget range/)).not.toBeRequired();
+    expect(within(form).getByLabelText(/Timing/)).not.toBeRequired();
+    expect(within(form).getByRole("button", { name: "Send inquiry" })).toBeEnabled();
+    expect(within(form).getByText(pages.contact.form.supportingText)).toBeVisible();
   });
 
-  it("expands every Thinking principle beyond its homepage summary", () => {
-    render(<ThinkingPage />);
+  it("offers an introductory call only when booking is configured", () => {
+    vi.stubEnv("NEXT_PUBLIC_BOOKING_URL", "");
+    const { unmount } = render(<ContactPage />);
+    expect(screen.queryByRole("link", { name: "Book an introductory call" })).not.toBeInTheDocument();
+    unmount();
 
-    const expandedPrinciples = [
-      {
-        title: "Clarity before complexity.",
-        homepage: "Understand the actual problem before choosing the technology.",
-        expanded:
-          "Start by separating the real problem from the requested feature. The situation, constraints and desired change come before a choice of technology.",
-      },
-      {
-        title: "Useful before impressive.",
-        homepage:
-          "A system should improve real work, not merely look advanced.",
-        expanded:
-          "Judge the work by whether it improves what people need to do. Novelty and technical spectacle do not make a system useful.",
-      },
-      {
-        title: "Systems over one-offs.",
-        homepage:
-          "What is built today should make the next decision easier, not create another dead end.",
-        expanded:
-          "Build each decision so the next one has a clearer foundation. Reusable knowledge, written reasoning and connected parts prevent another dead end.",
-      },
-    ];
-
-    for (const principle of expandedPrinciples) {
-      const heading = screen.getByRole("heading", { name: principle.title });
-      const item = heading.closest("li");
-
-      expect(item).not.toBeNull();
-      expect(within(item!).getByText(principle.expanded)).toBeVisible();
-      expect(within(item!).queryByText(principle.homepage)).not.toBeInTheDocument();
-    }
-  });
-
-  it("explains every Thinking process stage beyond its homepage summary", () => {
-    render(<ThinkingPage />);
-
-    const expandedStages = [
-      {
-        title: "Question",
-        homepage:
-          "Start with the real situation, constraints and desired change.",
-        expanded:
-          "Look at the work as it exists now. Name the people involved, the constraint that matters and the change worth making.",
-      },
-      {
-        title: "Direction",
-        homepage: "Decide what should exist, what should not, and why.",
-        expanded:
-          "Choose the smallest coherent response. Define what belongs, what stays out and the reasoning behind both.",
-      },
-      {
-        title: "Software",
-        homepage:
-          "Build the focused system with production concerns included.",
-        expanded:
-          "Turn that direction into a focused working system. Security, quality and maintainability stay in the production baseline.",
-      },
-      {
-        title: "Learning",
-        homepage:
-          "Observe use, improve the system and carry the knowledge forward.",
-        expanded:
-          "Watch how the system is used, record what changes and bring that knowledge into the next decision.",
-      },
-    ];
-
-    for (const stage of expandedStages) {
-      const heading = screen.getByRole("heading", { name: stage.title });
-      const item = heading.closest("li");
-
-      expect(item).not.toBeNull();
-      expect(within(item!).getByText(stage.expanded)).toBeVisible();
-      expect(within(item!).queryByText(stage.homepage)).not.toBeInTheDocument();
-    }
-  });
-
-  it("limits Capabilities examples to the approved artifact categories", () => {
-    render(<CapabilitiesPage />);
-
-    const artifactList = screen.getByRole("list", {
-      name: "Artifact categories",
-    });
-    expect(
-      within(artifactList)
-        .getAllByRole("listitem")
-        .map((item) => item.textContent),
-    ).toEqual([
-      "Public websites",
-      "Customer portals",
-      "Internal dashboards",
-      "Workflow automation",
-      "Custom applications",
-    ]);
-    expect(screen.getByText("No template-price race.")).toBeVisible();
-    expect(screen.getByText("Security is part of the baseline.")).toBeVisible();
-    expect(screen.getByText("Not every problem needs custom software.")).toBeVisible();
-  });
-
-  it("presents the three approved Partnership steps without deal terms", () => {
-    const { container } = render(<PartnershipsPage />);
-
-    expect(screen.getAllByRole("listitem")).toHaveLength(3);
-    expect(
-      screen.getByText(
-        "A partner brings market knowledge, access or a clearly observed problem.",
-      ),
-    ).toBeVisible();
-    expect(
-      screen.getByText(
-        "Prizic brings product framing, engineering and technical direction.",
-      ),
-    ).toBeVisible();
-    expect(
-      screen.getByText(
-        "Both sides validate fit before discussing a long-term structure.",
-      ),
-    ).toBeVisible();
-    expect(container.textContent).not.toMatch(
-      /equity|revenue split|exclusivity|guaranteed outcome/i,
+    vi.stubEnv("NEXT_PUBLIC_BOOKING_URL", "https://cal.example/prizic/intro");
+    render(<ContactPage />);
+    expect(screen.getByRole("link", { name: "Book an introductory call" })).toHaveAttribute(
+      "href",
+      "https://cal.example/prizic/intro",
     );
   });
 
-  it("includes all three approved About principles with their original descriptions", () => {
-    render(<AboutPage />);
-
-    const principles = screen.getByRole("region", {
-      name: SITE_CONTENT.principles.headline,
-    });
-    expect(within(principles).getAllByRole("listitem")).toHaveLength(3);
-    for (const { title, description } of SITE_CONTENT.principles.items) {
-      expect(
-        within(principles).getByRole("heading", { level: 3, name: title }),
-      ).toBeVisible();
-      expect(within(principles).getByText(description)).toBeVisible();
-    }
-  });
-
-  it("keeps the About wordmark settled until replay is requested", () => {
-    render(<AboutPage />);
-
-    const wordmark = screen.getByRole("img", { name: "Prizic" });
-    expect(wordmark).toHaveAttribute("data-word", "Prizic");
-    expect(
-      screen.getByRole("button", { name: "Replay Prizic word animation" }),
-    ).toBeEnabled();
-  });
-
-  it("shows a truthful pending Contact state without inventing a form", () => {
+  it("shows Email Prizic as pending until the inbox is configured", () => {
     vi.stubEnv("NEXT_PUBLIC_CONTACT_URL", "");
-    render(<ContactPage />);
-
+    const { unmount } = render(<ContactPage />);
     expect(screen.getByText("Contact destination pending")).toBeVisible();
-    expect(
-      screen.getByText("The public contact channel is being configured."),
-    ).toBeVisible();
-    expect(screen.queryByRole("form")).not.toBeInTheDocument();
-  });
+    unmount();
 
-  it("uses the configured direct Contact destination when one exists", () => {
     vi.stubEnv("NEXT_PUBLIC_CONTACT_URL", "mailto:preview@prizic.test");
     render(<ContactPage />);
+    expect(screen.getByRole("link", { name: "Email Prizic" })).toHaveAttribute("href", "mailto:preview@prizic.test");
+  });
 
-    expect(screen.getByRole("link", { name: "Contact Prizic" })).toHaveAttribute(
-      "href",
-      "mailto:preview@prizic.test",
-    );
+  it("sends a valid inquiry to Outreach and confirms it", async () => {
+    vi.stubEnv("OUTREACH_SUPABASE_URL", "https://crm.example.supabase.co");
+    vi.stubEnv("OUTREACH_SUPABASE_ANON_KEY", "anon-key");
+    const fetchMock = vi.fn(async () => new Response(null, { status: 204 }));
+    vi.stubGlobal("fetch", fetchMock);
+    const user = userEvent.setup();
+    render(<ContactPage />);
+
+    await fillRequiredFields(user, "Website or digital presence", "Our site is out of date.");
+    await user.click(screen.getByRole("button", { name: "Send inquiry" }));
+
+    expect(await screen.findByRole("status")).toHaveTextContent("Thank you. Your inquiry has been received.");
+    expect(fetchMock).toHaveBeenCalledOnce();
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe("https://crm.example.supabase.co/rest/v1/rpc/submit_inquiry");
+    expect(init.headers).toMatchObject({ apikey: "anon-key", "Content-Profile": "outreach" });
+    expect(JSON.parse(String(init.body))).toEqual({
+      p: {
+        name: "Lina Haddad",
+        business_name: "Haddad Kitchens",
+        email: "lina@haddad.example",
+        website: "",
+        topic: "website",
+        message: "Our site is out of date.",
+        budget: "",
+        timing: "",
+      },
+    });
+  });
+
+  it("keeps what was typed and offers email when sending fails", async () => {
+    vi.stubEnv("OUTREACH_SUPABASE_URL", "https://crm.example.supabase.co");
+    vi.stubEnv("OUTREACH_SUPABASE_ANON_KEY", "anon-key");
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("rate_limited", { status: 400 })));
+    const user = userEvent.setup();
+    render(<ContactPage />);
+
+    await fillRequiredFields(user, "Business software", "Bookings live in a notebook.");
+    await user.click(screen.getByRole("button", { name: "Send inquiry" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(pages.contact.form.error);
+    expect(screen.getByLabelText("What do you want to change?")).toHaveValue("Bookings live in a notebook.");
+    expect(screen.getByRole("radio", { name: "Business software" })).toBeChecked();
   });
 });
 
@@ -276,17 +199,9 @@ describe("NotFound", () => {
     const { container } = render(<NotFound />);
 
     expect(
-      screen.getByRole("heading", {
-        level: 1,
-        name: "That path does not exist.",
-      }),
+      screen.getByRole("heading", { level: 1, name: "That path does not exist." }),
     ).toBeVisible();
-    expect(screen.getByRole("link", { name: "Return home" })).toHaveAttribute(
-      "href",
-      "/",
-    );
-    expect(
-      container.querySelector('img[src="/brand/prizic-mark-on-dark.svg"]'),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Return home" })).toHaveAttribute("href", "/");
+    expect(container.querySelector('img[src="/brand/prizic-mark-on-dark.svg"]')).toBeInTheDocument();
   });
 });

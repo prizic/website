@@ -1,49 +1,45 @@
 import type { Metadata } from "next";
 
+import { ActionLink } from "@/components/actions/action-link";
 import { ContactAction } from "@/components/actions/contact-action";
+import { InquiryForm } from "@/components/contact/inquiry-form";
 import { PageIntro } from "@/components/layout/page-intro";
 import { SITE_CONTENT } from "@/content/site";
+import { resolveInquiryEndpoint } from "@/lib/inquiry-endpoint";
 import { createPageMetadata } from "@/lib/metadata";
 import { resolveSiteConfig } from "@/lib/site-config";
+import { cx, frame } from "@/lib/ui";
+
+const page = SITE_CONTENT.pages.contact;
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact",
-  description:
-    "Start a direct conversation with Prizic about a product, operating problem or industry.",
+  ...page.metadata,
   path: "/contact",
   canonicalUrl: resolveSiteConfig(process.env, process.env.NODE_ENV).canonicalUrl,
 });
 
 export default function ContactPage() {
-  const page = SITE_CONTENT.pages.contact;
-  const { contact } = resolveSiteConfig(process.env, process.env.NODE_ENV);
+  const { contact, bookingUrl } = resolveSiteConfig(process.env, process.env.NODE_ENV);
+  // This page prerenders at build time, so a production build without an
+  // inquiry destination fails here instead of shipping a form that cannot send.
+  resolveInquiryEndpoint(process.env, process.env.NODE_ENV);
 
   return (
-    <article className="editorial-page contact-page" data-page="contact">
-      <PageIntro
-        index="05"
-        introduction={page.introduction}
-        title={page.title}
-      />
-      <section
-        aria-label={page.title}
-        className="contact-page__field"
-        data-spread="contact-field"
-      >
-        <div className="site-frame contact-page__grid">
-          <p>{page.body}</p>
-          <div className="contact-page__action" data-contact-state={contact.kind}>
-            <ContactAction contact={contact} label={page.actionLabel} />
-            {contact.kind === "pending" ? (
-              <p>{page.pendingExplanation}</p>
-            ) : null}
-          </div>
-          <ol aria-label="What to include" className="contact-prompts">
-            <li><span>01</span><strong>The idea</strong></li>
-            <li><span>02</span><strong>The current situation</strong></li>
-            <li><span>03</span><strong>The desired change</strong></li>
-          </ol>
+    <article data-page="contact">
+      <PageIntro index="04" introduction={page.introduction} section="Contact" title={page.title}>
+        <p className="m-0 max-w-[52ch] text-[0.9375rem] leading-[1.6]">{page.reassurance}</p>
+        <div className="flex flex-wrap gap-3">
+          {bookingUrl ? (
+            <ActionLink href={bookingUrl} variant="secondary">
+              {page.bookingLabel}
+            </ActionLink>
+          ) : null}
+          <ContactAction contact={contact} label={page.emailLabel} />
         </div>
+      </PageIntro>
+
+      <section aria-label="Inquiry form" className={cx(frame, "pb-12")} data-spread="inquiry">
+        <InquiryForm copy={page.form} />
       </section>
     </article>
   );

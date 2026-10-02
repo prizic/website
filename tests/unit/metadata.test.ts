@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import * as AboutRoute from "@/app/about/page";
-import * as CapabilitiesRoute from "@/app/capabilities/page";
+import * as ApproachRoute from "@/app/approach/page";
 import * as ContactRoute from "@/app/contact/page";
 import SocialImage, {
   alt as socialImageAlt,
   contentType as socialImageContentType,
   size as socialImageSize,
 } from "@/app/opengraph-image";
-import * as PartnershipsRoute from "@/app/partnerships/page";
 import * as HomeRoute from "@/app/page";
 import robots from "@/app/robots";
+import { generateMetadata as serviceMetadata } from "@/app/services/[slug]/page";
+import * as ServicesRoute from "@/app/services/page";
 import sitemap from "@/app/sitemap";
-import * as ThinkingRoute from "@/app/thinking/page";
 import {
   createOrganizationJsonLd,
   createPageMetadata,
@@ -23,52 +23,46 @@ import { resolveSiteConfig } from "@/lib/site-config";
 afterEach(() => vi.unstubAllEnvs());
 
 describe("createPageMetadata", () => {
-  it("builds the exact default identity and canonical social metadata", () => {
+  it("uses the complete approved title across document and social metadata", () => {
     expect(
       createPageMetadata({
-        title: "From possibility to working systems",
-        description:
-          "Prizic is a founder-led technology company combining product thinking, engineering and long-term technical direction.",
+        title: "Prizic | Web Design, Business Software & Automation",
+        description: "Websites, custom business software, and automation for local businesses.",
         path: "/",
         canonicalUrl: "https://prizic.com",
       }),
     ).toMatchObject({
-      title: "Prizic | From possibility to working systems",
-      description:
-        "Prizic is a founder-led technology company combining product thinking, engineering and long-term technical direction.",
+      title: "Prizic | Web Design, Business Software & Automation",
       alternates: { canonical: "https://prizic.com/" },
       openGraph: {
-        title: "Prizic | From possibility to working systems",
+        title: "Prizic | Web Design, Business Software & Automation",
         url: "https://prizic.com/",
         siteName: "Prizic",
         type: "website",
       },
       twitter: {
         card: "summary_large_image",
-        title: "Prizic | From possibility to working systems",
+        title: "Prizic | Web Design, Business Software & Automation",
       },
     });
   });
 
-  it("qualifies inner-page titles and paths with the Prizic identity", () => {
+  it("builds canonical inner-page paths", () => {
     expect(
       createPageMetadata({
-        title: "About Prizic",
-        description: "The founder, purpose and thinking behind Prizic.",
+        title: "About Prizic | Software & Digital Product Studio",
+        description: "About.",
         path: "/about",
         canonicalUrl: "https://prizic.com",
       }),
-    ).toMatchObject({
-      title: "About Prizic | Prizic",
-      alternates: { canonical: "https://prizic.com/about" },
-    });
+    ).toMatchObject({ alternates: { canonical: "https://prizic.com/about" } });
   });
 
   it("omits invented canonical metadata when configuration is pending", () => {
     const metadata = createPageMetadata({
-      title: "Thinking",
-      description: "How Prizic frames decisions and production work.",
-      path: "/thinking",
+      title: "Our Approach | Prizic",
+      description: "How Prizic plans and delivers a project.",
+      path: "/approach",
       canonicalUrl: null,
     });
 
@@ -79,32 +73,32 @@ describe("createPageMetadata", () => {
 });
 
 describe("route metadata", () => {
-  it("gives every public route a unique plain-language title and description", () => {
-    const routeMetadata = [
-      HomeRoute,
-      ThinkingRoute,
-      CapabilitiesRoute,
-      PartnershipsRoute,
-      AboutRoute,
-      ContactRoute,
-    ].map((route) => (route as { metadata?: Metadata }).metadata);
+  it("gives every public route its approved title and a unique description", async () => {
+    const staticRoutes = [HomeRoute, ServicesRoute, ApproachRoute, AboutRoute, ContactRoute].map(
+      (route) => (route as { metadata?: Metadata }).metadata,
+    );
+    const serviceRoutes = await Promise.all(
+      ["websites", "business-software", "automation"].map((slug) =>
+        serviceMetadata({ params: Promise.resolve({ slug }) }),
+      ),
+    );
+    const routeMetadata = [...staticRoutes, ...serviceRoutes];
 
     expect(routeMetadata.map((metadata) => metadata?.title)).toEqual([
-      "Prizic | From possibility to working systems",
-      "Thinking | Prizic",
-      "Capabilities | Prizic",
-      "Partnerships | Prizic",
-      "About Prizic | Prizic",
-      "Contact | Prizic",
+      "Prizic | Web Design, Business Software & Automation",
+      "Services | Prizic",
+      "Our Approach | Prizic",
+      "About Prizic | Software & Digital Product Studio",
+      "Discuss a Project | Prizic",
+      "Business Website Design & Development | Prizic",
+      "Custom Business Software & Internal Tools | Prizic",
+      "Workflow Automation & Integrations | Prizic",
     ]);
-    expect(routeMetadata.map((metadata) => metadata?.description)).toEqual([
-      "Prizic is a founder-led technology company combining product thinking, engineering and long-term technical direction.",
-      "The principles, four-stage method and production commitments behind how Prizic works.",
-      "The digital products, business systems and technical direction Prizic can shape.",
-      "How industry knowledge and Prizic's product and engineering direction can meet.",
-      "The founder, purpose and thinking behind Prizic.",
-      "Start a direct conversation with Prizic about a product, operating problem or industry.",
-    ]);
+    expect(routeMetadata[0]?.description).toBe(
+      "Websites, custom business software, and automation for local businesses. Prizic connects customer experiences with the workflows behind them.",
+    );
+    const descriptions = routeMetadata.map((metadata) => metadata?.description);
+    expect(new Set(descriptions).size).toBe(descriptions.length);
   });
 });
 
@@ -120,14 +114,16 @@ describe("structured discovery metadata", () => {
     expect(createOrganizationJsonLd(null)).toBeNull();
   });
 
-  it("lists exactly the six rendered public routes when canonical config exists", () => {
+  it("lists exactly the rendered public routes when canonical config exists", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://prizic.com");
 
     expect(sitemap().map((entry) => entry.url)).toEqual([
       "https://prizic.com/",
-      "https://prizic.com/thinking",
-      "https://prizic.com/capabilities",
-      "https://prizic.com/partnerships",
+      "https://prizic.com/services",
+      "https://prizic.com/services/websites",
+      "https://prizic.com/services/business-software",
+      "https://prizic.com/services/automation",
+      "https://prizic.com/approach",
       "https://prizic.com/about",
       "https://prizic.com/contact",
     ]);
@@ -188,7 +184,7 @@ describe("social image", () => {
     expect(socialImageSize).toEqual({ width: 1200, height: 630 });
     expect(socialImageContentType).toBe("image/png");
     expect(socialImageAlt).toBe(
-      "Prizic. From possibility to working systems.",
+      "Prizic. Web design, business software and automation for local businesses.",
     );
     expect(SocialImage().headers.get("content-type")).toContain("image/png");
   });

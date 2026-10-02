@@ -111,6 +111,8 @@ Prizic reads like a composed presentation spread: warm paper, decisive near-blac
 
 Authored monochrome P/Z material studies make the company's thinking tangible. The identity is alive but settles: a compact full-logo header, a calibrated living wordmark, varied chapter entrances, and small directional responses connect the work. One visitor-selected signal color carries state and emphasis throughout the deck.
 
+The story it carries: what Prizic does for a local business, the situation the visitor recognises, how delivery works, then an inquiry.
+
 **Key Characteristics:**
 
 - Warm paper and near-black fields with flat tonal depth.
@@ -126,7 +128,7 @@ A neutral editorial field holds one active signal family. The frontmatter record
 
 ### Primary
 
-Prizic Cyan is the first-visit accent. Electric Lime and Signal Yellow are alternate selections of the same semantic role, each paired with its own dark accent ink. Selection updates the root accent variables and persists locally across navigation and visits. Accent fills mark the opening action, one method stage, selected panels, routes, and identity details.
+Prizic Cyan is the first-visit accent. Electric Lime and Signal Yellow are alternate selections of the same semantic role, each paired with its own dark accent ink. Selection updates the root accent variables and persists locally across navigation and visits. Accent fills mark the opening action, the third service panel, the first delivery stage, the first approach stage, routes, and identity details.
 
 **The One Signal Rule.** Use one active accent family at a time; keep it scarce and attach it to state, direction, or emphasis.
 
@@ -134,13 +136,17 @@ Prizic Cyan is the first-visit accent. Electric Lime and Signal Yellow are alter
 
 Warm Paper is the canvas. Bright Paper carries light text and high-contrast supporting surfaces. Editorial Ink anchors large panels and primary text; Soft Ink supports secondary dark modules. Quiet Panel fills supporting blocks, Measured Line separates content, and Muted Ink carries secondary text on light fields. On dark panels, secondary copy and rules mix from the local light foreground.
 
-Selection and caret colors follow the accent. Scrollbars use the paper and line roles. Keyboard focus combines a dark outline with a bright separation ring so it remains visible across contrasting fields.
+Selection and caret colors follow the accent. Keyboard focus combines a dark outline with a bright separation ring so it remains visible across contrasting fields; it is applied once on `<body>` with the `**:focus-visible` variant.
+
+### Implementation
+
+All styling is Tailwind utilities. Tokens live in the `@theme` block of `src/app/globals.css`: colors (`paper`, `ink`, `panel`, `line`, `line-dark`, `muted`, `accent`, `accent-ink`), type sizes (`label`, `display`, `headline`, `title`, `lede`), radii (`action`, `panel`, `spread`, `arch`), the `frame` container, breakpoints (`xs` 24rem, `sm` 40rem, `md` 48rem, `nav` 56.25rem, `lg` 64rem), the `editorial` ease and the identity keyframes. Responsive rules are written with `max-*` variants to keep the original desktop-first breakpoints. Shared class strings (`frame`, `label`, `sectionHeading`) live in `src/lib/ui.ts`. The accent switcher and its bootstrap script set `--color-accent` and `--color-accent-ink` inline on `<html>`.
 
 ## Typography
 
 Space Grotesk supplies the display voice, Inter carries prose and many module titles, and JetBrains Mono labels navigation, folios, controls, and sequence metadata. Next's font pipeline serves the three families locally after build; sans-serif and monospace remain the fallbacks.
 
-The frontmatter display and headline roles describe the opening statement and standard homepage section heading. The introduction deliberately exceeds that headline scale (up to 7.5rem); section-specific overrides are composition decisions. Secondary-route headings and narrow layouts use their own fluid scales. Preserve their established proportions when editing copy.
+The `display` and `headline` theme sizes (`text-display`, `text-headline`) are the opening statement and the standard section heading; the opening statement is longer than before, so its scale is lower than the earlier corporate deck. The introduction deliberately exceeds that headline scale (up to 7.5rem); section-specific overrides are composition decisions. Secondary-route headings and narrow layouts use their own fluid scales. Preserve their established proportions when editing copy.
 
 Body copy is left aligned and usually shortened to fit modules. The opening description has a 43ch measure, principle statements use 42ch, and compact method copy uses 26ch on desktop and 34ch on mobile. Homepage supporting copy commonly uses a 1.55 line height. Uppercase mono details remain compact; they never replace readable explanatory paragraphs.
 
@@ -182,11 +188,15 @@ Three labelled native radio controls use 44px targets around small circular swat
 
 ### Cards / Containers
 
-Editorial panels are a layout vocabulary, not one repeated card template. The method row combines accent, gray, and ink modules with indices 01–04 and a directional action. Capability modules use unequal widths, heights, and vertical offsets. Fine ledgers and open editorial copy balance the enclosed fields.
+Editorial panels are a layout vocabulary, not one repeated card template. The services row uses unequal ink, panel and accent modules (5:4:4, the accent panel offset down) with deliverable chips and a text link. The delivery row combines accent, gray, and ink modules with large indices 01–04. Customer situations and the FAQ are fine ledgers; the FAQ uses native disclosure so it opens without JavaScript.
+
+### Forms
+
+The inquiry form sits in one quiet panel. Controls are bright paper on that panel with a measured line, 44px minimum height and visible labels; optional fields say so in muted text. Topic choices are full-width radio rows that turn ink when selected. Errors are plain sentences linked with `aria-describedby`; invalid controls take a heavier ink border. Success replaces the form with an accent panel; failure shows an ink alert above the fields and keeps everything typed.
 
 ### Navigation
 
-The compact header places the complete Prizic identity in a dark capsule beside uppercase mono links and the accent selector. Navigation targets are at least 44px wide and tall. Mobile uses an opaque paper dialog with labelled controls, scroll lock, Escape handling, route-close behavior, and focus restoration. Hovered and keyboard-focused route names use the selected accent as a background paired with its contrasting ink. A server-rendered mobile fallback keeps routes and contact available without JavaScript. The footer closes with a near-black rounded folio.
+The compact header places the complete Prizic identity in a dark capsule beside uppercase mono links (Services, Approach, About, Contact), the accent selector and the "Discuss a project" capsule. Navigation targets are at least 44px wide and tall. Mobile uses an opaque paper dialog with labelled controls, scroll lock, Escape handling, route-close behavior, and focus restoration. Hovered and keyboard-focused route names use the selected accent as a background paired with its contrasting ink. A server-rendered mobile fallback keeps routes and contact available without JavaScript. The footer closes with a near-black rounded folio.
 
 ### Authored Artwork and Chapter Motion
 

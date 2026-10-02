@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Prizic. From possibility to working systems.";
+export const alt = "Prizic. Web design, business software and automation for local businesses.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -65,14 +65,14 @@ export default function OpenGraphImage() {
           left: "78px",
           bottom: "76px",
           display: "flex",
-          width: "680px",
-          fontSize: "76px",
+          width: "720px",
+          fontSize: "64px",
           fontWeight: 600,
           letterSpacing: "-3px",
           lineHeight: 1.02,
         }}
       >
-        From possibility to working systems.
+        Websites, business software and automation.
       </div>
 
       <svg

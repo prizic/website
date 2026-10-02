@@ -17,6 +17,9 @@ describe("AccentSwitcher", () => {
     await user.click(screen.getByRole("radio", { name: "Electric lime" }));
 
     expect(document.documentElement).toHaveAttribute("data-accent", "lime");
+    expect(
+      document.documentElement.style.getPropertyValue("--color-accent"),
+    ).toBe("#65ed9d");
     expect(localStorage.getItem("prizic-accent")).toBe("lime");
     expect(
       screen.getByRole("radio", { name: "Electric lime" }),

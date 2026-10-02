@@ -30,14 +30,12 @@ const monoFont = JetBrains_Mono({
 });
 
 const DIRECTION_CONTRACT =
-  "THESIS: Prizic makes its method the proof through an Editorial Systems Deck. OWN-WORLD: warm paper, near-black rounded panels, large editorial type, compact folios, and one scarce dynamic cyan, lime, or yellow accent. STORY: understand the company, inspect Question, Direction, Software, and Learning, then start a conversation. FIRST VIEWPORT: compact animated full identity, panoramic statement and authored monochrome material imagery, settled living wordmark, and attached contact modules. FORM: unequal twelve-column spreads, deliberate mobile chapters, original P/Z assets and crops, varied finite motion, and complete reduced-motion and no-JavaScript states. FINISH: reviewed desktop and mobile captures, synchronized DESIGN.md and sidecar, and provenance for every shipping raster.";
+  "THESIS: Prizic connects the website a local business's customers see with the workflow its team runs, shown through an Editorial Systems Deck. OWN-WORLD: warm paper, near-black rounded panels, large editorial type, compact folios, and one scarce dynamic cyan, lime, or yellow accent. STORY: understand what Prizic does, find the situation that matches, see how delivery works, then discuss a project. FIRST VIEWPORT: compact animated full identity, the customer-and-team statement, authored monochrome material imagery, settled living wordmark, and attached action modules. FORM: unequal twelve-column spreads, deliberate mobile chapters, original P/Z assets and crops, varied finite motion, and complete reduced-motion and no-JavaScript states, including the inquiry form. FINISH: reviewed desktop and mobile captures, synchronized DESIGN.md, and provenance for every shipping raster.";
 
 const rootSiteConfig = resolveSiteConfig(process.env, process.env.NODE_ENV);
 
 export const metadata: Metadata = createPageMetadata({
-  title: "From possibility to working systems",
-  description:
-    "Prizic is a founder-led technology company combining product thinking, engineering and long-term technical direction.",
+  ...SITE_CONTENT.home.metadata,
   path: "/",
   canonicalUrl: rootSiteConfig.canonicalUrl,
 });
@@ -48,7 +46,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
 
   return (
     <html
-      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} scheme-light scroll-smooth motion-reduce:scroll-auto`}
       data-accent="cyan"
       data-scroll-behavior="smooth"
       lang="en"
@@ -57,7 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <head>
         <script dangerouslySetInnerHTML={{ __html: ACCENT_BOOTSTRAP_SCRIPT }} />
       </head>
-      <body>
+      <body className="min-h-screen overflow-x-clip bg-paper font-sans leading-[1.6] text-ink caret-accent antialiased selection:bg-accent selection:text-accent-ink **:focus-visible:outline-2 **:focus-visible:outline-offset-4 **:focus-visible:outline-ink **:focus-visible:ring-4 **:focus-visible:ring-paper-bright">
         <template
           dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }}
           data-impeccable-contract="89484ca6"
@@ -71,15 +69,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             type="application/ld+json"
           />
         ) : null}
-        <SiteHeader
-          contact={siteConfig.contact}
-          navigation={SITE_CONTENT.navigation}
-        />
+        <SiteHeader navigation={SITE_CONTENT.navigation} />
         <main id="main-content">{children}</main>
-        <SiteFooter
-          contact={siteConfig.contact}
-          navigation={SITE_CONTENT.navigation}
-        />
+        <SiteFooter navigation={SITE_CONTENT.navigation} />
       </body>
     </html>
   );

@@ -3,6 +3,8 @@ import type { ContactState } from "@/content/types";
 export interface SiteConfig {
   canonicalUrl: string | null;
   contact: ContactState;
+  /** An introductory-call scheduler; absent until the integration exists. */
+  bookingUrl: string | null;
 }
 
 type SiteMode = "development" | "test" | "production";
@@ -88,12 +90,29 @@ function parseContactUrl(value: string): string {
   return url.toString();
 }
 
+function parseBookingUrl(value: string): string {
+  let url: URL;
+
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error("Invalid NEXT_PUBLIC_BOOKING_URL: expected an absolute URL");
+  }
+
+  if (url.protocol !== "https:" && url.protocol !== "http:") {
+    throw new Error("Invalid NEXT_PUBLIC_BOOKING_URL: expected an http or https URL");
+  }
+
+  return url.toString();
+}
+
 export function resolveSiteConfig(
   env: Partial<NodeJS.ProcessEnv>,
   mode: SiteMode,
 ): SiteConfig {
   const siteUrl = optionalValue(env.NEXT_PUBLIC_SITE_URL);
   const contactUrl = optionalValue(env.NEXT_PUBLIC_CONTACT_URL);
+  const bookingUrl = optionalValue(env.NEXT_PUBLIC_BOOKING_URL);
 
   if (mode === "production" && (!siteUrl || !contactUrl)) {
     throw new Error(PRODUCTION_CONFIG_ERROR);
@@ -104,5 +123,6 @@ export function resolveSiteConfig(
     contact: contactUrl
       ? { kind: "ready", href: parseContactUrl(contactUrl) }
       : { kind: "pending" },
+    bookingUrl: bookingUrl ? parseBookingUrl(bookingUrl) : null,
   };
 }

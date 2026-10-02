@@ -32,13 +32,12 @@ export function EditorialArtwork({ className, decorative = false, frameClassName
   const accessibility = decorative
     ? { "aria-hidden": true as const }
     : { "aria-label": label ?? "Prizic system study", role: "img" as const };
-  const entered = "in-data-[motion=enabled]:in-data-[entered=true]:";
 
   return (
     <ScrollReveal as="figure" artwork className={cx("relative m-0 w-full max-w-full min-w-0 overflow-hidden", frameClassName, className)} data-artwork={variant} {...accessibility}>
       {variant === "orbit" ? (
         <svg aria-hidden="true" className="h-auto w-full" focusable="false" viewBox="0 0 800 520">
-          <g className={cx("origin-center", `${entered}animate-orbit-arrive`)} fill="none" stroke="currentColor" strokeWidth="24">
+          <g className="origin-center in-data-[entered=true]:animate-orbit-arrive motion-reduce:animate-none" fill="none" stroke="currentColor" strokeWidth="24">
             <circle cx="400" cy="260" r="180" />
             <circle cx="400" cy="260" opacity=".6" r="112" />
             <circle className="fill-accent" cx="400" cy="260" r="42" stroke="none" />
@@ -53,7 +52,7 @@ export function EditorialArtwork({ className, decorative = false, frameClassName
           </div>
         </div>
       )}
-      <span aria-hidden="true" className={cx("absolute start-[12%] end-[64%] bottom-5 h-0.5 origin-left bg-accent", `${entered}animate-route-pass`)} />
+      <span aria-hidden="true" className="absolute start-[12%] end-[64%] bottom-5 h-0.5 origin-left bg-accent in-data-[entered=true]:animate-route-pass motion-reduce:animate-none" />
     </ScrollReveal>
   );
 }

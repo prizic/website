@@ -1,5 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
+import { ACCENTS, SITE_CONTENT } from "./support";
+
 test.use({ reducedMotion: "reduce" });
 
 async function awaitDisplayFont(page: Page) {
@@ -18,7 +20,9 @@ async function awaitDisplayFont(page: Page) {
 
 // Sample the actual composited paint beneath each character, including ancestor
 // pseudo-elements. Hide only glyph fill during the in-memory screenshot: DOM
-// geometry, currentColor, backgrounds, opacity, and stacking remain intact.
+// geometry, backgrounds, opacity, and stacking remain intact. The glyph colour
+// is then composited over each sampled pixel with its own alpha and the
+// element's effective opacity, so translucent text is judged as painted.
 async function paintedTextContrast(page: Page, text: Locator) {
   await text.scrollIntoViewIfNeeded();
   const metrics = await text.evaluate((element) => {
@@ -33,13 +37,18 @@ async function paintedTextContrast(page: Page, text: Locator) {
         range.setStart(node, i);
         range.setEnd(node, i + 1);
         const rect = range.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) continue;
         points.push({
           x: rect.left + rect.width / 2 - bounds.left,
           y: rect.top + rect.height / 2 - bounds.top,
         });
       }
     }
-    return { color: getComputedStyle(element).color, points };
+    let opacity = 1;
+    for (let node: Element | null = element; node; node = node.parentElement) {
+      opacity *= Number(getComputedStyle(node).opacity);
+    }
+    return { color: getComputedStyle(element).color, opacity, points };
   });
   expect(metrics.points.length).toBeGreaterThan(0);
   const screenshot = await text.screenshot({
@@ -53,18 +62,16 @@ async function paintedTextContrast(page: Page, text: Locator) {
     const canvas = document.createElement("canvas");
     canvas.width = image.width;
     canvas.height = image.height;
-    const context = canvas.getContext("2d")!;
+    const context = canvas.getContext("2d", { willReadFrequently: true })!;
     context.drawImage(image, 0, 0);
-    const luminance = (rgb: number[]) => {
-      const linear = rgb.map((value) => {
+    const swatch = document.createElement("canvas").getContext("2d", { willReadFrequently: true })!;
+    const luminance = (rgb: ArrayLike<number>) => {
+      const linear = Array.from(rgb).slice(0, 3).map((value) => {
         const channel = value / 255;
         return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
       });
       return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
     };
-    const foreground = luminance(
-      metrics.color.match(/[\d.]+/g)!.slice(0, 3).map(Number),
-    );
     return Math.min(
       ...metrics.points.map(({ x, y }) => {
         const pixel = context.getImageData(
@@ -73,7 +80,14 @@ async function paintedTextContrast(page: Page, text: Locator) {
           1,
           1,
         ).data;
-        const background = luminance(Array.from(pixel).slice(0, 3));
+        swatch.globalAlpha = 1;
+        swatch.fillStyle = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+        swatch.fillRect(0, 0, 1, 1);
+        swatch.globalAlpha = metrics.opacity;
+        swatch.fillStyle = metrics.color;
+        swatch.fillRect(0, 0, 1, 1);
+        const foreground = luminance(swatch.getImageData(0, 0, 1, 1).data);
+        const background = luminance(pixel);
         return (
           (Math.max(foreground, background) + 0.05) /
           (Math.min(foreground, background) + 0.05)
@@ -83,145 +97,143 @@ async function paintedTextContrast(page: Page, text: Locator) {
   }, { metrics, png: screenshot.toString("base64") });
 }
 
+async function chooseAccent(page: Page, accent: (typeof ACCENTS)[number]) {
+  await page.getByRole("radio", { name: accent.label }).check();
+  await expect(page.locator("html")).toHaveAttribute("data-accent", accent.id);
+}
+
 for (const width of [320, 375, 768]) {
-  for (const accent of ["cyan", "lime", "yellow"]) {
-    test(
-      `Contact copy clears the painted ${accent} field at ${width}px`,
-      async ({ page }) => {
-        await page.setViewportSize({ width, height: 900 });
-        await page.goto("/contact");
-        await awaitDisplayFont(page);
-        await page
-          .getByRole("radio", { name: new RegExp(accent, "i") })
-          .check();
-        await expect(page.locator("html")).toHaveAttribute(
-          "data-accent",
-          accent,
-        );
-        const contrast = await paintedTextContrast(
-          page,
-          page.locator(".contact-page__grid > p"),
-        );
-        expect(contrast).toBeGreaterThanOrEqual(4.5);
-        const prompts = page.getByRole("list", { name: "What to include" });
-        expect(
-          await prompts.evaluate(
-            (element) => getComputedStyle(element).backgroundColor,
-          ),
-        ).not.toBe("rgba(0, 0, 0, 0)");
-      },
-    );
+  for (const accent of ACCENTS) {
+    test(`Contact copy and form clear their painted fields in ${accent.id} at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/contact");
+      await awaitDisplayFont(page);
+      await chooseAccent(page, accent);
+      const { contact } = SITE_CONTENT.pages;
+      const folio = page.locator('header[aria-labelledby="page-title"] p').first();
+      for (const text of [
+        folio.locator("span").first(), // the folio index, set on the accent
+        folio.locator("span").nth(1),
+        page.getByText(contact.introduction),
+        page.getByText(contact.reassurance),
+        page.getByText(contact.form.topic, { exact: true }),
+        page.getByText(contact.form.supportingText),
+      ]) {
+        expect(await paintedTextContrast(page, text), await text.textContent() ?? "").toBeGreaterThanOrEqual(4.5);
+      }
+      const form = page.getByRole("form", { name: "Project inquiry" });
+      expect(await form.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe("rgba(0, 0, 0, 0)");
+    });
   }
 }
 
-for (const accent of ["cyan", "lime", "yellow"]) {
-  test(
-    `open mobile routes retain painted contrast on focus and hover in ${accent}`,
-    async ({ page }) => {
-      await page.setViewportSize({ width: 375, height: 812 });
-      await page.goto("/");
-      await awaitDisplayFont(page);
-      await page
-        .getByRole("radio", { name: new RegExp(accent, "i") })
-        .check();
-      await page.getByRole("button", { name: "Open menu" }).click();
-      const dialog = page.getByRole("dialog", { name: "Navigation" });
-      await expect(
-        dialog.getByRole("button", { name: "Close menu" }),
-      ).toBeFocused();
-      for (const link of await dialog
-        .locator(".mobile-menu__navigation a")
-        .all()) {
-        const defaultBackground = await link.evaluate(
-          (element) => getComputedStyle(element).backgroundColor,
-        );
-        await page.keyboard.press("Tab");
-        await expect(link).toBeFocused();
-        expect(
-          await link.evaluate((element) => element.matches(":focus-visible")),
-        ).toBe(true);
-        expect(
-          await link.evaluate(
-            (element) => getComputedStyle(element).outlineStyle,
-          ),
-        ).toBe("solid");
-        expect(
-          await paintedTextContrast(page, link),
-          "keyboard focus contrast",
-        ).toBeGreaterThanOrEqual(4.5);
-        expect(
-          await link.evaluate(
-            (element) => getComputedStyle(element).backgroundColor,
-          ),
-        ).not.toBe(defaultBackground);
-      }
-      await dialog.getByRole("button", { name: "Close menu" }).focus();
-      for (const link of await dialog
-        .locator(".mobile-menu__navigation a")
-        .all()) {
-        await page.mouse.move(0, 0);
-        const defaultBackground = await link.evaluate(
-          (element) => getComputedStyle(element).backgroundColor,
-        );
-        await link.hover();
-        expect(await link.evaluate((element) => element.matches(":hover"))).toBe(
-          true,
-        );
-        expect(
-          await paintedTextContrast(page, link),
-          "pointer hover contrast",
-        ).toBeGreaterThanOrEqual(4.5);
-        expect(
-          await link.evaluate(
-            (element) => getComputedStyle(element).backgroundColor,
-          ),
-        ).not.toBe(defaultBackground);
-      }
-    },
-  );
+for (const accent of ACCENTS) {
+  test(`homepage copy set on the ${accent.id} accent field stays readable`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/");
+    await awaitDisplayFont(page);
+    await chooseAccent(page, accent);
+    const accentService = page.locator('[data-spread="services"] ol > li').nth(2);
+    const firstStage = page.locator('[data-spread="delivery"] ol > li').first();
+    const opening = page.locator('[data-spread="opening"]');
+    for (const text of [
+      opening.getByRole("link", { name: SITE_CONTENT.home.hero.actions[0].label }).locator("span"),
+      accentService.locator("p").first(),
+      accentService.locator("h3"),
+      accentService.locator("p").nth(1),
+      accentService.getByRole("listitem").first(),
+      accentService.getByRole("link"),
+      firstStage.locator("h3"),
+      firstStage.locator("p"),
+    ]) {
+      expect(await paintedTextContrast(page, text), await text.textContent() ?? "").toBeGreaterThanOrEqual(4.5);
+    }
+  });
 }
 
-for (const width of [1280, 1440]) {
-  test(`Capabilities title and introduction separate with loaded fonts at ${width}px`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
-    await page.goto("/capabilities");
+for (const accent of ACCENTS) {
+  test(`open mobile routes retain painted contrast on focus and hover in ${accent.id}`, async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/");
     await awaitDisplayFont(page);
-    const overlaps = await page
-      .locator(".capabilities-page__intro .page-intro__grid")
-      .evaluate((element) => {
-        const textRects = (selector: string) => {
+    await chooseAccent(page, accent);
+    await page.getByRole("button", { name: "Open menu" }).click();
+    const dialog = page.getByRole("dialog", { name: "Navigation" });
+    await expect(dialog.getByRole("button", { name: "Close menu" })).toBeFocused();
+    const links = dialog.getByRole("navigation", { name: "Mobile" }).getByRole("link");
+    await expect(links).toHaveCount(SITE_CONTENT.navigation.length);
+    for (const link of await links.all()) {
+      const defaultBackground = await link.evaluate((element) => getComputedStyle(element).backgroundColor);
+      await page.keyboard.press("Tab");
+      await expect(link).toBeFocused();
+      expect(await link.evaluate((element) => element.matches(":focus-visible"))).toBe(true);
+      expect(await link.evaluate((element) => getComputedStyle(element).outlineStyle)).toBe("solid");
+      expect(await paintedTextContrast(page, link), "keyboard focus contrast").toBeGreaterThanOrEqual(4.5);
+      expect(await link.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe(defaultBackground);
+    }
+    await dialog.getByRole("button", { name: "Close menu" }).focus();
+    for (const link of await links.all()) {
+      await page.mouse.move(0, 0);
+      const defaultBackground = await link.evaluate((element) => getComputedStyle(element).backgroundColor);
+      await link.hover();
+      expect(await link.evaluate((element) => element.matches(":hover"))).toBe(true);
+      expect(await paintedTextContrast(page, link), "pointer hover contrast").toBeGreaterThanOrEqual(4.5);
+      expect(await link.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe(defaultBackground);
+    }
+  });
+}
+
+const INTRO_ROUTES = ["/services/websites", "/services/business-software", "/services/automation", "/approach", "/contact"];
+
+for (const width of [1024, 1280, 1440]) {
+  test(`page titles and introductions separate with loaded fonts at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    for (const route of INTRO_ROUTES) {
+      await page.goto(route);
+      await awaitDisplayFont(page);
+      const overlaps = await page.locator('header[aria-labelledby="page-title"]').evaluate((element) => {
+        const textRects = (target: Element) => {
           const range = document.createRange();
-          range.selectNodeContents(element.querySelector(selector)!);
+          range.selectNodeContents(target);
           return Array.from(range.getClientRects());
         };
-        return textRects("h1").some((title) =>
-          textRects("p").some(
-            (copy) =>
-              title.left < copy.right &&
-              title.right > copy.left &&
-              title.top < copy.bottom &&
-              title.bottom > copy.top,
+        const title = element.querySelector("h1")!;
+        const copy = Array.from(element.querySelectorAll("p")).filter((paragraph) => !paragraph.contains(title));
+        return textRects(title).some((titleRect) =>
+          copy.some((paragraph) =>
+            textRects(paragraph).some(
+              (copyRect) =>
+                titleRect.left < copyRect.right &&
+                titleRect.right > copyRect.left &&
+                titleRect.top < copyRect.bottom &&
+                titleRect.bottom > copyRect.top,
+            ),
           ),
         );
       });
-    expect(overlaps).toBe(false);
+      expect(overlaps, route).toBe(false);
+    }
   });
 }
 
 for (const width of [320, 1280]) {
-  test(`About navigation meets the 44px target at ${width}px`, async ({ page }) => {
+  test(`site navigation meets the 44px target at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/about");
     await awaitDisplayFont(page);
-    const navigation =
-      width === 320
-        ? ".site-footer__navigation"
-        : ".site-header__navigation";
-    const bounds = await page
-      .locator(navigation)
-      .getByRole("link", { name: "About" })
-      .boundingBox();
-    expect(bounds!.width).toBeGreaterThanOrEqual(44);
-    expect(bounds!.height).toBeGreaterThanOrEqual(44);
+    // Below the 900px breakpoint the header collapses to the menu button.
+    const navigations = width < 900 ? ["Footer"] : ["Primary", "Footer"];
+    for (const name of navigations) {
+      for (const link of await page.getByRole("navigation", { name }).getByRole("link").all()) {
+        const bounds = await link.boundingBox();
+        expect(bounds!.width, `${name}: ${await link.textContent()}`).toBeGreaterThanOrEqual(44);
+        expect(bounds!.height, `${name}: ${await link.textContent()}`).toBeGreaterThanOrEqual(44);
+      }
+    }
+    if (width < 900) {
+      const menu = await page.getByRole("button", { name: "Open menu" }).boundingBox();
+      expect(menu!.width).toBeGreaterThanOrEqual(44);
+      expect(menu!.height).toBeGreaterThanOrEqual(44);
+    }
   });
 }

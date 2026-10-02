@@ -17,7 +17,7 @@ export function OpeningSpread() {
 
   return (
     <ScrollReveal aria-labelledby="home-title" className={cx(frame, "pt-2")} data-spread="opening" reveal="slide">
-      <div className="grid grid-cols-12 overflow-hidden rounded-spread bg-paper text-paper-bright">
+      <div className="grid grid-cols-12 rounded-spread bg-paper text-paper-bright">
         <div className="col-span-6 flex flex-col justify-between gap-10 rounded-s-spread bg-ink p-8 lg:p-12 max-md:col-span-full max-md:gap-6 max-md:rounded-t-spread max-md:rounded-b-none max-md:px-6 max-md:py-7">
           <p className={cx(label, "m-0 flex items-center gap-2.5 text-panel")} data-motion-item="">
             <span aria-hidden="true" className="size-2 rounded-full bg-accent" />

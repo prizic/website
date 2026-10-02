@@ -88,9 +88,16 @@ export function ScrollReveal({ as: Tag = "section", reveal = "lines", artwork = 
       stopObservation();
       removeInteraction();
       animations.forEach((animation) => animation.stop());
-      changed.forEach((element) => {
+      const settle = () => changed.forEach((element) => {
         for (const property of ["transform", "opacity", "clip-path"]) element.style.removeProperty(property);
       });
+      settle();
+      // Stopping commits the current frame inline after this cleanup runs, so
+      // clear it again once that has happened.
+      requestAnimationFrame(settle);
+      // CSS entrances key off data-entered; once motion is withdrawn they must
+      // not restart, and `played` keeps them from being re-armed.
+      root.removeAttribute("data-entered");
     };
   }, [artwork, enabled, reveal]);
 
